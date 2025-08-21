@@ -19,6 +19,21 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Helper function to get icon HTML - must be defined before use
+if (!function_exists('get_icon_html')) {
+    function get_icon_html($icon_type, $is_open) {
+        switch ($icon_type) {
+            case 'plus_minus':
+                return $is_open ? '−' : '+';
+            case 'arrow':
+                return $is_open ? '▼' : '▶';
+            case 'chevron':
+            default:
+                return $is_open ? '⌄' : '›';
+        }
+    }
+}
+
 // Generate unique IDs for accessibility
 $accordion_html_id = 'wcag-accordion-' . $accordion_id;
 
@@ -210,22 +225,7 @@ $icon_position = $config['icon_position'] ?? 'right';
     </div>
 </div>
 
-<?php
-// Helper method to get icon HTML
-if (!function_exists('get_icon_html')) {
-    function get_icon_html($icon_type, $is_open) {
-        switch ($icon_type) {
-            case 'plus_minus':
-                return $is_open ? '−' : '+';
-            case 'arrow':
-                return $is_open ? '▼' : '▶';
-            case 'chevron':
-            default:
-                return $is_open ? '⌄' : '›';
-        }
-    }
-}
-?>
+
 
 <!-- Initialize WCAG accordion functionality -->
 <script>
