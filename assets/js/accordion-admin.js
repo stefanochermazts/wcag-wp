@@ -214,6 +214,20 @@
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = newSection;
             const sectionElement = tempDiv.firstElementChild;
+
+            // Enable inputs from template and set proper name/required attributes
+            const templatedFields = sectionElement.querySelectorAll('[data-name]');
+            templatedFields.forEach(el => {
+                const dataName = el.getAttribute('data-name');
+                if (dataName) {
+                    el.setAttribute('name', dataName);
+                }
+                el.removeAttribute('disabled');
+                // Re-add required only for specific fields
+                if (el.classList.contains('section-id-input') || el.classList.contains('section-title-input')) {
+                    el.setAttribute('required', 'required');
+                }
+            });
             
             if (!sectionElement) {
                 console.error('[WCAG-WP] Failed to create section element');

@@ -191,7 +191,7 @@ if (!defined('ABSPATH')) {
     </div>
     
     <!-- Section Template (hidden) -->
-    <div id="section-template" style="display: none;">
+    <div id="section-template" hidden aria-hidden="true">
         <div class="section-editor" data-index="{{INDEX}}">
             <div class="section-header">
                 <div class="section-drag-handle">
@@ -221,9 +221,9 @@ if (!defined('ABSPATH')) {
                             </label>
                             <input type="text" 
                                    id="section_id_{{INDEX}}"
-                                   name="wcag_wp_accordion_sections[{{INDEX}}][id]" 
+                                   data-name="wcag_wp_accordion_sections[{{INDEX}}][id]" 
                                    class="section-id-input"
-                                   required>
+                                   disabled>
                         </div>
                         
                         <div class="field-group">
@@ -232,9 +232,9 @@ if (!defined('ABSPATH')) {
                             </label>
                             <input type="text" 
                                    id="section_title_{{INDEX}}"
-                                   name="wcag_wp_accordion_sections[{{INDEX}}][title]" 
+                                   data-name="wcag_wp_accordion_sections[{{INDEX}}][title]" 
                                    class="section-title-input"
-                                   required>
+                                   disabled>
                         </div>
                     </div>
                     
@@ -244,9 +244,10 @@ if (!defined('ABSPATH')) {
                                 <?php esc_html_e('Contenuto Sezione WCAG', 'wcag-wp'); ?>
                             </label>
                             <textarea id="section_content_{{INDEX}}"
-                                      name="wcag_wp_accordion_sections[{{INDEX}}][content]" 
+                                      data-name="wcag_wp_accordion_sections[{{INDEX}}][content]" 
                                       rows="5"
-                                      class="large-text"></textarea>
+                                      class="large-text"
+                                      disabled></textarea>
                         </div>
                     </div>
                     
@@ -257,11 +258,12 @@ if (!defined('ABSPATH')) {
                             </label>
                             <input type="number" 
                                    id="section_order_{{INDEX}}"
-                                   name="wcag_wp_accordion_sections[{{INDEX}}][order]" 
+                                   data-name="wcag_wp_accordion_sections[{{INDEX}}][order]" 
                                    value="0"
                                    min="0"
                                    step="1"
-                                   class="small-text">
+                                   class="small-text"
+                                   disabled>
                         </div>
                         
                         <div class="field-group">
@@ -270,7 +272,8 @@ if (!defined('ABSPATH')) {
                             </label>
                             <input type="text" 
                                    id="section_css_class_{{INDEX}}"
-                                   name="wcag_wp_accordion_sections[{{INDEX}}][css_class]">
+                                   data-name="wcag_wp_accordion_sections[{{INDEX}}][css_class]"
+                                   disabled>
                         </div>
                     </div>
                     
@@ -280,14 +283,16 @@ if (!defined('ABSPATH')) {
                                 <legend><?php esc_html_e('Opzioni Sezione WCAG', 'wcag-wp'); ?></legend>
                                 <label>
                                     <input type="checkbox" 
-                                           name="wcag_wp_accordion_sections[{{INDEX}}][is_open]" 
-                                           value="1">
+                                           data-name="wcag_wp_accordion_sections[{{INDEX}}][is_open]" 
+                                           value="1"
+                                           disabled>
                                     <?php esc_html_e('Aperta di default', 'wcag-wp'); ?>
                                 </label>
                                 <label>
                                     <input type="checkbox" 
-                                           name="wcag_wp_accordion_sections[{{INDEX}}][disabled]" 
-                                           value="1">
+                                           data-name="wcag_wp_accordion_sections[{{INDEX}}][disabled]" 
+                                           value="1"
+                                           disabled>
                                     <?php esc_html_e('Sezione disabilitata', 'wcag-wp'); ?>
                                 </label>
                             </fieldset>
