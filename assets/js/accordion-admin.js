@@ -21,8 +21,10 @@
      */
     class WcagWpAccordionAdmin {
         constructor() {
+            console.log('[WCAG-WP] WcagWpAccordionAdmin constructor called');
             this.config = wcag_wp_accordion;
             this.sectionIndex = 0;
+            console.log('[WCAG-WP] Config loaded:', this.config);
             this.init();
         }
 
@@ -30,21 +32,27 @@
          * Initialize admin functionality
          */
         init() {
+            console.log('[WCAG-WP] init() method called');
             this.bindEvents();
             this.initializeFeatures();
             this.log('WCAG Accordion admin interface initialized', 'info');
+            console.log('[WCAG-WP] Initialization completed');
         }
 
         /**
          * Bind event listeners
          */
         bindEvents() {
+            console.log('[WCAG-WP] bindEvents() called');
             // DOM Content Loaded
             if (document.readyState === 'loading') {
+                console.log('[WCAG-WP] Document still loading, adding DOMContentLoaded listener');
                 document.addEventListener('DOMContentLoaded', () => {
+                    console.log('[WCAG-WP] DOMContentLoaded fired');
                     this.onDOMReady();
                 });
             } else {
+                console.log('[WCAG-WP] Document already loaded, calling onDOMReady immediately');
                 this.onDOMReady();
             }
 
@@ -62,9 +70,11 @@
          * DOM Ready handler
          */
         onDOMReady() {
+            console.log('[WCAG-WP] onDOMReady() called');
             this.updateConfigPreview();
             this.initializeSortables();
             this.countExistingSections();
+            console.log('[WCAG-WP] onDOMReady() completed');
         }
 
         /**
@@ -84,12 +94,18 @@
          * Bind section management events
          */
         bindSectionEvents() {
+            console.log('[WCAG-WP] bindSectionEvents() called');
             // Add new section
             const addSectionBtn = document.getElementById('add-new-section');
+            console.log('[WCAG-WP] Looking for add-new-section button:', addSectionBtn);
             if (addSectionBtn) {
+                console.log('[WCAG-WP] add-new-section button found, adding event listener');
                 addSectionBtn.addEventListener('click', () => {
+                    console.log('[WCAG-WP] Add new section button clicked!');
                     this.addNewSection();
                 });
+            } else {
+                console.error('[WCAG-WP] add-new-section button NOT FOUND!');
             }
 
             // Event delegation for dynamic elements
