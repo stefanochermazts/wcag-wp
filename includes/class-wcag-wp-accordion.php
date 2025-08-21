@@ -179,8 +179,11 @@ class WCAG_WP_Accordion {
      * @return void
      */
     public function render_config_meta_box(WP_Post $post): void {
+        error_log("WCAG Accordion render_config_meta_box called for post: {$post->ID}");
+        
         // Add nonce field for security
         wp_nonce_field('wcag_wp_accordion_meta_nonce', 'wcag_wp_accordion_meta_nonce');
+        error_log("WCAG Accordion nonce field generated");
         
         // Get existing configuration
         $config = get_post_meta($post->ID, self::META_CONFIG, true);
@@ -232,11 +235,14 @@ class WCAG_WP_Accordion {
      */
     public function save_accordion_meta(int $post_id): void {
         error_log("WCAG Accordion save_accordion_meta called for post_id: {$post_id}");
+        error_log("POST keys: " . implode(', ', array_keys($_POST)));
+        error_log("Nonce in POST: " . (isset($_POST['wcag_wp_accordion_meta_nonce']) ? $_POST['wcag_wp_accordion_meta_nonce'] : 'NOT SET'));
         
         // Verify nonce
         if (!isset($_POST['wcag_wp_accordion_meta_nonce']) || 
             !wp_verify_nonce($_POST['wcag_wp_accordion_meta_nonce'], 'wcag_wp_accordion_meta_nonce')) {
             error_log("WCAG Accordion save: Nonce verification failed");
+            error_log("Expected nonce action: wcag_wp_accordion_meta_nonce");
             return;
         }
         

@@ -172,9 +172,20 @@
          */
         addNewSection() {
             const template = document.getElementById('section-template');
-            if (!template) return;
+            if (!template) {
+                console.error('[WCAG-WP] Section template not found');
+                return;
+            }
 
-            const newSection = template.innerHTML.replace(/\{\{INDEX\}\}/g, this.sectionIndex);
+            console.log(`[WCAG-WP] Adding new section with index: ${this.sectionIndex}`);
+            
+            // Clone the template content
+            const templateContent = template.innerHTML;
+            console.log('[WCAG-WP] Original template:', templateContent.substring(0, 200));
+            
+            // Replace all placeholders with current index
+            const newSection = templateContent.replace(/\{\{INDEX\}\}/g, this.sectionIndex);
+            console.log('[WCAG-WP] After replacement:', newSection.substring(0, 200));
             
             const container = document.getElementById('sections-container');
             const noSectionsMessage = container.querySelector('.no-sections-message');
@@ -183,9 +194,31 @@
                 noSectionsMessage.remove();
             }
             
-            const div = document.createElement('div');
-            div.innerHTML = newSection;
-            const sectionElement = div.firstElementChild;
+            // Create a temporary container and parse the HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = newSection;
+            const sectionElement = tempDiv.firstElementChild;
+            
+            if (!sectionElement) {
+                console.error('[WCAG-WP] Failed to create section element');
+                return;
+            }
+            
+            // Verify that placeholders were replaced in the actual element
+            const inputs = sectionElement.querySelectorAll('input, textarea');
+            let hasUnreplacedPlaceholders = false;
+            inputs.forEach(input => {
+                if (input.name && input.name.includes('{{INDEX}}')) {
+                    console.error(`[WCAG-WP] Unreplaced placeholder in: ${input.name}`);
+                    hasUnreplacedPlaceholders = true;
+                }
+            });
+            
+            if (hasUnreplacedPlaceholders) {
+                console.error('[WCAG-WP] Section contains unreplaced placeholders, aborting');
+                return;
+            }
+            
             container.appendChild(sectionElement);
             
             this.sectionIndex++;
