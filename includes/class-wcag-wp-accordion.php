@@ -53,8 +53,14 @@ class WCAG_WP_Accordion {
      * @return void
      */
     public function init(): void {
-        // Register custom post type
-        add_action('init', [$this, 'register_post_type']);
+        // Register custom post type immediately if 'init' already fired, otherwise hook into init
+        if (did_action('init')) {
+            error_log('Init already fired, registering CPT immediately');
+            $this->register_post_type();
+        } else {
+            error_log('Hooking into init action');
+            add_action('init', [$this, 'register_post_type']);
+        }
         
         // Admin hooks
         if (function_exists('is_admin') && is_admin()) {
