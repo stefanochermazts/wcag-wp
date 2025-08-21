@@ -141,6 +141,7 @@ final class WCAG_WP {
         // Component files to load
         $components = [
             'tables' => 'includes/class-wcag-wp-tables.php',
+            'accordion' => 'includes/class-wcag-wp-accordion.php',
             'design-system' => 'includes/class-design-system.php',
             'accessibility' => 'includes/class-accessibility.php'
         ];
@@ -233,6 +234,12 @@ final class WCAG_WP {
         if (class_exists('WCAG_WP_Tables')) {
             $this->components['tables'] = new WCAG_WP_Tables();
             wcag_wp_log('WCAG Tables component initialized successfully', 'info');
+        }
+        
+        // Initialize WCAG accordion component
+        if (class_exists('WCAG_WP_Accordion')) {
+            $this->components['accordion'] = new WCAG_WP_Accordion();
+            wcag_wp_log('WCAG Accordion component initialized successfully', 'info');
         }
     }
     
@@ -474,8 +481,20 @@ final class WCAG_WP {
      * @return string HTML output
      */
     public function shortcode_accordion(array $atts): string {
-        // Implementation in Phase 3
-        return '<div class="wcag-wp-placeholder">Accordion WCAG (Implementazione Fase 3)</div>';
+        $atts = shortcode_atts([
+            'id' => 0,
+            'class' => '',
+            'allow_multiple' => null,
+            'first_open' => null,
+            'keyboard' => null
+        ], $atts, 'wcag-accordion');
+        
+        // Delegate to accordion component if available
+        if (isset($this->components['accordion']) && method_exists($this->components['accordion'], 'shortcode_accordion')) {
+            return $this->components['accordion']->shortcode_accordion($atts);
+        }
+        
+        return '<div class="wcag-wp-error">' . __('WCAG Accordion component non disponibile', 'wcag-wp') . '</div>';
     }
     
     /**
