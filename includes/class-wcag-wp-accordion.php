@@ -40,6 +40,10 @@ class WCAG_WP_Accordion {
      * Constructor
      */
     public function __construct() {
+        // Debug: log constructor call
+        if (function_exists('error_log')) {
+            error_log('WCAG_WP_Accordion constructor called');
+        }
         $this->init();
     }
     
@@ -53,7 +57,7 @@ class WCAG_WP_Accordion {
         add_action('init', [$this, 'register_post_type']);
         
         // Admin hooks
-        if (is_admin()) {
+        if (function_exists('is_admin') && is_admin()) {
             add_action('add_meta_boxes', [$this, 'add_meta_boxes']);
             add_action('save_post', [$this, 'save_accordion_meta']);
             add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
@@ -67,7 +71,9 @@ class WCAG_WP_Accordion {
         add_shortcode('wcag-accordion', [$this, 'shortcode_accordion']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend_assets']);
         
-        wcag_wp_log('WCAG Accordion component initialized', 'info');
+        if (function_exists('wcag_wp_log')) {
+            wcag_wp_log('WCAG Accordion component initialized', 'info');
+        }
     }
     
     /**
@@ -76,6 +82,10 @@ class WCAG_WP_Accordion {
      * @return void
      */
     public function register_post_type(): void {
+        // Debug: log post type registration
+        if (function_exists('error_log')) {
+            error_log('WCAG_WP_Accordion register_post_type called');
+        }
         $labels = [
             'name'                  => __('WCAG Accordion', 'wcag-wp'),
             'singular_name'         => __('WCAG Accordion', 'wcag-wp'),
@@ -115,7 +125,9 @@ class WCAG_WP_Accordion {
 
         register_post_type('wcag_accordion', $args);
         
-        wcag_wp_log('Custom Post Type wcag_accordion registered', 'info');
+        if (function_exists('wcag_wp_log')) {
+            wcag_wp_log('Custom Post Type wcag_accordion registered', 'info');
+        }
     }
     
     /**

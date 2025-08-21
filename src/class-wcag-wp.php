@@ -149,9 +149,14 @@ final class WCAG_WP {
         foreach ($components as $name => $file) {
             $file_path = WCAG_WP_PLUGIN_DIR . $file;
             if (file_exists($file_path)) {
+                error_log("Loading component: {$name} from {$file_path}");
                 require_once $file_path;
                 wcag_wp_log("Component loaded: {$name}", 'info');
+                if ($name === 'accordion') {
+                    error_log("Accordion file loaded, checking class existence: " . (class_exists('WCAG_WP_Accordion') ? 'YES' : 'NO'));
+                }
             } else {
+                error_log("Component file not found: {$file_path}");
                 wcag_wp_log("Component file not found: {$file_path}", 'warning');
             }
         }
@@ -238,8 +243,11 @@ final class WCAG_WP {
         
         // Initialize WCAG accordion component
         if (class_exists('WCAG_WP_Accordion')) {
+            error_log('WCAG_WP_Accordion class exists, creating instance');
             $this->components['accordion'] = new WCAG_WP_Accordion();
             wcag_wp_log('WCAG Accordion component initialized successfully', 'info');
+        } else {
+            error_log('WCAG_WP_Accordion class does NOT exist');
         }
     }
     
