@@ -229,9 +229,10 @@ final class WCAG_WP {
             $this->components['accessibility'] = new WCAG_WP_Accessibility($this->settings['accessibility']);
         }
         
-        // Initialize tables component
+        // Initialize WCAG tables component
         if (class_exists('WCAG_WP_Tables')) {
             $this->components['tables'] = new WCAG_WP_Tables();
+            wcag_wp_log('WCAG Tables component initialized successfully', 'info');
         }
     }
     
@@ -444,7 +445,7 @@ final class WCAG_WP {
     }
     
     /**
-     * Shortcode: Table
+     * Shortcode: WCAG Table
      * 
      * @param array $atts Shortcode attributes
      * @return string HTML output
@@ -452,11 +453,18 @@ final class WCAG_WP {
     public function shortcode_table(array $atts): string {
         $atts = shortcode_atts([
             'id' => 0,
-            'class' => ''
+            'class' => '',
+            'responsive' => null,
+            'sortable' => null,
+            'searchable' => null
         ], $atts, 'wcag-table');
         
-        // Implementation in Phase 2
-        return '<div class="wcag-wp-placeholder">Tabella WCAG (Implementazione Fase 2)</div>';
+        // Delegate to tables component if available
+        if (isset($this->components['tables']) && method_exists($this->components['tables'], 'shortcode_table')) {
+            return $this->components['tables']->shortcode_table($atts);
+        }
+        
+        return '<div class="wcag-wp-error">' . __('WCAG Tables component non disponibile', 'wcag-wp') . '</div>';
     }
     
     /**
