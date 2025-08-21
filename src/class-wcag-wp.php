@@ -140,8 +140,8 @@ final class WCAG_WP {
     private function load_components(): void {
         // Component files to load
         $components = [
+            'tables' => 'includes/class-wcag-wp-tables.php',
             'design-system' => 'includes/class-design-system.php',
-            'tables' => 'includes/class-tables.php',
             'accessibility' => 'includes/class-accessibility.php'
         ];
         
