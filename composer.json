@@ -1,0 +1,69 @@
+{
+    "name": "stefanochermazts/wcag-wp",
+    "description": "Plugin WordPress per componenti accessibili WCAG 2.1 AA compliant",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Stefano Chermazts",
+            "email": "stefano@example.com",
+            "homepage": "https://github.com/stefanochermazts"
+        }
+    ],
+    "homepage": "https://github.com/stefanochermazts/wcag-wp",
+    "support": {
+        "issues": "https://github.com/stefanochermazts/wcag-wp/issues",
+        "source": "https://github.com/stefanochermazts/wcag-wp"
+    },
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "wp-coding-standards/wpcs": "^2.3",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "WCAG_WP\\": "src/",
+            "WCAG_WP\\Admin\\": "includes/admin/",
+            "WCAG_WP\\Frontend\\": "includes/frontend/",
+            "WCAG_WP\\Components\\": "includes/components/"
+        },
+        "files": [
+            "includes/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WCAG_WP\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "cs": "phpcs --standard=WordPress --extensions=php --ignore=vendor/ .",
+        "cs-fix": "phpcbf --standard=WordPress --extensions=php --ignore=vendor/ .",
+        "compat": "phpcs --standard=PHPCompatibilityWP --runtime-set testVersion 7.4- --extensions=php --ignore=vendor/ ."
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "keywords": [
+        "wordpress",
+        "plugin",
+        "accessibility",
+        "wcag",
+        "components",
+        "tables",
+        "accordion",
+        "responsive"
+    ]
+}
