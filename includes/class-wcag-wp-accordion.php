@@ -142,6 +142,8 @@ class WCAG_WP_Accordion {
      * @return void
      */
     public function add_meta_boxes(): void {
+        error_log("WCAG Accordion add_meta_boxes called");
+        
         add_meta_box(
             'wcag-wp-accordion-config',
             __('Configurazione WCAG Accordion', 'wcag-wp'),
@@ -229,26 +231,34 @@ class WCAG_WP_Accordion {
      * @return void
      */
     public function save_accordion_meta(int $post_id): void {
+        error_log("WCAG Accordion save_accordion_meta called for post_id: {$post_id}");
+        
         // Verify nonce
         if (!isset($_POST['wcag_wp_accordion_meta_nonce']) || 
             !wp_verify_nonce($_POST['wcag_wp_accordion_meta_nonce'], 'wcag_wp_accordion_meta_nonce')) {
+            error_log("WCAG Accordion save: Nonce verification failed");
             return;
         }
         
         // Check if user has permission to edit post
         if (!current_user_can('edit_post', $post_id)) {
+            error_log("WCAG Accordion save: User permission check failed");
             return;
         }
         
         // Skip autosave
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            error_log("WCAG Accordion save: Skipping autosave");
             return;
         }
         
         // Only save for our post type
         if (get_post_type($post_id) !== 'wcag_accordion') {
+            error_log("WCAG Accordion save: Wrong post type: " . get_post_type($post_id));
             return;
         }
+        
+        error_log("WCAG Accordion save: All checks passed, proceeding with save");
         
         // Save configuration
         if (isset($_POST['wcag_wp_accordion_config'])) {
@@ -317,27 +327,34 @@ class WCAG_WP_Accordion {
      * @return void
      */
     public function enqueue_admin_assets(string $hook): void {
+        error_log("WCAG Accordion enqueue_admin_assets called with hook: {$hook}");
+        
         // Only load on our post type pages
         if (!in_array($hook, ['post.php', 'post-new.php', 'edit.php'])) {
+            error_log("WCAG Accordion enqueue: Wrong hook, returning");
             return;
         }
         
         global $post_type;
+        error_log("WCAG Accordion enqueue: post_type is: " . ($post_type ?? 'null'));
         if ($post_type !== 'wcag_accordion') {
+            error_log("WCAG Accordion enqueue: Wrong post type, returning");
             return;
         }
+        
+        error_log("WCAG Accordion enqueue: Loading admin assets");
         
         wp_enqueue_style(
             'wcag-wp-accordion-admin',
             WCAG_WP_ASSETS_URL . 'css/accordion-admin.css',
-            ['wcag-wp-admin'],
+            [],
             WCAG_WP_VERSION
         );
         
         wp_enqueue_script(
             'wcag-wp-accordion-admin',
             WCAG_WP_ASSETS_URL . 'js/accordion-admin.js',
-            ['wcag-wp-admin', 'jquery-ui-sortable'],
+            ['jquery', 'jquery-ui-sortable'],
             WCAG_WP_VERSION,
             true
         );
