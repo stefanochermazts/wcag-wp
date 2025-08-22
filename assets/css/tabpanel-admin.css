@@ -1,0 +1,11 @@
+.wcag-wp-tabpanel-tabs .tab-editor { border:1px solid #ddd; background:#fff; margin:12px 0; border-radius:4px; }
+.wcag-wp-tabpanel-tabs .tab-header { display:flex; align-items:center; gap:8px; padding:8px 10px; background:#f6f7f7; border-bottom:1px solid #eee; }
+.wcag-wp-tabpanel-tabs .tab-drag-handle { cursor:grab; }
+.wcag-wp-tabpanel-tabs .tab-content { padding:12px; }
+.wcag-wp-tabpanel-tabs .tab-content.collapsed { display:none; }
+.wcag-wp-tabpanel-tabs .field-row { display:flex; gap:16px; margin-bottom:10px; }
+.wcag-wp-tabpanel-tabs .field-group { flex:1; }
+.wcag-wp-tabpanel-tabs .required { color:#d63638; }
+.wcag-wp-tabpanel-tabs .no-tabs-content { text-align:center; padding:24px; color:#555; }
+.wcag-wp-tabpanel-tabs .tab-actions .button-link { margin-left:6px; }
+

@@ -1,0 +1,208 @@
+/* WCAG Calendar Admin Styles */
+
+.wcag-wp-calendar-events {
+    margin: 20px 0;
+}
+
+.wcag-wp-event-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.wcag-wp-event-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+}
+
+.wcag-wp-event-handle {
+    cursor: move;
+    color: #666;
+    margin-right: 10px;
+    padding: 2px;
+}
+
+.wcag-wp-event-header h4 {
+    margin: 0;
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.wcag-wp-event-date {
+    color: #666;
+    font-size: 12px;
+    margin-right: 10px;
+    padding: 2px 8px;
+    background: #e7f3ff;
+    border-radius: 3px;
+}
+
+.wcag-wp-event-toggle {
+    margin-right: 8px;
+    padding: 4px 8px;
+    min-width: auto;
+}
+
+.wcag-wp-event-delete {
+    color: #dc3232;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.wcag-wp-event-delete:hover {
+    color: #a00;
+    background: #fef7f1;
+    border-radius: 3px;
+}
+
+.wcag-wp-event-content {
+    padding: 15px;
+}
+
+.wcag-wp-event-content .form-table th {
+    width: 120px;
+    padding: 8px 10px 8px 0;
+}
+
+.wcag-wp-event-content .form-table td {
+    padding: 8px 10px;
+}
+
+.wcag-wp-event-actions {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    text-align: center;
+}
+
+#wcag-wp-add-event {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+#wcag-wp-add-event .dashicons {
+    margin-right: 5px;
+}
+
+/* Date picker styling */
+.wcag-wp-date-picker {
+    width: 150px;
+}
+
+/* Time fields */
+.wcag-wp-time-fields input[type="time"] {
+    width: 120px;
+}
+
+/* Color picker */
+.wcag-wp-color-picker {
+    width: 60px;
+    height: 30px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* All day toggle */
+.wcag-wp-all-day-toggle {
+    margin-right: 5px;
+}
+
+/* Placeholder for drag and drop */
+.wcag-wp-event-placeholder {
+    background: #f0f8ff;
+    border: 2px dashed #0073aa;
+    border-radius: 4px;
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+/* Event item states */
+.wcag-wp-event-item.ui-sortable-helper {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: rotate(2deg);
+}
+
+.wcag-wp-event-item.ui-sortable-placeholder {
+    visibility: visible !important;
+    background: #f0f8ff;
+    border: 2px dashed #0073aa;
+    box-shadow: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 782px) {
+    .wcag-wp-event-header {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .wcag-wp-event-date {
+        order: 3;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .wcag-wp-event-content .form-table th,
+    .wcag-wp-event-content .form-table td {
+        display: block;
+        width: 100%;
+        padding: 8px 0;
+    }
+    
+    .wcag-wp-event-content .form-table th {
+        border-bottom: none;
+        font-weight: 600;
+    }
+}
+
+/* Accessibility improvements */
+.wcag-wp-event-item:focus-within {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+}
+
+.wcag-wp-event-toggle:focus,
+.wcag-wp-event-delete:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .wcag-wp-event-item {
+        border: 2px solid #000;
+    }
+    
+    .wcag-wp-event-header {
+        background: #000;
+        color: #fff;
+    }
+    
+    .wcag-wp-event-date {
+        background: #fff;
+        color: #000;
+        border: 1px solid #000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .wcag-wp-event-item {
+        transition: none;
+    }
+    
+    .wcag-wp-event-item.ui-sortable-helper {
+        transform: none;
+    }
+}

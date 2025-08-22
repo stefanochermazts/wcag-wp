@@ -65,7 +65,8 @@ if ($config['sortable'] ?? true) {
      data-component="wcag-table"
      data-sortable="<?php echo $config['sortable'] ? 'true' : 'false'; ?>"
      data-searchable="<?php echo $config['searchable'] ? 'true' : 'false'; ?>"
-     data-responsive="<?php echo $config['responsive'] ? 'true' : 'false'; ?>">
+     data-responsive="<?php echo $config['responsive'] ? 'true' : 'false'; ?>"
+     data-stack-mobile="<?php echo $config['stack_mobile'] ? 'true' : 'false'; ?>">
     
     <!-- Skip Link for Screen Readers -->
     <a href="#<?php echo esc_attr($table_html_id); ?>" class="wcag-wp skip-link">
@@ -155,6 +156,7 @@ if ($config['sortable'] ?? true) {
                             data-column="<?php echo esc_attr($column['id']); ?>"
                             data-type="<?php echo esc_attr($column['type']); ?>"
                             <?php if ($column['sortable'] && $config['sortable']): ?>
+                            data-sortable="true"
                             aria-sort="none"
                             tabindex="0"
                             role="columnheader button"

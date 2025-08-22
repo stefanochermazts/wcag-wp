@@ -226,42 +226,45 @@ wp-content/plugins/wcag-wp/
 - [x] ~~Admin JavaScript vanilla per gestione dinamica sezioni~~
 
 ### WCAG Tab Panel Component 
-- [ ] Custom Post Type `wcag_tabpanel` con registrazione
-- [ ] Interfaccia admin per gestione tab e contenuti
-- [ ] Sistema gestione pannelli con riordinamento
-- [ ] Shortcode `[wcag-tabpanel]` con configurazioni
-- [ ] Frontend rendering con ARIA tablist pattern completo
-- [ ] Navigazione tastiera (frecce, Home, End, Ctrl+PageUp/Down)
-- [ ] Implementazione ARIA (tablist, tab, tabpanel, selected)
-- [ ] Screen reader announcements per cambio tab
-- [ ] Animazioni CSS accessibili (prefers-reduced-motion)
-- [ ] Test screen reader e tastiera completi
+- [x] Custom Post Type `wcag_tabpanel` con registrazione
+- [x] Interfaccia admin per gestione tab e contenuti
+- [x] Sistema gestione pannelli con riordinamento
+- [x] Shortcode `[wcag-tabpanel]` con configurazioni
+- [x] Frontend rendering con ARIA tablist pattern completo
+- [x] Navigazione tastiera (frecce, Home, End, Ctrl+PageUp/Down)
+- [x] Implementazione ARIA (tablist, tab, tabpanel, selected)
+- [x] Screen reader announcements per cambio tab
+- [x] Animazioni CSS accessibili (prefers-reduced-motion)
+- [x] Test screen reader e tastiera completi
 
-### WCAG Table of Contents (TOC)
-- [ ] Custom Post Type `wcag_toc` con generazione automatica
-- [ ] Algoritmo scanning titoli H2-H6 da contenuto pagine/post
-- [ ] Interfaccia admin per configurazione TOC
-- [ ] Shortcode `[wcag-toc]` con opzioni personalizzabili
-- [ ] Struttura gerarchica accessibile con ARIA tree
-- [ ] Navigazione smooth scroll accessibile
-- [ ] Opzione collassa/espandi sezioni con stato persistente
-- [ ] Integrazione con temi WordPress e Gutenberg
-- [ ] Navigazione tastiera per albero TOC
-- [ ] Screen reader support per struttura gerarchica
+### WCAG Table of Contents (TOC) - ✅ COMPLETATO
+- [x] Custom Post Type `wcag_toc` con generazione automatica
+- [x] Algoritmo scanning titoli H2-H6 da contenuto pagine/post
+- [x] Interfaccia admin per configurazione TOC
+- [x] Shortcode `[wcag-toc]` con opzioni personalizzabili
+- [x] Struttura gerarchica accessibile con numerazione
+- [x] Navigazione smooth scroll accessibile
+- [x] Opzione collassa/espandi sezioni con stato persistente
+- [x] Integrazione con temi WordPress e selettori CSS
+- [x] Navigazione tastiera per TOC
+- [x] Screen reader support per struttura gerarchica
 
-### Slider/Carousel Accessibile
-- [ ] Blocco Gutenberg Carousel
-- [ ] Controlli tastiera (frecce, Space, Enter)
-- [ ] Annunci slide attiva a screen reader
-- [ ] Indicatori di posizione accessibili
-- [ ] Controllo autoplay (con pausa)
+### Slider/Carousel Accessibile - ✅ COMPLETATO
+- [x] Custom Post Type `wcag_carousel` per gestione carousel
+- [x] Controlli tastiera (frecce, Home/End, Space, Enter)
+- [x] Annunci slide attiva a screen reader
+- [x] Indicatori di posizione accessibili
+- [x] Controllo autoplay (con pausa)
+- [x] Touch/swipe support per mobile
+- [x] Navigazione infinita e focus management
+- [x] Shortcode `[wcag-carousel]` con configurazione
 
-### Calendario/Eventi
-- [ ] CPT per eventi
-- [ ] Vista calendario accessibile
-- [ ] Navigazione tastiera tra giorni/mesi
-- [ ] Annunci screen reader per date/eventi
-- [ ] Lista eventi alternativa
+### Calendario/Eventi - ✅ COMPLETATO
+- [x] CPT per eventi
+- [x] Vista calendario accessibile
+- [x] Navigazione tastiera tra giorni/mesi
+- [x] Annunci screen reader per date/eventi
+- [x] Lista eventi alternativa
 
 ### Notifiche & Alert
 - [ ] Componente messaggi dinamici

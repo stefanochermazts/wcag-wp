@@ -77,15 +77,21 @@
          */
         initializeTables() {
             const tables = document.querySelectorAll('.wcag-wp-table-container');
-            
+
+            const getBoolAttr = (el, name) => {
+                if (!el.hasAttribute(name)) return false;
+                const v = el.getAttribute(name);
+                return String(v).toLowerCase() === 'true';
+            };
+
             tables.forEach((container, index) => {
                 const table = new WcagWpTable(container, {
-                    sortable: container.hasAttribute('data-sortable'),
-                    searchable: container.hasAttribute('data-searchable'),
-                    responsive: container.hasAttribute('data-responsive'),
-                    stackOnMobile: container.hasAttribute('data-stack-mobile')
+                    sortable: getBoolAttr(container, 'data-sortable'),
+                    searchable: getBoolAttr(container, 'data-searchable'),
+                    responsive: getBoolAttr(container, 'data-responsive'),
+                    stackOnMobile: getBoolAttr(container, 'data-stack-mobile')
                 });
-                
+
                 this.components.set(`table-${index}`, table);
             });
         }
@@ -566,7 +572,7 @@
         }
 
         setupSorting() {
-            const headers = this.table.querySelectorAll('th[data-sortable]');
+            const headers = this.table.querySelectorAll('th[data-sortable], th[aria-sort]');
             
             headers.forEach((header, index) => {
                 header.setAttribute('aria-sort', 'none');

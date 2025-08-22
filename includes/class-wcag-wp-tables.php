@@ -54,8 +54,8 @@ class WCAG_WP_Tables {
      * @return void
      */
     public function init(): void {
-        // Register custom post type
-        add_action('init', [$this, 'register_post_type']);
+        // Register custom post type immediately (we are already on 'init' when components initialize)
+        $this->register_post_type();
         
         // Admin hooks
         if (is_admin()) {
@@ -90,12 +90,12 @@ class WCAG_WP_Tables {
             'menu_name'             => __('WCAG Tabelle', 'wcag-wp'),
             'name_admin_bar'        => __('WCAG Tabella', 'wcag-wp'),
             'add_new'              => __('Aggiungi Nuova', 'wcag-wp'),
-            'add_new_item'         => __('Aggiungi Nuova WCAG Tabella', 'wcag-wp'),
-            'new_item'             => __('Nuova WCAG Tabella', 'wcag-wp'),
-            'edit_item'            => __('Modifica WCAG Tabella', 'wcag-wp'),
-            'view_item'            => __('Visualizza WCAG Tabella', 'wcag-wp'),
-            'all_items'            => __('Tutte le WCAG Tabelle', 'wcag-wp'),
-            'search_items'         => __('Cerca WCAG Tabelle', 'wcag-wp'),
+            'add_new_item'         => __('Aggiungi Nuova Tabella', 'wcag-wp'),
+            'new_item'             => __('Nuova Tabella', 'wcag-wp'),
+            'edit_item'            => __('Modifica Tabella', 'wcag-wp'),
+            'view_item'            => __('Visualizza Tabella', 'wcag-wp'),
+            'all_items'            => __('WCAG Tables', 'wcag-wp'),
+            'search_items'         => __('Cerca Tabelle', 'wcag-wp'),
             'parent_item_colon'    => __('WCAG Tabelle Padre:', 'wcag-wp'),
             'not_found'            => __('Nessuna WCAG tabella trovata.', 'wcag-wp'),
             'not_found_in_trash'   => __('Nessuna WCAG tabella nel cestino.', 'wcag-wp'),
@@ -321,23 +321,41 @@ class WCAG_WP_Tables {
      */
     private function sanitize_table_columns(array $columns): array {
         $sanitized = [];
-        
+
         foreach ($columns as $column) {
-            if (!is_array($column)) continue;
-            
+            if (!is_array($column)) {
+                continue;
+            }
+
+            $id = sanitize_key($column['id'] ?? '');
+            $label = sanitize_text_field($column['label'] ?? '');
+            $type = sanitize_text_field($column['type'] ?? 'text');
+            $align = sanitize_text_field($column['align'] ?? 'left');
+            $width = sanitize_text_field($column['width'] ?? '');
+            $description = sanitize_textarea_field($column['description'] ?? '');
+            $sortable = (bool)($column['sortable'] ?? true);
+            $required = (bool)($column['required'] ?? false);
+
+            // Skip empty placeholder rows coming from templates or accidental posts
+            // Require at least a non-empty ID to persist the column
+            if ($id === '') {
+                continue;
+            }
+
             $sanitized[] = [
-                'id' => sanitize_key($column['id'] ?? ''),
-                'label' => sanitize_text_field($column['label'] ?? ''),
-                'type' => sanitize_text_field($column['type'] ?? 'text'),
-                'sortable' => (bool)($column['sortable'] ?? true),
-                'required' => (bool)($column['required'] ?? false),
-                'width' => sanitize_text_field($column['width'] ?? ''),
-                'align' => sanitize_text_field($column['align'] ?? 'left'),
-                'description' => sanitize_textarea_field($column['description'] ?? '')
+                'id' => $id,
+                'label' => $label,
+                'type' => in_array($type, ['text', 'number', 'currency', 'email', 'url', 'boolean'], true) ? $type : 'text',
+                'sortable' => $sortable,
+                'required' => $required,
+                'width' => $width,
+                'align' => in_array($align, ['left', 'center', 'right'], true) ? $align : 'left',
+                'description' => $description
             ];
         }
-        
-        return $sanitized;
+
+        // Reindex array to avoid sparse indices
+        return array_values($sanitized);
     }
     
     /**
@@ -374,25 +392,47 @@ class WCAG_WP_Tables {
             return;
         }
         
-        global $post_type;
-        if ($post_type !== 'wcag_tables') {
+        // More robust post type check
+        global $post_type, $post;
+        $current_post_type = $post_type ?? (isset($post) ? $post->post_type : '');
+        
+        // Also check URL parameter for post type
+        if (!$current_post_type && isset($_GET['post_type'])) {
+            $current_post_type = sanitize_text_field($_GET['post_type']);
+        }
+        
+        // Check if we're editing an existing post
+        if (!$current_post_type && isset($_GET['post'])) {
+            $post_id = absint($_GET['post']);
+            $current_post_type = get_post_type($post_id);
+        }
+        
+        if ($current_post_type !== 'wcag_tables') {
             return;
         }
         
         wp_enqueue_style(
             'wcag-wp-tables-admin',
             WCAG_WP_ASSETS_URL . 'css/tables-admin.css',
-            ['wcag-wp-admin'],
+            [],
             WCAG_WP_VERSION
         );
         
         wp_enqueue_script(
             'wcag-wp-tables-admin',
             WCAG_WP_ASSETS_URL . 'js/tables-admin.js',
-            ['wcag-wp-admin', 'jquery-ui-sortable'],
+            ['jquery-ui-sortable'],
             WCAG_WP_VERSION,
             true
         );
+
+        // Inline debug to confirm enqueue and context
+        $inline_log = sprintf(
+            'try{console.log("[WCAG-WP][Tables] enqueued on hook: %s | post_type: %s");}catch(e){}',
+            esc_js($hook),
+            esc_js($current_post_type)
+        );
+        wp_add_inline_script('wcag-wp-tables-admin', $inline_log, 'before');
         
         // Localize script for AJAX
         wp_localize_script('wcag-wp-tables-admin', 'wcag_wp_tables', [
@@ -488,8 +528,19 @@ class WCAG_WP_Tables {
             return '<div class="wcag-wp-error">' . __('Nessuna colonna definita per questa WCAG Tabella', 'wcag-wp') . '</div>';
         }
         
-        // Merge options with config
-        $config = wp_parse_args($options, $config);
+        // Merge shortcode options with config without overriding with nulls
+        $options_filtered = array_filter($options, function($value) {
+            return $value !== null && $value !== '';
+        });
+        // Normalize boolean-like strings
+        foreach (['responsive','sortable','searchable'] as $flag) {
+            if (isset($options_filtered[$flag])) {
+                $v = $options_filtered[$flag];
+                if ($v === 'true' || $v === '1' || $v === 1) { $options_filtered[$flag] = true; }
+                if ($v === 'false' || $v === '0' || $v === 0) { $options_filtered[$flag] = false; }
+            }
+        }
+        $config = wp_parse_args($options_filtered, $config);
         
         // Start output buffering
         ob_start();

@@ -142,6 +142,10 @@ final class WCAG_WP {
         $components = [
             'tables' => 'includes/class-wcag-wp-tables.php',
             'accordion' => 'includes/class-wcag-wp-accordion.php',
+            'tabpanel' => 'includes/class-wcag-wp-tabpanel.php',
+            'toc' => 'includes/class-wcag-wp-toc.php',
+            'carousel' => 'includes/class-wcag-wp-carousel.php',
+            'calendar' => 'includes/class-wcag-wp-calendar.php',
             'design-system' => 'includes/class-design-system.php',
             'accessibility' => 'includes/class-accessibility.php'
         ];
@@ -184,29 +188,8 @@ final class WCAG_WP {
      * @return void
      */
     private function register_post_types(): void {
-        // Register "wcag_tables" custom post type
-        register_post_type('wcag_tables', [
-            'labels' => [
-                'name' => __('Tabelle WCAG', 'wcag-wp'),
-                'singular_name' => __('Tabella WCAG', 'wcag-wp'),
-                'add_new' => __('Aggiungi Nuova', 'wcag-wp'),
-                'add_new_item' => __('Aggiungi Nuova Tabella', 'wcag-wp'),
-                'edit_item' => __('Modifica Tabella', 'wcag-wp'),
-                'new_item' => __('Nuova Tabella', 'wcag-wp'),
-                'view_item' => __('Visualizza Tabella', 'wcag-wp'),
-                'search_items' => __('Cerca Tabelle', 'wcag-wp'),
-                'not_found' => __('Nessuna tabella trovata', 'wcag-wp'),
-                'not_found_in_trash' => __('Nessuna tabella nel cestino', 'wcag-wp'),
-            ],
-            'public' => false,
-            'show_ui' => true,
-            'show_in_menu' => 'wcag-wp-main',
-            'capability_type' => 'post',
-            'supports' => ['title', 'editor'],
-            'has_archive' => false,
-            'rewrite' => false,
-            'show_in_rest' => true,
-        ]);
+        // La registrazione del CPT "wcag_tables" è gestita dal componente WCAG_WP_Tables
+        // per evitare duplicazioni e conflitti.
     }
     
     /**
@@ -248,6 +231,30 @@ final class WCAG_WP {
             wcag_wp_log('WCAG Accordion component initialized successfully', 'info');
         } else {
             error_log('WCAG_WP_Accordion class does NOT exist');
+        }
+
+        // Initialize WCAG tabpanel component
+        if (class_exists('WCAG_WP_TabPanel')) {
+            $this->components['tabpanel'] = new WCAG_WP_TabPanel();
+            wcag_wp_log('WCAG Tab Panel component initialized successfully', 'info');
+        }
+
+        // Initialize TOC component
+        if (class_exists('WCAG_WP_TOC')) {
+            $this->components['toc'] = new WCAG_WP_TOC();
+            wcag_wp_log('TOC component initialized successfully', 'info');
+        }
+
+        // Initialize Carousel component
+        if (class_exists('WCAG_WP_Carousel')) {
+            $this->components['carousel'] = new WCAG_WP_Carousel();
+            wcag_wp_log('Carousel component initialized successfully', 'info');
+        }
+
+        // Initialize Calendar component
+        if (class_exists('WCAG_WP_Calendar')) {
+            $this->components['calendar'] = new WCAG_WP_Calendar();
+            wcag_wp_log('Calendar component initialized successfully', 'info');
         }
     }
     
@@ -408,7 +415,6 @@ final class WCAG_WP {
     public function register_shortcodes(): void {
         add_shortcode('wcag-table', [$this, 'shortcode_table']);
         add_shortcode('wcag-accordion', [$this, 'shortcode_accordion']);
-        add_shortcode('wcag-toc', [$this, 'shortcode_toc']);
     }
     
     /**
@@ -505,16 +511,7 @@ final class WCAG_WP {
         return '<div class="wcag-wp-error">' . __('WCAG Accordion component non disponibile', 'wcag-wp') . '</div>';
     }
     
-    /**
-     * Shortcode: Table of Contents
-     * 
-     * @param array $atts Shortcode attributes
-     * @return string HTML output
-     */
-    public function shortcode_toc(array $atts): string {
-        // Implementation in Phase 3
-        return '<div class="wcag-wp-placeholder">TOC WCAG (Implementazione Fase 3)</div>';
-    }
+
     
     /**
      * Admin page: Main dashboard

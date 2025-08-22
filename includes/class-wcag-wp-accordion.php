@@ -98,15 +98,15 @@ class WCAG_WP_Accordion {
             'menu_name'             => __('WCAG Accordion', 'wcag-wp'),
             'name_admin_bar'        => __('WCAG Accordion', 'wcag-wp'),
             'add_new'              => __('Aggiungi Nuovo', 'wcag-wp'),
-            'add_new_item'         => __('Aggiungi Nuovo WCAG Accordion', 'wcag-wp'),
-            'new_item'             => __('Nuovo WCAG Accordion', 'wcag-wp'),
-            'edit_item'            => __('Modifica WCAG Accordion', 'wcag-wp'),
-            'view_item'            => __('Visualizza WCAG Accordion', 'wcag-wp'),
-            'all_items'            => __('Tutti i WCAG Accordion', 'wcag-wp'),
-            'search_items'         => __('Cerca WCAG Accordion', 'wcag-wp'),
+            'add_new_item'         => __('Aggiungi Nuovo Accordion', 'wcag-wp'),
+            'new_item'             => __('Nuovo Accordion', 'wcag-wp'),
+            'edit_item'            => __('Modifica Accordion', 'wcag-wp'),
+            'view_item'            => __('Visualizza Accordion', 'wcag-wp'),
+            'all_items'            => __('Tutti gli Accordion', 'wcag-wp'),
+            'search_items'         => __('Cerca Accordion', 'wcag-wp'),
             'parent_item_colon'    => __('WCAG Accordion Padre:', 'wcag-wp'),
-            'not_found'            => __('Nessun WCAG accordion trovato.', 'wcag-wp'),
-            'not_found_in_trash'   => __('Nessun WCAG accordion nel cestino.', 'wcag-wp'),
+            'not_found'            => __('Nessun accordion trovato.', 'wcag-wp'),
+            'not_found_in_trash'   => __('Nessun accordion nel cestino.', 'wcag-wp'),
         ];
 
         $args = [

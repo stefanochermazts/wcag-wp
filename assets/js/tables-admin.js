@@ -10,10 +10,25 @@
 'use strict';
 
 (function() {
-    // Ensure wcag_wp_tables object exists
+    // Basic load trace
+    try {
+        console.info('[WCAG-WP][Tables] tables-admin.js loaded');
+    } catch (e) {}
+    // Ensure wcag_wp_tables object exists, or create a fallback
     if (typeof wcag_wp_tables === 'undefined') {
-        console.warn('WCAG-WP Tables: Configuration object not found');
-        return;
+        console.warn('WCAG-WP Tables: Configuration object not found, using fallback');
+        window.wcag_wp_tables = {
+            ajax_url: (typeof ajaxurl !== 'undefined') ? ajaxurl : '/wp-admin/admin-ajax.php',
+            nonce: '',
+            strings: {
+                confirm_delete_column: 'Sei sicuro di voler eliminare questa colonna?',
+                confirm_delete_row: 'Sei sicuro di voler eliminare questa riga?',
+                error_generic: 'Si è verificato un errore. Riprova.',
+                column_added: 'Colonna aggiunta con successo.',
+                row_added: 'Riga aggiunta con successo.',
+                changes_saved: 'Modifiche salvate.'
+            }
+        };
     }
 
     /**
@@ -24,6 +39,7 @@
             this.config = wcag_wp_tables;
             this.columnIndex = 0;
             this.rowIndex = 0;
+            this.log('Constructor called', 'info');
             this.init();
         }
 
@@ -31,6 +47,7 @@
          * Initialize admin functionality
          */
         init() {
+            this.log('init() start', 'info');
             this.bindEvents();
             this.initializeFeatures();
             this.log('WCAG Tables admin interface initialized', 'info');
@@ -40,12 +57,15 @@
          * Bind event listeners
          */
         bindEvents() {
+            this.log('bindEvents() start', 'info');
             // DOM Content Loaded
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', () => {
+                    this.log('DOMContentLoaded fired', 'info');
                     this.onDOMReady();
                 });
             } else {
+                this.log('Document already ready', 'info');
                 this.onDOMReady();
             }
 
@@ -96,12 +116,17 @@
          * Bind column management events
          */
         bindColumnEvents() {
+            this.log('bindColumnEvents() start', 'info');
             // Add new column
             const addColumnBtn = document.getElementById('add-new-column');
             if (addColumnBtn) {
+                this.log('add-new-column button found', 'info');
                 addColumnBtn.addEventListener('click', () => {
+                    this.log('add-new-column button clicked', 'info');
                     this.addNewColumn();
                 });
+            } else {
+                this.log('add-new-column button NOT found', 'warning');
             }
 
             // Event delegation for dynamic elements
@@ -213,12 +238,20 @@
          * Add new column
          */
         addNewColumn() {
+            this.log('addNewColumn() called', 'info');
             const template = document.getElementById('column-template');
-            if (!template) return;
+            if (!template) {
+                this.log('column-template NOT found', 'error');
+                return;
+            }
 
             const newColumn = template.innerHTML.replace(/\{\{INDEX\}\}/g, this.columnIndex);
             
             const container = document.getElementById('columns-container');
+            if (!container) {
+                this.log('columns-container NOT found', 'error');
+                return;
+            }
             const noColumnsMessage = container.querySelector('.no-columns-message');
             
             if (noColumnsMessage) {
@@ -230,7 +263,18 @@
             const columnElement = div.firstElementChild;
             container.appendChild(columnElement);
             
+            // Enable inputs from template and restore required if flagged
+            const templatedInputs = columnElement.querySelectorAll('input[disabled], select[disabled], textarea[disabled]');
+            templatedInputs.forEach(el => {
+                el.disabled = false;
+                if (el.hasAttribute('data-required')) {
+                    el.setAttribute('required', '');
+                    el.removeAttribute('data-required');
+                }
+            });
+
             this.columnIndex++;
+            this.log('Column appended. New columnIndex=' + this.columnIndex, 'info');
             
             // Focus on the first input of the new column
             const firstInput = columnElement.querySelector('.column-id-input');
@@ -316,6 +360,16 @@
             const newRowElement = div.querySelector('tr');
             
             tbody.appendChild(newRowElement);
+
+            // Enable inputs from template and restore required if flagged
+            const templatedInputs = newRowElement.querySelectorAll('input[disabled], select[disabled], textarea[disabled]');
+            templatedInputs.forEach(el => {
+                el.disabled = false;
+                if (el.hasAttribute('data-required')) {
+                    el.setAttribute('required', '');
+                    el.removeAttribute('data-required');
+                }
+            });
             this.rowIndex++;
             
             // Focus on first input

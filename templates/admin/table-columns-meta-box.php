@@ -177,7 +177,7 @@ if (!defined('ABSPATH')) {
                                id="column_id_{{INDEX}}"
                                name="wcag_wp_table_columns[{{INDEX}}][id]" 
                                class="column-id-input"
-                               required>
+                               data-required="1" disabled>
                     </div>
                     
                     <div class="field-group">
@@ -188,7 +188,7 @@ if (!defined('ABSPATH')) {
                                id="column_label_{{INDEX}}"
                                name="wcag_wp_table_columns[{{INDEX}}][label]" 
                                class="column-label-input"
-                               required>
+                               data-required="1" disabled>
                     </div>
                 </div>
                 

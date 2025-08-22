@@ -190,7 +190,7 @@ if (!defined('ABSPATH')) {
                                     <input type="number" 
                                            id="<?php echo esc_attr($input_id); ?>"
                                            name="<?php echo esc_attr($input_name); ?>" 
-                                           <?php echo $column['required'] ? 'required' : ''; ?>
+                                           <?php echo $column['required'] ? 'data-required=\"1\"' : ''; ?> disabled
                                            step="any"
                                            class="data-input number-input">
                                     <?php
@@ -201,7 +201,7 @@ if (!defined('ABSPATH')) {
                                     <input type="email" 
                                            id="<?php echo esc_attr($input_id); ?>"
                                            name="<?php echo esc_attr($input_name); ?>" 
-                                           <?php echo $column['required'] ? 'required' : ''; ?>
+                                           <?php echo $column['required'] ? 'data-required=\"1\"' : ''; ?> disabled
                                            class="data-input email-input">
                                     <?php
                                     break;
@@ -211,7 +211,7 @@ if (!defined('ABSPATH')) {
                                     <input type="url" 
                                            id="<?php echo esc_attr($input_id); ?>"
                                            name="<?php echo esc_attr($input_name); ?>" 
-                                           <?php echo $column['required'] ? 'required' : ''; ?>
+                                           <?php echo $column['required'] ? 'data-required=\"1\"' : ''; ?> disabled
                                            class="data-input url-input">
                                     <?php
                                     break;
@@ -220,7 +220,7 @@ if (!defined('ABSPATH')) {
                                     ?>
                                     <select id="<?php echo esc_attr($input_id); ?>"
                                             name="<?php echo esc_attr($input_name); ?>" 
-                                            <?php echo $column['required'] ? 'required' : ''; ?>
+                                            <?php echo $column['required'] ? 'data-required=\"1\"' : ''; ?> disabled
                                             class="data-input boolean-input">
                                         <option value=""><?php esc_html_e('Seleziona...', 'wcag-wp'); ?></option>
                                         <option value="1"><?php esc_html_e('Sì', 'wcag-wp'); ?></option>
@@ -234,7 +234,7 @@ if (!defined('ABSPATH')) {
                                     <input type="text" 
                                            id="<?php echo esc_attr($input_id); ?>"
                                            name="<?php echo esc_attr($input_name); ?>" 
-                                           <?php echo $column['required'] ? 'required' : ''; ?>
+                                           <?php echo $column['required'] ? 'data-required=\"1\"' : ''; ?> disabled
                                            class="data-input text-input">
                                     <?php
                                     break;
