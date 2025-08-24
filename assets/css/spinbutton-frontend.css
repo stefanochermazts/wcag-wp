@@ -1,0 +1,319 @@
+/**
+ * WCAG Spinbutton Frontend Styles
+ * 
+ * Accessible spinbutton styling following WCAG 2.1 AA guidelines
+ * Uses unified design system with --wcag-wp-* variables
+ * 
+ * @package WCAG_WP
+ * @since 1.0.0
+ */
+
+/* ===== BASE SPINBUTTON STYLES ===== */
+
+.wcag-wp-spinbutton {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.wcag-wp-spinbutton__label {
+    display: block;
+    font-weight: 600;
+    color: var(--wcag-wp-text);
+    margin-bottom: 0.25rem;
+    cursor: pointer;
+}
+
+.wcag-wp-spinbutton__required {
+    color: var(--wcag-red-500);
+    margin-left: 0.25rem;
+}
+
+.wcag-wp-spinbutton__description {
+    font-size: 0.875rem;
+    color: var(--wcag-gray-600);
+    margin-bottom: 0.5rem;
+}
+
+/* ===== CONTAINER & INPUT ===== */
+
+.wcag-wp-spinbutton__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.wcag-wp-spinbutton__input {
+    flex: 1;
+    min-height: 44px; /* WCAG minimum touch target */
+    padding: 0.75rem;
+    border: 1px solid var(--wcag-wp-border);
+    border-radius: 6px;
+    background-color: var(--wcag-wp-bg);
+    color: var(--wcag-wp-text);
+    font-size: 1rem;
+    transition: all 200ms ease-out;
+    width: 100%;
+}
+
+.wcag-wp-spinbutton__input--small {
+    min-height: 36px;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.wcag-wp-spinbutton__input--large {
+    min-height: 52px;
+    padding: 1rem;
+    font-size: 1.125rem;
+}
+
+.wcag-wp-spinbutton__input:hover {
+    border-color: var(--wcag-gray-600);
+}
+
+.wcag-wp-spinbutton__input:focus {
+    outline: 2px solid var(--wcag-wp-focus);
+    outline-offset: 2px;
+    border-color: var(--wcag-wp-focus);
+}
+
+.wcag-wp-spinbutton__input:invalid {
+    border-color: var(--wcag-red-500);
+}
+
+.wcag-wp-spinbutton__input::placeholder {
+    color: var(--wcag-gray-600);
+    opacity: 0.7;
+}
+
+.wcag-wp-spinbutton__input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: var(--wcag-gray-100);
+}
+
+.wcag-wp-spinbutton__input[readonly] {
+    background-color: var(--wcag-gray-50);
+    cursor: default;
+}
+
+/* ===== CONTROLS ===== */
+
+.wcag-wp-spinbutton__controls {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.wcag-wp-spinbutton__button {
+    width: 32px;
+    height: 22px;
+    border: 1px solid var(--wcag-wp-border);
+    background-color: var(--wcag-wp-bg);
+    color: var(--wcag-wp-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    transition: all 200ms ease-out;
+    border-radius: 3px;
+}
+
+.wcag-wp-spinbutton__button:hover:not(:disabled) {
+    background-color: var(--wcag-gray-50);
+    border-color: var(--wcag-gray-600);
+}
+
+.wcag-wp-spinbutton__button:focus {
+    outline: 2px solid var(--wcag-wp-focus);
+    outline-offset: 2px;
+    background-color: var(--wcag-gray-50);
+}
+
+.wcag-wp-spinbutton__button:active:not(:disabled) {
+    background-color: var(--wcag-gray-100);
+    transform: translateY(1px);
+}
+
+.wcag-wp-spinbutton__button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--wcag-gray-100);
+}
+
+.wcag-wp-spinbutton__button-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    line-height: 1;
+}
+
+/* ===== UNIT DISPLAY ===== */
+
+.wcag-wp-spinbutton__unit {
+    color: var(--wcag-gray-600);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--wcag-gray-50);
+    border: 1px solid var(--wcag-wp-border);
+    border-radius: 4px;
+}
+
+/* ===== VALIDATION ===== */
+
+.wcag-wp-spinbutton__validation {
+    margin-top: 0.5rem;
+}
+
+.wcag-wp-spinbutton__error {
+    color: var(--wcag-red-500);
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+    padding: 0.5rem;
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 4px;
+}
+
+.wcag-wp-spinbutton__help {
+    color: var(--wcag-gray-600);
+    font-size: 0.875rem;
+    font-style: italic;
+}
+
+/* ===== SCREEN READER ONLY ===== */
+
+.wcag-wp-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* ===== STATES ===== */
+
+.wcag-wp-spinbutton--required .wcag-wp-spinbutton__input:invalid {
+    border-color: var(--wcag-red-500);
+}
+
+.wcag-wp-spinbutton--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.wcag-wp-spinbutton--error .wcag-wp-spinbutton__input {
+    border-color: var(--wcag-red-500);
+}
+
+.wcag-wp-spinbutton--success .wcag-wp-spinbutton__input {
+    border-color: var(--wcag-green-500);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+@media (max-width: 768px) {
+    .wcag-wp-spinbutton__input {
+        font-size: 16px; /* Prevent zoom on iOS */
+        padding: 0.75rem;
+    }
+    
+    .wcag-wp-spinbutton__input--small {
+        padding: 0.5rem;
+    }
+    
+    .wcag-wp-spinbutton__input--large {
+        padding: 1rem;
+    }
+    
+    .wcag-wp-spinbutton__button {
+        width: 44px; /* Larger touch target on mobile */
+        height: 30px;
+    }
+    
+    .wcag-wp-spinbutton__button-icon {
+        font-size: 10px;
+    }
+    
+    .wcag-wp-spinbutton__unit {
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .wcag-wp-spinbutton__input {
+        border-width: 2px;
+    }
+    
+    .wcag-wp-spinbutton__button {
+        border-width: 2px;
+    }
+    
+    .wcag-wp-spinbutton__unit {
+        border-width: 2px;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .wcag-wp-spinbutton__input,
+    .wcag-wp-spinbutton__button {
+        transition: none !important;
+    }
+    
+    .wcag-wp-spinbutton__button:active {
+        transform: none !important;
+    }
+}
+
+/* Focus Visible Enhancement */
+.wcag-wp-spinbutton__input:focus-visible,
+.wcag-wp-spinbutton__button:focus-visible {
+    outline: 2px solid var(--wcag-wp-focus);
+    outline-offset: 2px;
+}
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+    .wcag-wp-spinbutton__controls {
+        display: none !important;
+    }
+    
+    .wcag-wp-spinbutton__input {
+        border: 2px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    
+    .wcag-wp-spinbutton__unit {
+        border: 1px solid #000 !important;
+        background: #f5f5f5 !important;
+        color: #000 !important;
+    }
+}
+
+/* ===== DARK THEME SUPPORT ===== */
+/* Il tema scuro è gestito automaticamente dalle variabili CSS globali --wcag-wp-* */
+/* Nessun CSS aggiuntivo necessario - il design system unificato gestisce tutto */

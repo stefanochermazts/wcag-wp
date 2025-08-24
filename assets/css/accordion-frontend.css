@@ -415,20 +415,5 @@
     }
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-    .wcag-wp-accordion-container {
-        --wcag-wp-text-primary: #f0f0f0;
-        --wcag-wp-text-secondary: #ccc;
-        --wcag-wp-text-disabled: #666;
-        --wcag-wp-background-primary: #2d2d2d;
-        --wcag-wp-background-secondary: #383838;
-        --wcag-wp-background-hover: #404040;
-        --wcag-wp-background-focus: #1a3a5c;
-        --wcag-wp-border-color: #555;
-        --wcag-wp-border-light: #444;
-        --wcag-wp-link-color: #58a6ff;
-        --wcag-wp-link-hover: #79c0ff;
-        --wcag-wp-focus-color: #58a6ff;
-    }
-}
+/* Le variabili del tema sono ora gestite globalmente in frontend.css 
+   tramite il bridge --wcag-wp-* che si aggiorna automaticamente con data-wcag-theme */

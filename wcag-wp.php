@@ -108,7 +108,14 @@ function wcag_wp_activate(): void {
                 'color_scheme' => 'default',
                 'font_family' => 'system-ui',
                 'focus_outline' => true,
-                'reduce_motion' => false
+                'reduce_motion' => false,
+                'theme_switcher' => true,
+                'default_theme' => 'auto',
+                'toggle_position_selector' => '',
+                'custom_primary' => '#2563eb',
+                'custom_primary_dark' => '#1d4ed8',
+                'custom_primary_light' => '#dbeafe',
+                'custom_secondary' => '#64748b'
             ],
             'accessibility' => [
                 'screen_reader_support' => true,

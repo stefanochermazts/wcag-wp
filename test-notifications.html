@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test WCAG Notifications</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #2271b1;
+        }
+        .shortcode-example {
+            background: #f6f7f7;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        .dynamic-test-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .test-button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+        }
+        .test-button--success { background: #00a32a; }
+        .test-button--info { background: #2271b1; }
+        .test-button--warning { background: #dba617; }
+        .test-button--error { background: #d63638; }
+    </style>
+</head>
+<body>
+    <h1>Test WCAG Notifications</h1>
+    
+    <div class="test-section">
+        <h2>🧪 Test Notifiche Statiche</h2>
+        <p>Le seguenti notifiche sono create tramite shortcode e mostrano tutti i tipi disponibili:</p>
+
+        <div class="shortcode-example">
+            [wcag-notification id="40"]
+        </div>
+    
+        <div class="shortcode-example">
+            [wcag-notification id="41"]
+        </div>
+    
+        <div class="shortcode-example">
+            [wcag-notification id="42"]
+        </div>
+    
+        <div class="shortcode-example">
+            [wcag-notification id="43"]
+        </div>
+    
+    </div>
+    
+    <div class="test-section">
+        <h2>⚡ Test Notifiche Dinamiche</h2>
+        <p>Clicca i pulsanti per testare le notifiche dinamiche via JavaScript:</p>
+        
+        <div class="dynamic-test-buttons">
+            <button class="test-button test-button--success" onclick="showDynamicNotification('success')">
+                ✅ Successo
+            </button>
+            <button class="test-button test-button--info" onclick="showDynamicNotification('info')">
+                ℹ️ Informazione
+            </button>
+            <button class="test-button test-button--warning" onclick="showDynamicNotification('warning')">
+                ⚠️ Attenzione
+            </button>
+            <button class="test-button test-button--error" onclick="showDynamicNotification('error')">
+                ❌ Errore
+            </button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>♿ Test Accessibilità</h2>
+        <p><strong>Checklist per test manuali:</strong></p>
+        <ul>
+            <li>✅ Navigazione tastiera (Tab, Enter, Esc)</li>
+            <li>✅ Screen reader announcements (NVDA, JAWS, VoiceOver)</li>
+            <li>✅ Contrasto colori (WebAIM Contrast Checker)</li>
+            <li>✅ Zoom 200% senza perdita funzionalità</li>
+            <li>✅ Touch targets 44px+ su mobile</li>
+            <li>✅ Rispetto prefers-reduced-motion</li>
+        </ul>
+        
+        <p><strong>ARIA Attributes implementati:</strong></p>
+        <ul>
+            <li><code>role="alert"</code> - Identifica messaggi importanti</li>
+            <li><code>aria-live="polite|assertive"</code> - Priorità annunci</li>
+            <li><code>aria-labelledby</code> - Collega titolo alla notifica</li>
+            <li><code>aria-describedby</code> - Collega contenuto alla notifica</li>
+        </ul>
+    </div>
+    
+    <script>
+        function showDynamicNotification(type) {
+            const messages = {
+                success: "Operazione completata con successo!",
+                info: "Questa è una notifica informativa dinamica.",
+                warning: "Attenzione: questa è una notifica di avviso.",
+                error: "Si è verificato un errore durante l'operazione."
+            };
+            
+            if (typeof window.wcagShowNotification === "function") {
+                window.wcagShowNotification(messages[type], type, {
+                    auto_dismiss: type === "success",
+                    position: "top"
+                });
+            } else {
+                alert("JavaScript delle notifiche non caricato. Verifica che il plugin sia attivo.");
+            }
+        }
+        
+        // Test keyboard navigation
+        document.addEventListener("keydown", function(e) {
+            if (e.ctrlKey && e.key === "t") {
+                e.preventDefault();
+                showDynamicNotification("info");
+            }
+        });
+        
+        console.log("🧪 Test WCAG Notifications caricato");
+        console.log("💡 Usa Ctrl+T per testare notifica dinamica");
+    </script>
+</body>
+</html>

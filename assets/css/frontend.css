@@ -12,6 +12,7 @@
 /* ===== CSS CUSTOM PROPERTIES (DESIGN SYSTEM) ===== */
 :root {
     /* Base Colors - WCAG AA Compliant (4.5:1 contrast ratio minimum) */
+    /* Default: Blue Scheme */
     --wcag-primary: #2271b1;
     --wcag-primary-dark: #135e96;
     --wcag-primary-light: #4f94d4;
@@ -101,6 +102,66 @@
     --wcag-z-popover: 1060;
     --wcag-z-tooltip: 1070;
     --wcag-z-toast: 1080;
+}
+
+/* ===== COLOR SCHEMES ===== */
+
+/* Green Nature Scheme */
+[data-wcag-color-scheme="green"],
+.wcag-color-scheme-green {
+    --wcag-primary: #059669;
+    --wcag-primary-dark: #047857;
+    --wcag-primary-light: #d1fae5;
+    --wcag-primary-contrast: #ffffff;
+}
+
+/* Purple Elegant Scheme */
+[data-wcag-color-scheme="purple"],
+.wcag-color-scheme-purple {
+    --wcag-primary: #7c3aed;
+    --wcag-primary-dark: #6d28d9;
+    --wcag-primary-light: #ede9fe;
+    --wcag-primary-contrast: #ffffff;
+}
+
+/* Orange Vibrant Scheme */
+[data-wcag-color-scheme="orange"],
+.wcag-color-scheme-orange {
+    --wcag-primary: #ea580c;
+    --wcag-primary-dark: #c2410c;
+    --wcag-primary-light: #fed7aa;
+    --wcag-primary-contrast: #ffffff;
+}
+
+/* Custom Scheme - Variabili dinamiche impostate via PHP */
+[data-wcag-color-scheme="custom"],
+.wcag-color-scheme-custom {
+    --wcag-primary: var(--wcag-custom-primary, #2271b1);
+    --wcag-primary-dark: var(--wcag-custom-primary-dark, #135e96);
+    --wcag-primary-light: var(--wcag-custom-primary-light, #4f94d4);
+    --wcag-primary-contrast: #ffffff;
+}
+
+:root {
+    /* Bridge per componenti - variabili unificate per tutti i componenti WCAG */
+    --wcag-wp-bg: var(--wcag-white);
+    --wcag-wp-text: var(--wcag-gray-900);
+    --wcag-wp-border: var(--wcag-gray-300);
+    --wcag-wp-focus: var(--wcag-primary);
+    
+    /* Bridge per componenti legacy (wcag-wp-*) verso il design system globale */
+    --wcag-wp-text-primary: var(--wcag-gray-900);
+    --wcag-wp-text-secondary: var(--wcag-gray-600);
+    --wcag-wp-text-disabled: var(--wcag-gray-500);
+    --wcag-wp-background-primary: var(--wcag-white);
+    --wcag-wp-background-secondary: var(--wcag-gray-50);
+    --wcag-wp-background-hover: var(--wcag-gray-100);
+    --wcag-wp-background-focus: var(--wcag-primary-light, #4f94d4);
+    --wcag-wp-border-color: var(--wcag-gray-300);
+    --wcag-wp-border-light: var(--wcag-gray-200);
+    --wcag-wp-link-color: var(--wcag-primary);
+    --wcag-wp-link-hover: var(--wcag-primary-dark);
+    --wcag-wp-focus-color: var(--wcag-primary);
 }
 
 /* ===== ACCESSIBILITY RESET ===== */
@@ -576,11 +637,40 @@
 .wcag-wp-invisible { visibility: hidden !important; }
 
 /* ===== TAB PANEL ===== */
-.wcag-wp-tabpanel .wcag-wp-tabs { display:flex; gap:8px; border-bottom:1px solid var(--wcag-gray-300); margin-bottom:10px; }
-.wcag-wp-tabpanel .wcag-wp-tab { background: var(--wcag-gray-50); border:1px solid var(--wcag-gray-300); border-bottom:none; padding:8px 12px; cursor:pointer; }
-.wcag-wp-tabpanel .wcag-wp-tab[aria-selected="true"] { background: var(--wcag-white); border-bottom:1px solid var(--wcag-white); }
-.wcag-wp-tabpanel .wcag-wp-panels { border:1px solid var(--wcag-gray-300); background: var(--wcag-white); padding:12px; }
-.wcag-wp-sr-only { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+.wcag-wp-tabpanel .wcag-wp-tabs { 
+    display: flex; 
+    gap: 8px; 
+    border-bottom: 1px solid var(--wcag-gray-300); 
+    margin-bottom: 10px; 
+}
+.wcag-wp-tabpanel .wcag-wp-tab { 
+    background: var(--wcag-gray-50); 
+    border: 1px solid var(--wcag-gray-300); 
+    border-bottom: none; 
+    padding: 8px 12px; 
+    cursor: pointer;
+    color: var(--wcag-gray-900);
+    transition: all var(--wcag-transition);
+}
+.wcag-wp-tabpanel .wcag-wp-tab:hover {
+    background: var(--wcag-gray-100);
+}
+.wcag-wp-tabpanel .wcag-wp-tab:focus {
+    outline: var(--wcag-focus-ring);
+    outline-offset: var(--wcag-focus-ring-offset);
+}
+.wcag-wp-tabpanel .wcag-wp-tab[aria-selected="true"] { 
+    background: var(--wcag-white); 
+    border-bottom: 1px solid var(--wcag-white);
+    color: var(--wcag-gray-900);
+}
+.wcag-wp-tabpanel .wcag-wp-panels { 
+    border: 1px solid var(--wcag-gray-300); 
+    background: var(--wcag-white); 
+    padding: 12px;
+    color: var(--wcag-gray-900);
+}
+.wcag-wp-sr-only { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* ===== TOC ===== */
 .wcag-wp-toc { 
@@ -625,6 +715,191 @@
     }
 }
 
+/* ===== EXPLICIT THEME OVERRIDES (ATTRIBUTE-BASED) ===== */
+/* Force LIGHT theme regardless of system preference */
+html[data-wcag-theme="light"] {
+    --wcag-white: #ffffff;
+    --wcag-gray-50: #f9f9f9;
+    --wcag-gray-100: #f1f1f1;
+    --wcag-gray-200: #e1e1e1;
+    --wcag-gray-300: #d1d1d1;
+    --wcag-gray-400: #b1b1b1;
+    --wcag-gray-500: #909090;
+    --wcag-gray-600: #707070;
+    --wcag-gray-700: #505050;
+    --wcag-gray-800: #303030;
+    --wcag-gray-900: #101010;
+    --wcag-primary: #2271b1;
+    --wcag-primary-dark: #135e96;
+}
+
+/* Force DARK theme regardless of system preference */
+html[data-wcag-theme="dark"] {
+    --wcag-white: #161616; /* leggermente più scuro per migliorare il contrasto dei bordi */
+    --wcag-gray-50: #242424;
+    --wcag-gray-100: #2e2e2e;
+    --wcag-gray-200: #3a3a3a;
+    --wcag-gray-300: #4a4a4a; /* bordi più visibili */
+    --wcag-gray-400: #6a6a6a;
+    --wcag-gray-500: #8a8a8a;
+    --wcag-gray-600: #a8a8a8;
+    --wcag-gray-700: #c8c8c8;
+    --wcag-gray-800: #e6e6e6;
+    --wcag-gray-900: #ffffff;
+    --wcag-primary: #6fb0e6; /* primario più chiaro per AA su scuro */
+    --wcag-primary-dark: #3a8ad1;
+
+    /* Bridge per componenti - variabili unificate per tema scuro */
+    --wcag-wp-bg: var(--wcag-white);
+    --wcag-wp-text: var(--wcag-gray-900);
+    --wcag-wp-border: var(--wcag-gray-300);
+    --wcag-wp-focus: var(--wcag-primary);
+    
+    /* Bridge variabili per tema scuro coerente */
+    --wcag-wp-text-primary: var(--wcag-gray-900);
+    --wcag-wp-text-secondary: var(--wcag-gray-600);
+    --wcag-wp-text-disabled: #7a7a7a;
+    --wcag-wp-background-primary: var(--wcag-white);
+    --wcag-wp-background-secondary: #2a2a2a;
+    --wcag-wp-background-hover: #3a3a3a;
+    --wcag-wp-background-focus: #1a3a5c;
+    --wcag-wp-border-color: var(--wcag-gray-300);
+    --wcag-wp-border-light: #3a3a3a;
+    --wcag-wp-link-color: #6fb0e6;
+    --wcag-wp-link-hover: #8cc3ef;
+    --wcag-wp-focus-color: #6fb0e6;
+}
+
+/* data-wcag-theme="auto" mantiene i valori di sistema (nessun override necessario) */
+
+/* ===== THEME TOGGLE (UI) ===== */
+.wcag-wp-theme-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.5rem 0.875rem;
+    background: var(--wcag-white);
+    color: var(--wcag-gray-900);
+    border: 1px solid var(--wcag-gray-300);
+    border-radius: var(--wcag-radius);
+    box-shadow: var(--wcag-shadow);
+    cursor: pointer;
+    min-height: 44px;
+    min-width: 44px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Posizionamento nel layout Gutenberg */
+.wp-block-group.alignwide .wcag-wp-theme-toggle,
+.wp-block-group.is-content-justification-space-between .wcag-wp-theme-toggle {
+    margin-left: 1rem; /* Spazio dal navigation */
+}
+
+/* Posizionamento generico nell'header */
+header .wcag-wp-theme-toggle,
+.site-header .wcag-wp-theme-toggle,
+#masthead .wcag-wp-theme-toggle {
+    margin-left: auto;
+}
+
+/* Se nel body, posiziona fixed */
+body > .wcag-wp-theme-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+}
+
+/* Container per toggle + menu */
+.wcag-wp-theme-toggle {
+    /* Crea un contesto di posizionamento per il menu */
+}
+
+.wcag-wp-theme-menu {
+    position: fixed; /* Fixed per evitare problemi con overflow */
+    background: var(--wcag-white);
+    color: var(--wcag-gray-900);
+    border: 1px solid var(--wcag-gray-300);
+    border-radius: var(--wcag-radius);
+    box-shadow: var(--wcag-shadow-lg);
+    min-width: 160px;
+    padding: 4px;
+    z-index: 10000;
+    /* Posizione calcolata via JS */
+}
+
+.wcag-wp-theme-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    border-radius: var(--wcag-radius);
+    color: inherit;
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+.wcag-wp-theme-item[aria-checked="true"],
+.wcag-wp-theme-item:hover,
+.wcag-wp-theme-item:focus {
+    background: var(--wcag-gray-50);
+    outline: var(--wcag-focus-ring);
+    outline-offset: var(--wcag-focus-ring-offset);
+}
+
+.wcag-wp-theme-toggle:hover,
+.wcag-wp-theme-toggle:focus {
+    background: var(--wcag-gray-50);
+    border-color: var(--wcag-primary);
+    outline: var(--wcag-focus-ring);
+    outline-offset: var(--wcag-focus-ring-offset);
+    text-decoration: none;
+}
+
+.wcag-wp-theme-toggle .wcag-wp-theme-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Riduci impatto su editor/admin bar */
+@media (max-width: 480px) {
+    .wcag-wp-theme-toggle { bottom: .75rem; right: .75rem; padding: .5rem; }
+}
+
+/* ===== DARK MODE CONTRAST FIXES ===== */
+/* Input e bordi leggibili in scuro */
+html[data-wcag-theme="dark"] .wcag-wp-search-input,
+@media (prefers-color-scheme: dark) {
+    .wcag-wp-search-input {
+        background: var(--wcag-white);
+        color: var(--wcag-gray-900);
+        border-color: var(--wcag-gray-300);
+    }
+}
+
+.wcag-wp-search-input::placeholder { color: var(--wcag-gray-600); opacity: 1; }
+
+/* Header tabella più staccato dallo sfondo in scuro */
+html[data-wcag-theme="dark"] .wcag-wp-table th { background: #2a2a2a; }
+html[data-wcag-theme="dark"] .wcag-wp-table-wrapper { background: var(--wcag-white); border-color: var(--wcag-gray-300); }
+html[data-wcag-theme="dark"] .wcag-wp-table tbody tr:hover { background: #222; }
+
+/* Bottoni contrastati su dark */
+html[data-wcag-theme="dark"] .wcag-wp-button--secondary {
+    background: transparent;
+    color: var(--wcag-primary);
+    border-color: var(--wcag-primary);
+}
+html[data-wcag-theme="dark"] .wcag-wp-button--secondary:hover,
+html[data-wcag-theme="dark"] .wcag-wp-button--secondary:focus {
+    background: var(--wcag-primary);
+    color: var(--wcag-primary-contrast);
+}
+
+
 /* ===== PRINT STYLES ===== */
 @media print {
     .wcag-wp-table-controls,
@@ -652,7 +927,8 @@
     border-radius: var(--wcag-radius);
     overflow: hidden;
     background: var(--wcag-white);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: var(--wcag-gray-900);
+    box-shadow: var(--wcag-shadow-md);
 }
 
 .wcag-wp-carousel-container {
@@ -697,50 +973,91 @@
 }
 
 .wcag-wp-carousel-content {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: var(--wcag-space-6);
-    height: 100%;
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7));
-    color: var(--wcag-white);
+    padding: var(--wcag-space-4) var(--wcag-space-6);
+    text-align: left;
+    /* Banda contrastata - default tema chiaro */
+    background: rgba(255, 255, 255, 0.7);
+    color: #111827;
+    backdrop-filter: blur(4px);
+}
+
+/* Banda contrastata per tema scuro */
+html[data-wcag-theme="dark"] .wcag-wp-carousel-content {
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+}
+
+html[data-wcag-theme="dark"] .wcag-wp-carousel-title,
+html[data-wcag-theme="dark"] .wcag-wp-carousel-text {
+    color: #ffffff;
+}
+
+/* Banda contrastata per preferenza sistema scuro */
+@media (prefers-color-scheme: dark) {
+    .wcag-wp-carousel-content {
+        background: rgba(0, 0, 0, 0.7);
+        color: #ffffff;
+    }
+    
+    .wcag-wp-carousel-title,
+    .wcag-wp-carousel-text {
+        color: #ffffff;
+    }
+}
+
+/* Override esplicito per tema chiaro */
+html[data-wcag-theme="light"] .wcag-wp-carousel-content {
+    background: rgba(255, 255, 255, 0.7);
+    color: #111827;
+}
+
+html[data-wcag-theme="light"] .wcag-wp-carousel-title,
+html[data-wcag-theme="light"] .wcag-wp-carousel-text {
+    color: #111827;
 }
 
 .wcag-wp-carousel-title {
-    margin: 0 0 var(--wcag-space-3) 0;
-    font-size: var(--wcag-text-2xl);
+    margin: 0 0 var(--wcag-space-2) 0;
+    font-size: var(--wcag-text-xl);
     font-weight: 600;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    line-height: 1.3;
+    color: inherit;
 }
 
 .wcag-wp-carousel-text {
-    margin: 0 0 var(--wcag-space-4) 0;
-    font-size: var(--wcag-text-lg);
-    line-height: 1.6;
-    max-width: 600px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    margin: 0 0 var(--wcag-space-3) 0;
+    font-size: var(--wcag-text-base);
+    line-height: 1.5;
+    opacity: 0.9;
+    color: inherit;
 }
 
 .wcag-wp-carousel-button {
     display: inline-block;
-    padding: var(--wcag-space-3) var(--wcag-space-4);
+    padding: var(--wcag-space-2) var(--wcag-space-4);
     background: var(--wcag-primary);
-    color: var(--wcag-white);
+    color: var(--wcag-primary-contrast);
     text-decoration: none;
     border-radius: var(--wcag-radius);
-    font-weight: 600;
-    transition: background-color var(--wcag-transition);
+    font-weight: 500;
+    font-size: var(--wcag-text-sm);
+    transition: all var(--wcag-transition);
+    border: 1px solid var(--wcag-primary);
 }
 
 .wcag-wp-carousel-button:hover,
 .wcag-wp-carousel-button:focus {
     background: var(--wcag-primary-dark);
-    color: var(--wcag-white);
+    border-color: var(--wcag-primary-dark);
+    color: var(--wcag-primary-contrast);
     text-decoration: none;
+    outline: var(--wcag-focus-ring);
+    outline-offset: var(--wcag-focus-ring-offset);
 }
 
 /* Carousel Controls */
@@ -751,20 +1068,23 @@
     z-index: 3;
     width: 50px;
     height: 50px;
-    background: rgba(255,255,255,0.9);
-    border: none;
+    background: var(--wcag-white);
+    color: var(--wcag-gray-900);
+    border: 1px solid var(--wcag-gray-300);
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color var(--wcag-transition);
+    transition: all var(--wcag-transition);
 }
 
 .wcag-wp-carousel-control:hover,
 .wcag-wp-carousel-control:focus {
-    background: rgba(255,255,255,1);
-    outline: 2px solid var(--wcag-primary);
+    background: var(--wcag-gray-50);
+    border-color: var(--wcag-primary);
+    outline: var(--wcag-focus-ring);
+    outline-offset: var(--wcag-focus-ring-offset);
 }
 
 .wcag-wp-carousel-control--prev {
@@ -905,13 +1225,14 @@
 
 .wcag-wp-calendar {
     max-width: 100%;
-    margin: 2rem 0;
-    font-family: var(--wcag-wp-font-family);
-    color: var(--wcag-wp-color-text);
-    background: var(--wcag-wp-color-background);
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: var(--wcag-space-8) 0;
+    font-family: var(--wcag-font-family);
+    color: var(--wcag-gray-900);
+    background: var(--wcag-white);
+    border-radius: var(--wcag-radius-lg);
+    box-shadow: var(--wcag-shadow-md);
     overflow: hidden;
+    border: 1px solid var(--wcag-gray-300);
 }
 
 /* Calendar Navigation */
@@ -919,28 +1240,29 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 1.5rem;
-    background: var(--wcag-wp-color-primary);
-    color: white;
+    padding: var(--wcag-space-4) var(--wcag-space-6);
+    background: var(--wcag-primary);
+    color: var(--wcag-primary-contrast);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .wcag-wp-calendar-title {
     margin: 0;
-    font-size: 1.25rem;
+    font-size: var(--wcag-text-lg);
     font-weight: 600;
+    color: inherit;
 }
 
 .wcag-wp-calendar-prev,
 .wcag-wp-calendar-next {
     background: rgba(255, 255, 255, 0.2);
     border: none;
-    color: white;
-    padding: 0.5rem;
-    border-radius: 4px;
+    color: var(--wcag-primary-contrast);
+    padding: var(--wcag-space-2);
+    border-radius: var(--wcag-radius);
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+    font-size: var(--wcag-text-base);
+    transition: all var(--wcag-transition);
     min-width: 44px;
     height: 44px;
     display: flex;
@@ -953,8 +1275,8 @@
 .wcag-wp-calendar-next:hover,
 .wcag-wp-calendar-next:focus {
     background: rgba(255, 255, 255, 0.3);
-    outline: 2px solid white;
-    outline-offset: 2px;
+    outline: var(--wcag-focus-ring);
+    outline-offset: var(--wcag-focus-ring-offset);
 }
 
 .wcag-wp-calendar-view-toggle {
@@ -965,32 +1287,32 @@
 .wcag-wp-calendar-view-btn {
     background: rgba(255, 255, 255, 0.2);
     border: none;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    color: var(--wcag-primary-contrast);
+    padding: var(--wcag-space-2) var(--wcag-space-4);
+    border-radius: var(--wcag-radius);
     cursor: pointer;
-    font-size: 0.875rem;
-    transition: background-color 0.3s ease;
+    font-size: var(--wcag-text-sm);
+    transition: all var(--wcag-transition);
 }
 
 .wcag-wp-calendar-view-btn:hover,
 .wcag-wp-calendar-view-btn:focus {
     background: rgba(255, 255, 255, 0.3);
-    outline: 2px solid white;
-    outline-offset: 2px;
+    outline: var(--wcag-focus-ring);
+    outline-offset: var(--wcag-focus-ring-offset);
 }
 
 .wcag-wp-calendar-view-btn.active,
 .wcag-wp-calendar-view-btn[aria-pressed="true"] {
-    background: white;
-    color: var(--wcag-wp-color-primary);
+    background: var(--wcag-white);
+    color: var(--wcag-primary);
 }
 
 /* Calendar Grid */
 .wcag-wp-calendar-grid {
     display: block; /* il layout a griglia è gestito da header e body per compatibilità */
     gap: 1px;
-    background: var(--wcag-wp-color-border);
+    background: var(--wcag-gray-300);
 }
 
 .wcag-wp-calendar-header {
@@ -999,13 +1321,13 @@
 }
 
 .wcag-wp-calendar-day-header {
-    background: var(--wcag-wp-color-background-secondary);
-    padding: 0.75rem 0.5rem;
+    background: var(--wcag-gray-50);
+    padding: var(--wcag-space-3) var(--wcag-space-2);
     text-align: center;
     font-weight: 600;
-    font-size: 0.875rem;
-    color: var(--wcag-wp-color-text-secondary);
-    border-bottom: 1px solid var(--wcag-wp-color-border);
+    font-size: var(--wcag-text-sm);
+    color: var(--wcag-gray-700);
+    border-bottom: 1px solid var(--wcag-gray-300);
 }
 
 .wcag-wp-calendar-grid-body {
@@ -1014,56 +1336,58 @@
 }
 
 .wcag-wp-calendar-day {
-    background: var(--wcag-wp-color-background);
+    background: var(--wcag-white);
     min-height: 100px;
-    padding: 0.5rem;
-    border: 1px solid var(--wcag-wp-color-border);
+    padding: var(--wcag-space-2);
+    border: 1px solid var(--wcag-gray-300);
     position: relative;
-    transition: background-color 0.2s ease;
+    transition: all var(--wcag-transition);
+    color: var(--wcag-gray-900);
 }
 
 .wcag-wp-calendar-day:hover {
-    background: var(--wcag-wp-color-background-hover);
+    background: var(--wcag-gray-50);
 }
 
 .wcag-wp-calendar-day:focus {
-    outline: 3px solid var(--wcag-wp-color-primary);
-    outline-offset: 2px;
+    outline: var(--wcag-focus-ring);
+    outline-offset: var(--wcag-focus-ring-offset);
     z-index: 10;
-    box-shadow: 0 0 0 1px var(--wcag-wp-color-primary);
-    background: var(--wcag-wp-color-background-highlight);
+    box-shadow: 0 0 0 1px var(--wcag-primary);
+    background: var(--wcag-gray-100);
 }
 
 .wcag-wp-calendar-day.other-month {
-    background: var(--wcag-wp-color-background-muted);
-    color: var(--wcag-wp-color-text-muted);
+    background: var(--wcag-gray-100);
+    color: var(--wcag-gray-500);
 }
 
 .wcag-wp-calendar-day.today {
-    background: var(--wcag-wp-color-primary-light);
+    background: var(--wcag-primary-light, #e7f3ff);
     font-weight: 600;
+    color: var(--wcag-gray-900);
 }
 
 .wcag-wp-calendar-day.today:focus {
-    background: var(--wcag-wp-color-primary);
-    color: white;
-    outline: 3px solid var(--wcag-wp-color-primary);
-    outline-offset: 2px;
+    background: var(--wcag-primary);
+    color: var(--wcag-primary-contrast);
+    outline: var(--wcag-focus-ring);
+    outline-offset: var(--wcag-focus-ring-offset);
     z-index: 10;
-    box-shadow: 0 0 0 1px var(--wcag-wp-color-primary);
+    box-shadow: 0 0 0 1px var(--wcag-primary);
 }
 
 .wcag-wp-calendar-day.has-events {
-    background: var(--wcag-wp-color-background-highlight);
+    background: var(--wcag-gray-100);
 }
 
 .wcag-wp-calendar-day.has-events:focus {
-    background: var(--wcag-wp-color-primary);
-    color: white;
-    outline: 3px solid var(--wcag-wp-color-primary);
-    outline-offset: 2px;
+    background: var(--wcag-primary);
+    color: var(--wcag-primary-contrast);
+    outline: var(--wcag-focus-ring);
+    outline-offset: var(--wcag-focus-ring-offset);
     z-index: 10;
-    box-shadow: 0 0 0 1px var(--wcag-wp-color-primary);
+    box-shadow: 0 0 0 1px var(--wcag-primary);
 }
 
 .wcag-wp-calendar-day-number {

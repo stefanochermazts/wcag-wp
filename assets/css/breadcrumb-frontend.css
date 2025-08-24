@@ -1,0 +1,356 @@
+/**
+ * WCAG Breadcrumb Component - Frontend CSS
+ * 
+ * Componente di navigazione breadcrumb accessibile WCAG 2.1 AA compliant
+ * Design system unificato con variabili CSS globali
+ * 
+ * @package WCAG_WP
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   WCAG Breadcrumb Component
+   ========================================================================== */
+
+.wcag-wp-breadcrumb {
+    /* Design System Variables */
+    --wcag-wp-bg: var(--wcag-white);
+    --wcag-wp-text: var(--wcag-gray-900);
+    --wcag-wp-border: var(--wcag-gray-300);
+    --wcag-wp-focus: var(--wcag-primary);
+    --wcag-wp-hover: var(--wcag-primary-dark);
+    --wcag-wp-current: var(--wcag-gray-600);
+    --wcag-wp-separator: var(--wcag-gray-400);
+    
+    /* Component Specific */
+    --wcag-breadcrumb-padding: 12px 16px;
+    --wcag-breadcrumb-border-radius: 6px;
+    --wcag-breadcrumb-font-size: 14px;
+    --wcag-breadcrumb-line-height: 1.5;
+    --wcag-breadcrumb-separator-margin: 0 8px;
+    --wcag-breadcrumb-link-padding: 4px 8px;
+    --wcag-breadcrumb-link-border-radius: 4px;
+    --wcag-breadcrumb-focus-outline: 2px solid var(--wcag-wp-focus);
+    --wcag-breadcrumb-focus-offset: 2px;
+    
+    /* Base Styles */
+    background-color: var(--wcag-wp-bg);
+    color: var(--wcag-wp-text);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: var(--wcag-breadcrumb-font-size);
+    line-height: var(--wcag-breadcrumb-line-height);
+    margin: 0;
+    padding: var(--wcag-breadcrumb-padding);
+    border-radius: var(--wcag-breadcrumb-border-radius);
+    border: 1px solid var(--wcag-wp-border);
+}
+
+/* Navigation Container */
+.wcag-wp-breadcrumb[role="navigation"] {
+    /* Ensure proper semantic structure */
+}
+
+/* Breadcrumb List */
+.wcag-wp-breadcrumb-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0;
+}
+
+/* Breadcrumb Items */
+.wcag-wp-breadcrumb-item {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Breadcrumb Links */
+.wcag-wp-breadcrumb-link {
+    color: var(--wcag-wp-text);
+    text-decoration: none;
+    padding: var(--wcag-breadcrumb-link-padding);
+    border-radius: var(--wcag-breadcrumb-link-border-radius);
+    transition: all 0.2s ease;
+    display: inline-block;
+    min-height: 44px; /* WCAG touch target */
+    line-height: 36px; /* Center text vertically */
+    position: relative;
+}
+
+.wcag-wp-breadcrumb-link:hover {
+    color: var(--wcag-wp-hover);
+    background-color: var(--wcag-primary-light);
+    text-decoration: none;
+}
+
+.wcag-wp-breadcrumb-link:focus {
+    outline: var(--wcag-breadcrumb-focus-outline);
+    outline-offset: var(--wcag-breadcrumb-focus-offset);
+    background-color: var(--wcag-primary-light);
+    color: var(--wcag-wp-hover);
+}
+
+.wcag-wp-breadcrumb-link:active {
+    background-color: var(--wcag-primary-dark);
+    color: var(--wcag-white);
+}
+
+/* Current Page (Non-clickable) */
+.wcag-wp-breadcrumb-current {
+    color: var(--wcag-wp-current);
+    font-weight: 600;
+    padding: var(--wcag-breadcrumb-link-padding);
+    border-radius: var(--wcag-breadcrumb-link-border-radius);
+    background-color: var(--wcag-gray-100);
+    display: inline-block;
+    min-height: 44px; /* WCAG touch target */
+    line-height: 36px; /* Center text vertically */
+}
+
+/* Separators */
+.wcag-wp-breadcrumb-separator {
+    color: var(--wcag-wp-separator);
+    margin: var(--wcag-breadcrumb-separator-margin);
+    font-weight: 400;
+    user-select: none;
+    /* aria-hidden="true" ensures screen readers ignore separators */
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+/* Mobile First Approach */
+@media (max-width: 768px) {
+    .wcag-wp-breadcrumb {
+        --wcag-breadcrumb-padding: 8px 12px;
+        --wcag-breadcrumb-font-size: 13px;
+        --wcag-breadcrumb-separator-margin: 0 6px;
+        --wcag-breadcrumb-link-padding: 6px 8px;
+    }
+    
+    .wcag-wp-breadcrumb-list {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .wcag-wp-breadcrumb-item {
+        width: 100%;
+    }
+    
+    .wcag-wp-breadcrumb-separator {
+        display: none; /* Hide separators on mobile for cleaner look */
+    }
+    
+    /* Show hierarchy with indentation instead */
+    .wcag-wp-breadcrumb-item:not(:first-child) {
+        padding-left: 16px;
+        position: relative;
+    }
+    
+    .wcag-wp-breadcrumb-item:not(:first-child)::before {
+        content: '└─';
+        position: absolute;
+        left: 0;
+        color: var(--wcag-wp-separator);
+        font-size: 12px;
+    }
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .wcag-wp-breadcrumb {
+        --wcag-breadcrumb-padding: 10px 14px;
+        --wcag-breadcrumb-font-size: 13px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+    .wcag-wp-breadcrumb {
+        --wcag-breadcrumb-padding: 12px 16px;
+        --wcag-breadcrumb-font-size: 14px;
+    }
+}
+
+/* ==========================================================================
+   High Contrast Mode Support
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+    .wcag-wp-breadcrumb {
+        border-width: 2px;
+        --wcag-breadcrumb-focus-outline: 3px solid var(--wcag-wp-focus);
+    }
+    
+    .wcag-wp-breadcrumb-link:focus {
+        border: 2px solid var(--wcag-wp-focus);
+    }
+    
+    .wcag-wp-breadcrumb-current {
+        border: 2px solid var(--wcag-wp-current);
+    }
+}
+
+/* ==========================================================================
+   Dark Theme Support
+   ========================================================================== */
+
+html[data-wcag-theme="dark"] .wcag-wp-breadcrumb {
+    --wcag-wp-bg: var(--wcag-gray-900);
+    --wcag-wp-text: var(--wcag-gray-100);
+    --wcag-wp-border: var(--wcag-gray-700);
+    --wcag-wp-focus: var(--wcag-primary-light);
+    --wcag-wp-hover: var(--wcag-primary-light);
+    --wcag-wp-current: var(--wcag-gray-300);
+    --wcag-wp-separator: var(--wcag-gray-500);
+}
+
+html[data-wcag-theme="dark"] .wcag-wp-breadcrumb-link:hover {
+    background-color: var(--wcag-primary-dark);
+}
+
+html[data-wcag-theme="dark"] .wcag-wp-breadcrumb-current {
+    background-color: var(--wcag-gray-800);
+}
+
+/* ==========================================================================
+   Reduced Motion Support
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .wcag-wp-breadcrumb-link {
+        transition: none;
+    }
+    
+    .wcag-wp-breadcrumb-link:hover,
+    .wcag-wp-breadcrumb-link:focus,
+    .wcag-wp-breadcrumb-link:active {
+        transition: none;
+    }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+    .wcag-wp-breadcrumb {
+        background: none !important;
+        border: none !important;
+        color: #000 !important;
+        padding: 8px 0 !important;
+    }
+    
+    .wcag-wp-breadcrumb-link {
+        color: #000 !important;
+        text-decoration: underline !important;
+        background: none !important;
+    }
+    
+    .wcag-wp-breadcrumb-current {
+        background: none !important;
+        color: #000 !important;
+        font-weight: bold !important;
+    }
+    
+    .wcag-wp-breadcrumb-separator {
+        color: #000 !important;
+    }
+}
+
+/* ==========================================================================
+   Focus Management
+   ========================================================================== */
+
+/* Ensure focus is always visible */
+.wcag-wp-breadcrumb-link:focus-visible {
+    outline: var(--wcag-breadcrumb-focus-outline);
+    outline-offset: var(--wcag-breadcrumb-focus-offset);
+}
+
+/* Remove default focus styles for custom focus */
+.wcag-wp-breadcrumb-link:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ==========================================================================
+   Accessibility Enhancements
+   ========================================================================== */
+
+/* Screen reader only text for better context */
+.wcag-wp-breadcrumb .sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Ensure proper color contrast for all states */
+.wcag-wp-breadcrumb-link,
+.wcag-wp-breadcrumb-current {
+    /* Minimum contrast ratio 4.5:1 for normal text */
+    color: var(--wcag-wp-text);
+}
+
+.wcag-wp-breadcrumb-link:hover,
+.wcag-wp-breadcrumb-link:focus {
+    /* Minimum contrast ratio 3:1 for large text */
+    color: var(--wcag-wp-hover);
+}
+
+/* ==========================================================================
+   Customization Classes
+   ========================================================================== */
+
+/* Compact variant */
+.wcag-wp-breadcrumb.wcag-wp-breadcrumb--compact {
+    --wcag-breadcrumb-padding: 8px 12px;
+    --wcag-breadcrumb-font-size: 12px;
+    --wcag-breadcrumb-separator-margin: 0 6px;
+    --wcag-breadcrumb-link-padding: 3px 6px;
+}
+
+/* Large variant */
+.wcag-wp-breadcrumb.wcag-wp-breadcrumb--large {
+    --wcag-breadcrumb-padding: 16px 20px;
+    --wcag-breadcrumb-font-size: 16px;
+    --wcag-breadcrumb-separator-margin: 0 12px;
+    --wcag-breadcrumb-link-padding: 6px 12px;
+}
+
+/* Minimal variant (no background) */
+.wcag-wp-breadcrumb.wcag-wp-breadcrumb--minimal {
+    background: none;
+    border: none;
+    padding: 8px 0;
+}
+
+/* ==========================================================================
+   Animation States (when motion is allowed)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+    .wcag-wp-breadcrumb-link {
+        transition: color 0.2s ease, background-color 0.2s ease, transform 0.1s ease;
+    }
+    
+    .wcag-wp-breadcrumb-link:hover {
+        transform: translateY(-1px);
+    }
+    
+    .wcag-wp-breadcrumb-link:active {
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test WCAG Listbox</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #2271b1;
+        }
+        .shortcode-example {
+            background: #f6f7f7;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        .form-example {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            margin: 20px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+        .form-field {
+            margin-bottom: 20px;
+        }
+        .test-button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            background: #2271b1;
+            margin: 5px;
+        }
+        .accessibility-info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #2271b1;
+            margin: 20px 0;
+        }
+        .keyboard-shortcuts {
+            background: #f0f8f0;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #00a32a;
+            margin: 20px 0;
+        }
+        .keyboard-shortcuts kbd {
+            background: #1d2327;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test WCAG Listbox Component</h1>
+    
+    <div class="accessibility-info">
+        <h3>♿ Test di Accessibilità</h3>
+        <p><strong>Navigazione Tastiera Avanzata:</strong></p>
+        <ul>
+            <li><kbd>Tab</kbd> - Focus sul listbox</li>
+            <li><kbd>↓/↑</kbd> - Naviga opzioni</li>
+            <li><kbd>Space</kbd> - Seleziona/deseleziona</li>
+            <li><kbd>Ctrl+A</kbd> - Seleziona tutto (multiplo)</li>
+            <li><kbd>Shift+↓/↑</kbd> - Estendi selezione (multiplo)</li>
+            <li><kbd>Shift+Click</kbd> - Selezione range (multiplo)</li>
+            <li><kbd>Home/End</kbd> - Prima/ultima opzione</li>
+            <li><kbd>Caratteri</kbd> - Navigazione type-ahead</li>
+        </ul>
+        <p><strong>Screen Reader:</strong> Testa con NVDA, JAWS o VoiceOver per verificare gli annunci ARIA.</p>
+    </div>
+    
+    <div class="keyboard-shortcuts">
+        <h3>⌨️ Scorciatoie Avanzate</h3>
+        <p><strong>Selezione Multipla:</strong></p>
+        <ul>
+            <li><kbd>Ctrl+Click</kbd> - Aggiungi/rimuovi dalla selezione</li>
+            <li><kbd>Shift+Click</kbd> - Seleziona range dal ultimo selezionato</li>
+            <li><kbd>Ctrl+Shift+Home</kbd> - Seleziona dall'inizio alla posizione corrente</li>
+            <li><kbd>Ctrl+Shift+End</kbd> - Seleziona dalla posizione corrente alla fine</li>
+            <li><kbd>Esc</kbd> - Cancella selezione (se permesso)</li>
+        </ul>
+    </div>
+    
+    <div class="test-section">
+        <h2>🧪 Test Listbox Interattivi</h2>
+        <p>I seguenti listbox sono completamente funzionali e testano diversi tipi e modalità:</p>
+        
+        <form class="form-example">
+
+            <div class="form-field">
+                <h4>Selezione Categoria Singola</h4>
+                <div class="shortcode-example">
+                    [wcag-listbox id="50"]
+                </div>
+                <p><strong>Tipo:</strong> single | <strong>Sorgente:</strong> static | <strong>Selezione:</strong> Singola</p>
+            </div>
+    
+            <div class="form-field">
+                <h4>Selezione Multipla Competenze</h4>
+                <div class="shortcode-example">
+                    [wcag-listbox id="51"]
+                </div>
+                <p><strong>Tipo:</strong> multiple | <strong>Sorgente:</strong> static | <strong>Selezione:</strong> Multipla</p>
+            </div>
+    
+            <div class="form-field">
+                <h4>Lista Raggruppata Prodotti</h4>
+                <div class="shortcode-example">
+                    [wcag-listbox id="52"]
+                </div>
+                <p><strong>Tipo:</strong> grouped | <strong>Sorgente:</strong> static | <strong>Selezione:</strong> Singola</p>
+            </div>
+    
+            <div class="form-field">
+                <h4>Selezione Multipla Raggruppata Servizi</h4>
+                <div class="shortcode-example">
+                    [wcag-listbox id="53"]
+                </div>
+                <p><strong>Tipo:</strong> multi_grouped | <strong>Sorgente:</strong> static | <strong>Selezione:</strong> Multipla</p>
+            </div>
+    
+            <div class="form-field">
+                <h4>Lista Utenti WordPress</h4>
+                <div class="shortcode-example">
+                    [wcag-listbox id="54"]
+                </div>
+                <p><strong>Tipo:</strong> single | <strong>Sorgente:</strong> users | <strong>Selezione:</strong> Singola</p>
+            </div>
+    
+        </form>
+        
+        <div style="margin-top: 30px;">
+            <button type="button" class="test-button" onclick="showFormData()">Mostra Dati Form</button>
+            <button type="button" class="test-button" onclick="resetAllListboxes()">Reset Tutti</button>
+            <button type="button" class="test-button" onclick="selectAllInMultiple()">Seleziona Tutto (Multipli)</button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>📋 Test Programmatici</h2>
+        <p>Testa le funzionalità via JavaScript API:</p>
+        
+        <div>
+            <button class="test-button" onclick="testKeyboardNavigation()">
+                Test Navigazione Tastiera
+            </button>
+            <button class="test-button" onclick="testMultiSelection()">
+                Test Selezione Multipla
+            </button>
+            <button class="test-button" onclick="testScreenReaderAnnouncements()">
+                Test Annunci Screen Reader
+            </button>
+            <button class="test-button" onclick="validateAccessibility()">
+                Valida Accessibilità
+            </button>
+            <button class="test-button" onclick="testSearchFunctionality()">
+                Test Ricerca
+            </button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔧 API REST</h2>
+        <p>Test degli endpoint REST per opzioni dinamiche:</p>
+        
+        <div>
+
+            <div style="margin: 10px 0;">
+                <strong>Selezione Categoria Singola:</strong><br>
+                <code>GET /wp-json/wcag-wp/v1/listbox/50/options</code>
+            </div>
+    
+            <div style="margin: 10px 0;">
+                <strong>Selezione Multipla Competenze:</strong><br>
+                <code>GET /wp-json/wcag-wp/v1/listbox/51/options</code>
+            </div>
+    
+            <div style="margin: 10px 0;">
+                <strong>Lista Raggruppata Prodotti:</strong><br>
+                <code>GET /wp-json/wcag-wp/v1/listbox/52/options</code>
+            </div>
+    
+            <div style="margin: 10px 0;">
+                <strong>Selezione Multipla Raggruppata Servizi:</strong><br>
+                <code>GET /wp-json/wcag-wp/v1/listbox/53/options</code>
+            </div>
+    
+            <div style="margin: 10px 0;">
+                <strong>Lista Utenti WordPress:</strong><br>
+                <code>GET /wp-json/wcag-wp/v1/listbox/54/options</code>
+            </div>
+    
+        </div>
+    </div>
+    
+    <script>
+        function showFormData() {
+            const form = document.querySelector("form");
+            const formData = new FormData(form);
+            const data = {};
+            
+            for (let [key, value] of formData.entries()) {
+                if (data[key]) {
+                    if (Array.isArray(data[key])) {
+                        data[key].push(value);
+                    } else {
+                        data[key] = [data[key], value];
+                    }
+                } else {
+                    data[key] = value;
+                }
+            }
+            
+            console.log("Dati Form:", data);
+            alert("Dati form (vedi console): " + JSON.stringify(data, null, 2));
+        }
+        
+        function resetAllListboxes() {
+            document.querySelectorAll(".wcag-wp-listbox").forEach(listbox => {
+                const event = new CustomEvent("wcag-listbox-reset");
+                listbox.dispatchEvent(event);
+            });
+            
+            // Via API
+            if (typeof window.wcagListboxManager !== "undefined") {
+                window.wcagListboxManager.listboxes.forEach(listbox => {
+                    listbox.clearSelection();
+                });
+            }
+        }
+        
+        function selectAllInMultiple() {
+            if (typeof window.wcagListboxManager !== "undefined") {
+                window.wcagListboxManager.listboxes.forEach(listbox => {
+                    if (listbox.config.multiselectable) {
+                        listbox.selectAll();
+                    }
+                });
+            }
+        }
+        
+        function testKeyboardNavigation() {
+            alert("Test Navigazione Tastiera:\n\n" +
+                  "1. Usa Tab per focalizzare i listbox\n" +
+                  "2. Usa frecce ↓/↑ per navigare\n" +
+                  "3. Usa Space per selezionare\n" +
+                  "4. Usa Ctrl+A per selezionare tutto (multiplo)\n" +
+                  "5. Usa Shift+frecce per estendere selezione\n" +
+                  "6. Verifica focus visibile e annunci");
+        }
+        
+        function testMultiSelection() {
+            alert("Test Selezione Multipla:\n\n" +
+                  "1. Usa Ctrl+Click per selezioni multiple\n" +
+                  "2. Usa Shift+Click per selezione range\n" +
+                  "3. Verifica contatore selezioni\n" +
+                  "4. Testa Ctrl+A per selezionare tutto\n" +
+                  "5. Verifica annunci screen reader");
+        }
+        
+        function testScreenReaderAnnouncements() {
+            alert("Test Screen Reader:\n\n" +
+                  "1. Attiva screen reader (NVDA/JAWS/VoiceOver)\n" +
+                  "2. Naviga i listbox\n" +
+                  "3. Verifica annunci selezione\n" +
+                  "4. Controlla aria-live regions\n" +
+                  "5. Testa gruppi e descrizioni");
+        }
+        
+        function validateAccessibility() {
+            const issues = [];
+            
+            document.querySelectorAll(".wcag-wp-listbox").forEach((listbox, index) => {
+                const listboxEl = listbox.querySelector("[role=listbox]");
+                const options = listbox.querySelectorAll("[role=option]");
+                
+                if (!listboxEl) issues.push(`Listbox ${index + 1}: Manca role="listbox"`);
+                if (options.length === 0) issues.push(`Listbox ${index + 1}: Nessuna opzione trovata`);
+                if (listboxEl && !listboxEl.hasAttribute("aria-labelledby")) {
+                    issues.push(`Listbox ${index + 1}: Manca aria-labelledby`);
+                }
+                
+                options.forEach((option, optIndex) => {
+                    if (!option.hasAttribute("aria-selected")) {
+                        issues.push(`Listbox ${index + 1}, Opzione ${optIndex + 1}: Manca aria-selected`);
+                    }
+                });
+            });
+            
+            if (issues.length === 0) {
+                alert("✅ Validazione Accessibilità: Tutti i controlli ARIA sono presenti!");
+            } else {
+                alert("⚠️ Problemi di Accessibilità:\n\n" + issues.join("\n"));
+            }
+        }
+        
+        function testSearchFunctionality() {
+            const searchBoxes = document.querySelectorAll(".wcag-wp-listbox__search");
+            if (searchBoxes.length === 0) {
+                alert("Nessun campo di ricerca trovato nei listbox.");
+                return;
+            }
+            
+            alert(`Test Ricerca:\n\n` +
+                  `Trovati ${searchBoxes.length} campi di ricerca.\n` +
+                  `1. Digita nei campi di ricerca\n` +
+                  `2. Verifica filtro opzioni in tempo reale\n` +
+                  `3. Testa navigazione con frecce\n` +
+                  `4. Verifica annunci risultati`);
+        }
+        
+        // Listen for listbox changes
+        document.addEventListener("wcag-listbox-change", function(e) {
+            console.log("Listbox changed:", e.detail);
+        });
+        
+        console.log("🧪 Test WCAG Listbox caricato");
+        console.log("💡 Usa le funzioni di test per validare l'accessibilità");
+    </script>
+</body>
+</html>

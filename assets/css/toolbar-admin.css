@@ -1,0 +1,327 @@
+/**
+ * WCAG Toolbar Component - Admin CSS
+ * 
+ * Stili per l'interfaccia admin del componente Toolbar
+ * Design system unificato con variabili CSS globali
+ * 
+ * @package WCAG_WP
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   WCAG Toolbar Admin Styles
+   ========================================================================== */
+
+.wcag-wp-toolbar-config {
+    /* Design System Variables */
+    --wcag-wp-bg: var(--wcag-white);
+    --wcag-wp-text: var(--wcag-gray-900);
+    --wcag-wp-border: var(--wcag-gray-300);
+    --wcag-wp-focus: var(--wcag-primary);
+    --wcag-wp-hover: var(--wcag-primary-dark);
+    --wcag-wp-active: var(--wcag-primary);
+    --wcag-wp-disabled: var(--wcag-gray-400);
+    --wcag-wp-success: var(--wcag-green-500);
+    --wcag-wp-error: var(--wcag-red-500);
+    
+    /* Spacing Variables */
+    --wcag-space-1: 0.25rem;
+    --wcag-space-2: 0.5rem;
+    --wcag-space-3: 0.75rem;
+    --wcag-space-4: 1rem;
+    --wcag-space-6: 1.5rem;
+    --wcag-space-8: 2rem;
+    
+    /* Border Radius */
+    --wcag-radius-sm: 0.25rem;
+    --wcag-radius-md: 0.375rem;
+    --wcag-radius-lg: 0.5rem;
+    
+    /* Shadows */
+    --wcag-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --wcag-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --wcag-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Config Sections */
+.wcag-wp-config-section {
+    margin-bottom: var(--wcag-space-8);
+    padding: var(--wcag-space-6);
+    background-color: var(--wcag-wp-bg);
+    border: 1px solid var(--wcag-wp-border);
+    border-radius: var(--wcag-radius-lg);
+}
+
+.wcag-wp-config-section h3 {
+    margin-top: 0;
+    margin-bottom: var(--wcag-space-4);
+    color: var(--wcag-wp-text);
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+/* Groups Container */
+.wcag-wp-groups-container {
+    margin-bottom: var(--wcag-space-6);
+}
+
+/* Group Styles */
+.wcag-wp-group {
+    margin-bottom: var(--wcag-space-6);
+    border: 1px solid var(--wcag-wp-border);
+    border-radius: var(--wcag-radius-md);
+    background-color: var(--wcag-wp-bg);
+    box-shadow: var(--wcag-shadow-sm);
+}
+
+.wcag-wp-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--wcag-space-4);
+    background-color: var(--wcag-gray-50);
+    border-bottom: 1px solid var(--wcag-wp-border);
+    border-radius: var(--wcag-radius-md) var(--wcag-radius-md) 0 0;
+}
+
+.wcag-wp-group-header h4 {
+    margin: 0;
+    color: var(--wcag-wp-text);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.wcag-wp-group-actions {
+    display: flex;
+    gap: var(--wcag-space-2);
+}
+
+.wcag-wp-group-content {
+    padding: var(--wcag-space-4);
+}
+
+/* Controls Container */
+.wcag-wp-controls-container {
+    margin-top: var(--wcag-space-4);
+}
+
+.wcag-wp-controls-container h5 {
+    margin-top: 0;
+    margin-bottom: var(--wcag-space-3);
+    color: var(--wcag-wp-text);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.wcag-wp-controls {
+    margin-bottom: var(--wcag-space-4);
+}
+
+/* Control Styles */
+.wcag-wp-control {
+    margin-bottom: var(--wcag-space-4);
+    border: 1px solid var(--wcag-wp-border);
+    border-radius: var(--wcag-radius-md);
+    background-color: var(--wcag-wp-bg);
+}
+
+.wcag-wp-control-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--wcag-space-3) var(--wcag-space-4);
+    background-color: var(--wcag-gray-50);
+    border-bottom: 1px solid var(--wcag-wp-border);
+    border-radius: var(--wcag-radius-md) var(--wcag-radius-md) 0 0;
+}
+
+.wcag-wp-control-title {
+    font-weight: 500;
+    color: var(--wcag-wp-text);
+}
+
+.wcag-wp-control-actions {
+    display: flex;
+    gap: var(--wcag-space-2);
+}
+
+.wcag-wp-control-content {
+    padding: var(--wcag-space-4);
+}
+
+/* Button Styles */
+.wcag-wp-add-group,
+.wcag-wp-add-control {
+    background-color: var(--wcag-wp-success);
+    border-color: var(--wcag-wp-success);
+    color: var(--wcag-white);
+    font-weight: 500;
+}
+
+.wcag-wp-add-group:hover,
+.wcag-wp-add-control:hover {
+    background-color: var(--wcag-wp-success);
+    border-color: var(--wcag-wp-success);
+    opacity: 0.9;
+}
+
+.wcag-wp-remove-group,
+.wcag-wp-remove-control {
+    background-color: var(--wcag-wp-error);
+    border-color: var(--wcag-wp-error);
+    color: var(--wcag-white);
+}
+
+.wcag-wp-remove-group:hover,
+.wcag-wp-remove-control:hover {
+    background-color: var(--wcag-wp-error);
+    border-color: var(--wcag-wp-error);
+    opacity: 0.9;
+}
+
+.wcag-wp-toggle-group,
+.wcag-wp-toggle-control {
+    background-color: var(--wcag-gray-100);
+    border-color: var(--wcag-wp-border);
+    color: var(--wcag-wp-text);
+}
+
+.wcag-wp-toggle-group:hover,
+.wcag-wp-toggle-control:hover {
+    background-color: var(--wcag-gray-200);
+    border-color: var(--wcag-wp-border);
+}
+
+/* Form Table Adjustments */
+.wcag-wp-group .form-table th {
+    width: 25%;
+    padding: var(--wcag-space-3) var(--wcag-space-4) var(--wcag-space-3) 0;
+}
+
+.wcag-wp-group .form-table td {
+    padding: var(--wcag-space-3) 0;
+}
+
+/* Control Type Specific Fields */
+.wcag-wp-control-field[data-field="label"],
+.wcag-wp-control-field[data-field="icon"],
+.wcag-wp-control-field[data-field="action"],
+.wcag-wp-control-field[data-field="url"],
+.wcag-wp-control-field[data-field="target"] {
+    display: table-row;
+}
+
+.wcag-wp-control-type {
+    width: 100%;
+    max-width: 200px;
+}
+
+/* Focus States */
+.wcag-wp-group:focus-within,
+.wcag-wp-control:focus-within {
+    border-color: var(--wcag-wp-focus);
+    box-shadow: 0 0 0 1px var(--wcag-wp-focus);
+}
+
+/* Responsive Design */
+@media (max-width: 782px) {
+    .wcag-wp-group-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--wcag-space-2);
+    }
+    
+    .wcag-wp-control-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--wcag-space-2);
+    }
+    
+    .wcag-wp-group .form-table th,
+    .wcag-wp-group .form-table td {
+        display: block;
+        width: 100%;
+        padding: var(--wcag-space-2) 0;
+    }
+}
+
+/* Animation for Toggle */
+.wcag-wp-group-content,
+.wcag-wp-control-content {
+    transition: all 0.2s ease-in-out;
+}
+
+.wcag-wp-group.collapsed .wcag-wp-group-content,
+.wcag-wp-control.collapsed .wcag-wp-control-content {
+    display: none;
+}
+
+/* Empty State */
+.wcag-wp-groups-container:empty::after {
+    content: 'Nessun gruppo configurato. Clicca "Aggiungi Gruppo" per iniziare.';
+    display: block;
+    padding: var(--wcag-space-6);
+    text-align: center;
+    color: var(--wcag-wp-disabled);
+    font-style: italic;
+    background-color: var(--wcag-gray-50);
+    border: 2px dashed var(--wcag-wp-border);
+    border-radius: var(--wcag-radius-md);
+}
+
+.wcag-wp-controls:empty::after {
+    content: 'Nessun controllo in questo gruppo. Clicca "Aggiungi Controllo" per iniziare.';
+    display: block;
+    padding: var(--wcag-space-4);
+    text-align: center;
+    color: var(--wcag-wp-disabled);
+    font-style: italic;
+    background-color: var(--wcag-gray-50);
+    border: 1px dashed var(--wcag-wp-border);
+    border-radius: var(--wcag-radius-sm);
+}
+
+/* Sortable Styles */
+.wcag-wp-group.ui-sortable-helper {
+    box-shadow: var(--wcag-shadow-lg);
+    transform: rotate(2deg);
+}
+
+.wcag-wp-control.ui-sortable-helper {
+    box-shadow: var(--wcag-shadow-md);
+    transform: rotate(1deg);
+}
+
+.wcag-wp-group.ui-sortable-placeholder,
+.wcag-wp-control.ui-sortable-placeholder {
+    background-color: var(--wcag-gray-100);
+    border: 2px dashed var(--wcag-wp-border);
+    border-radius: var(--wcag-radius-md);
+    margin-bottom: var(--wcag-space-4);
+}
+
+/* High Contrast Support */
+@media (prefers-contrast: high) {
+    .wcag-wp-group,
+    .wcag-wp-control {
+        border-width: 2px;
+    }
+    
+    .wcag-wp-group:focus-within,
+    .wcag-wp-control:focus-within {
+        border-width: 3px;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .wcag-wp-group-content,
+    .wcag-wp-control-content,
+    .wcag-wp-group.ui-sortable-helper,
+    .wcag-wp-control.ui-sortable-helper {
+        transition: none;
+        transform: none;
+    }
+}

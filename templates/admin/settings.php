@@ -21,17 +21,17 @@ if (!current_user_can('manage_options')) {
 $plugin_instance = wcag_wp();
 $settings = $plugin_instance ? $plugin_instance->get_settings() : [];
 
-// Handle form submission
-if (isset($_POST['submit']) && wp_verify_nonce($_POST['wcag_wp_settings_nonce'], 'wcag_wp_settings')) {
-    $updated_settings = $plugin_instance->sanitize_settings($_POST['wcag_wp_settings']);
-    update_option('wcag_wp_settings', $updated_settings);
-    
+// Show success message after settings update
+if (isset($_GET['settings-updated']) && $_GET['settings-updated']) {
     echo '<div class="notice notice-success is-dismissible"><p>' . 
          esc_html__('Impostazioni salvate con successo!', 'wcag-wp') . 
          '</p></div>';
     
-    // Reload settings
-    $settings = $updated_settings;
+    // Force reload settings from database
+    $plugin_instance = wcag_wp();
+    if ($plugin_instance) {
+        $settings = get_option('wcag_wp_settings', []);
+    }
 }
 ?>
 
@@ -43,8 +43,8 @@ if (isset($_POST['submit']) && wp_verify_nonce($_POST['wcag_wp_settings_nonce'],
     
     <hr class="wp-header-end">
     
-    <form method="post" action="" class="wcag-wp-settings-form">
-        <?php wp_nonce_field('wcag_wp_settings', 'wcag_wp_settings_nonce'); ?>
+    <form method="post" action="options.php" class="wcag-wp-settings-form">
+        <?php settings_fields('wcag_wp_settings'); ?>
         
         <!-- Design System Settings -->
         <div class="settings-section">
@@ -81,6 +81,106 @@ if (isset($_POST['submit']) && wp_verify_nonce($_POST['wcag_wp_settings_nonce'],
                         </select>
                         <p class="description">
                             <?php esc_html_e('Tutti gli schemi rispettano i criteri di contrasto WCAG AA (4.5:1).', 'wcag-wp'); ?>
+                        </p>
+                    </td>
+                </tr>
+                
+                <!-- Colori Personalizzati -->
+                <tr id="custom-colors-row" style="display: <?php echo ($settings['design_system']['color_scheme'] ?? 'default') === 'custom' ? 'table-row' : 'none'; ?>;">
+                    <th scope="row">
+                        <label><?php esc_html_e('Colori Personalizzati', 'wcag-wp'); ?></label>
+                    </th>
+                    <td>
+                        <div class="custom-colors-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <label for="custom_primary"><?php esc_html_e('Colore Primario', 'wcag-wp'); ?></label><br>
+                                <input type="color" 
+                                       id="custom_primary" 
+                                       name="wcag_wp_settings[design_system][custom_primary]" 
+                                       value="<?php echo esc_attr($settings['design_system']['custom_primary'] ?? '#2563eb'); ?>" 
+                                       class="color-picker">
+                            </div>
+                            <div>
+                                <label for="custom_primary_dark"><?php esc_html_e('Primario Scuro', 'wcag-wp'); ?></label><br>
+                                <input type="color" 
+                                       id="custom_primary_dark" 
+                                       name="wcag_wp_settings[design_system][custom_primary_dark]" 
+                                       value="<?php echo esc_attr($settings['design_system']['custom_primary_dark'] ?? '#1d4ed8'); ?>" 
+                                       class="color-picker">
+                            </div>
+                            <div>
+                                <label for="custom_primary_light"><?php esc_html_e('Primario Chiaro', 'wcag-wp'); ?></label><br>
+                                <input type="color" 
+                                       id="custom_primary_light" 
+                                       name="wcag_wp_settings[design_system][custom_primary_light]" 
+                                       value="<?php echo esc_attr($settings['design_system']['custom_primary_light'] ?? '#dbeafe'); ?>" 
+                                       class="color-picker">
+                            </div>
+                            <div>
+                                <label for="custom_secondary"><?php esc_html_e('Colore Secondario', 'wcag-wp'); ?></label><br>
+                                <input type="color" 
+                                       id="custom_secondary" 
+                                       name="wcag_wp_settings[design_system][custom_secondary]" 
+                                       value="<?php echo esc_attr($settings['design_system']['custom_secondary'] ?? '#64748b'); ?>" 
+                                       class="color-picker">
+                            </div>
+                        </div>
+                        <p class="description">
+                            <?php esc_html_e('Personalizza i colori del design system. Assicurati che rispettino i contrasti WCAG AA.', 'wcag-wp'); ?>
+                        </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">
+                        <label for="theme_switcher"><?php esc_html_e('Switcher Tema in Header', 'wcag-wp'); ?></label>
+                    </th>
+                    <td>
+                        <fieldset>
+                            <label>
+                                <input type="checkbox"
+                                       id="theme_switcher"
+                                       name="wcag_wp_settings[design_system][theme_switcher]"
+                                       value="1"
+                                       <?php checked($settings['design_system']['theme_switcher'] ?? true); ?>>
+                                <?php esc_html_e('Mostra menubutton per scegliere Auto/Scuro/Chiaro', 'wcag-wp'); ?>
+                            </label>
+                            <p class="description">
+                                <?php esc_html_e('Implementa il pattern WAI-ARIA APG Menu Button con gestione tastiera.', 'wcag-wp'); ?>
+                            </p>
+                        </fieldset>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">
+                        <label for="default_theme"><?php esc_html_e('Tema di Default', 'wcag-wp'); ?></label>
+                    </th>
+                    <td>
+                        <select name="wcag_wp_settings[design_system][default_theme]" id="default_theme" class="regular-text">
+                            <option value="auto" <?php selected($settings['design_system']['default_theme'] ?? 'auto', 'auto'); ?>><?php esc_html_e('Auto (segue sistema)', 'wcag-wp'); ?></option>
+                            <option value="dark" <?php selected($settings['design_system']['default_theme'] ?? 'auto', 'dark'); ?>><?php esc_html_e('Scuro', 'wcag-wp'); ?></option>
+                            <option value="light" <?php selected($settings['design_system']['default_theme'] ?? 'auto', 'light'); ?>><?php esc_html_e('Chiaro', 'wcag-wp'); ?></option>
+                        </select>
+                        <p class="description">
+                            <?php esc_html_e('Tema applicato alla prima visita se l\'utente non ha ancora una preferenza salvata.', 'wcag-wp'); ?>
+                        </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">
+                        <label for="toggle_position_selector"><?php esc_html_e('Selettore Posizionamento Toggle', 'wcag-wp'); ?></label>
+                    </th>
+                    <td>
+                        <input type="text" 
+                               id="toggle_position_selector"
+                               name="wcag_wp_settings[design_system][toggle_position_selector]" 
+                               value="<?php echo esc_attr($settings['design_system']['toggle_position_selector'] ?? ''); ?>"
+                               class="regular-text"
+                               placeholder=".my-header-container, #custom-nav">
+                        <p class="description">
+                            <?php esc_html_e('Selettore CSS personalizzato per posizionare il toggle (es: ".my-header", "#navigation"). Se vuoto, usa la logica automatica.', 'wcag-wp'); ?>
                         </p>
                     </td>
                 </tr>
@@ -473,4 +573,47 @@ if (isset($_POST['submit']) && wp_verify_nonce($_POST['wcag_wp_settings_nonce'],
 #wcag-wp-save-settings {
     margin: 20px 0;
 }
+
+.custom-colors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.custom-colors-grid > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-colors-grid label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.color-picker {
+    width: 60px;
+    height: 40px;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    cursor: pointer;
+}
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const colorSchemeSelect = document.getElementById('color_scheme');
+    const customColorsRow = document.getElementById('custom-colors-row');
+    
+    function toggleCustomColors() {
+        if (colorSchemeSelect.value === 'custom') {
+            customColorsRow.style.display = 'table-row';
+        } else {
+            customColorsRow.style.display = 'none';
+        }
+    }
+    
+    colorSchemeSelect.addEventListener('change', toggleCustomColors);
+    toggleCustomColors(); // Inizializza lo stato
+});
+</script>

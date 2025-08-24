@@ -1,0 +1,448 @@
+/**
+ * WCAG Notifications Frontend Styles
+ * 
+ * Accessible notification styling with WCAG 2.1 AA compliance
+ * - High contrast colors (4.5:1 minimum)
+ * - Clear visual hierarchy
+ * - Responsive design
+ * - Animation preferences support
+ * 
+ * @package WCAG_WP
+ * @since 1.0.0
+ */
+
+/* ===== BASE NOTIFICATION STYLES ===== */
+
+.wcag-wp-notification {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    min-height: 44px; /* WCAG minimum touch target */
+    padding: var(--wcag-space-4, 1rem);
+    margin: var(--wcag-space-4, 1rem) 0;
+    border-radius: var(--wcag-radius, 6px);
+    border: 2px solid;
+    font-family: var(--wcag-font-family, system-ui, -apple-system, sans-serif);
+    font-size: var(--wcag-text-base, 1rem);
+    line-height: 1.5;
+    box-shadow: var(--wcag-shadow, 0 2px 4px rgba(0, 0, 0, 0.1));
+    transition: all var(--wcag-transition, 200ms ease-out);
+    overflow: hidden;
+}
+
+.wcag-wp-notification:focus-within {
+    outline: var(--wcag-focus-ring, 2px solid #2271b1);
+    outline-offset: var(--wcag-focus-ring-offset, 2px);
+}
+
+/* Container for content layout */
+.wcag-wp-notification__container {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--wcag-space-3, 0.75rem);
+    width: 100%;
+    min-height: inherit;
+}
+
+/* ===== NOTIFICATION TYPES ===== */
+
+/* Success Notifications */
+.wcag-wp-notification--success {
+    background-color: #f0f8f0;
+    border-color: #00a32a;
+    color: #1a5a1a;
+}
+
+.wcag-wp-notification--success .wcag-wp-notification__icon {
+    color: #00a32a;
+}
+
+/* Info Notifications */
+.wcag-wp-notification--info {
+    background-color: #f0f6fc;
+    border-color: #2271b1;
+    color: #1a365d;
+}
+
+.wcag-wp-notification--info .wcag-wp-notification__icon {
+    color: #2271b1;
+}
+
+/* Warning Notifications */
+.wcag-wp-notification--warning {
+    background-color: #fef7e0;
+    border-color: #dba617;
+    color: #744c00;
+}
+
+.wcag-wp-notification--warning .wcag-wp-notification__icon {
+    color: #dba617;
+}
+
+/* Error Notifications */
+.wcag-wp-notification--error {
+    background-color: #fef2f2;
+    border-color: #d63638;
+    color: #7f1d1d;
+}
+
+.wcag-wp-notification--error .wcag-wp-notification__icon {
+    color: #d63638;
+}
+
+/* ===== ICON STYLING ===== */
+
+.wcag-wp-notification__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-top: 2px; /* Align with text baseline */
+}
+
+.wcag-wp-notification__icon-symbol {
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* ===== CONTENT STYLING ===== */
+
+.wcag-wp-notification__content {
+    flex: 1;
+    min-width: 0; /* Prevent flex item overflow */
+}
+
+.wcag-wp-notification__title {
+    font-weight: 600;
+    font-size: var(--wcag-text-lg, 1.125rem);
+    margin: 0 0 var(--wcag-space-2, 0.5rem) 0;
+    color: inherit;
+}
+
+.wcag-wp-notification__message {
+    margin: 0;
+    color: inherit;
+}
+
+.wcag-wp-notification__message p {
+    margin: 0 0 var(--wcag-space-2, 0.5rem) 0;
+}
+
+.wcag-wp-notification__message p:last-child {
+    margin-bottom: 0;
+}
+
+/* Links within notifications */
+.wcag-wp-notification__message a {
+    color: inherit;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.wcag-wp-notification__message a:hover,
+.wcag-wp-notification__message a:focus {
+    text-decoration: none;
+    outline: 1px solid currentColor;
+    outline-offset: 2px;
+}
+
+/* ===== CLOSE BUTTON ===== */
+
+.wcag-wp-notification__close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: -4px -4px 0 0; /* Extend touch target */
+    padding: 4px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--wcag-radius, 4px);
+    color: inherit;
+    cursor: pointer;
+    transition: all var(--wcag-transition, 200ms ease-out);
+    opacity: 0.7;
+}
+
+.wcag-wp-notification__close:hover,
+.wcag-wp-notification__close:focus {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-color: currentColor;
+    outline: var(--wcag-focus-ring, 2px solid currentColor);
+    outline-offset: var(--wcag-focus-ring-offset, 2px);
+}
+
+.wcag-wp-notification__close:active {
+    transform: scale(0.95);
+}
+
+.wcag-wp-notification__close-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+}
+
+.wcag-wp-notification__close-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== PROGRESS BAR (AUTO-DISMISS) ===== */
+
+.wcag-wp-notification__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.wcag-wp-notification__progress-bar {
+    height: 100%;
+    background-color: currentColor;
+    opacity: 0.6;
+    transform-origin: left center;
+    animation: wcag-notification-progress linear forwards;
+}
+
+@keyframes wcag-notification-progress {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
+    }
+}
+
+/* ===== POSITIONING ===== */
+
+/* Fixed Top Position */
+.wcag-wp-notification--position-top {
+    position: fixed;
+    top: var(--wcag-space-4, 1rem);
+    left: var(--wcag-space-4, 1rem);
+    right: var(--wcag-space-4, 1rem);
+    z-index: var(--wcag-z-toast, 1080);
+    margin: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Fixed Bottom Position */
+.wcag-wp-notification--position-bottom {
+    position: fixed;
+    bottom: var(--wcag-space-4, 1rem);
+    left: var(--wcag-space-4, 1rem);
+    right: var(--wcag-space-4, 1rem);
+    z-index: var(--wcag-z-toast, 1080);
+    margin: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Inline Position (default) */
+.wcag-wp-notification--position-inline {
+    position: relative;
+    width: 100%;
+}
+
+/* ===== ANIMATION STATES ===== */
+
+/* Entry Animation */
+.wcag-wp-notification--entering {
+    animation: wcag-notification-enter 300ms ease-out forwards;
+}
+
+@keyframes wcag-notification-enter {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Exit Animation */
+.wcag-wp-notification--exiting {
+    animation: wcag-notification-exit 200ms ease-in forwards;
+}
+
+@keyframes wcag-notification-exit {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+@media (max-width: 768px) {
+    .wcag-wp-notification {
+        padding: var(--wcag-space-3, 0.75rem);
+        margin: var(--wcag-space-3, 0.75rem) 0;
+        font-size: var(--wcag-text-sm, 0.875rem);
+    }
+    
+    .wcag-wp-notification--position-top,
+    .wcag-wp-notification--position-bottom {
+        left: var(--wcag-space-2, 0.5rem);
+        right: var(--wcag-space-2, 0.5rem);
+    }
+    
+    .wcag-wp-notification__container {
+        gap: var(--wcag-space-2, 0.5rem);
+    }
+    
+    .wcag-wp-notification__title {
+        font-size: var(--wcag-text-base, 1rem);
+    }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+
+/* Screen Reader Only Content */
+.wcag-wp-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .wcag-wp-notification {
+        border-width: 3px;
+        box-shadow: none;
+    }
+    
+    .wcag-wp-notification__close {
+        border-width: 2px;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .wcag-wp-notification,
+    .wcag-wp-notification__close,
+    .wcag-wp-notification__progress-bar {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .wcag-wp-notification--entering,
+    .wcag-wp-notification--exiting {
+        animation: none !important;
+    }
+    
+    .wcag-wp-notification__close:active {
+        transform: none;
+    }
+}
+
+/* ===== DARK THEME SUPPORT ===== */
+
+@media (prefers-color-scheme: dark) {
+    .wcag-wp-notification--success {
+        background-color: #0f2f0f;
+        border-color: #22c55e;
+        color: #86efac;
+    }
+    
+    .wcag-wp-notification--info {
+        background-color: #0f1729;
+        border-color: #3b82f6;
+        color: #93c5fd;
+    }
+    
+    .wcag-wp-notification--warning {
+        background-color: #2d1b00;
+        border-color: #f59e0b;
+        color: #fbbf24;
+    }
+    
+    .wcag-wp-notification--error {
+        background-color: #2d0a0a;
+        border-color: #ef4444;
+        color: #fca5a5;
+    }
+    
+    .wcag-wp-notification__close:hover,
+    .wcag-wp-notification__close:focus {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Explicit dark theme override */
+html[data-wcag-theme="dark"] .wcag-wp-notification--success {
+    background-color: #0f2f0f;
+    border-color: #22c55e;
+    color: #86efac;
+}
+
+html[data-wcag-theme="dark"] .wcag-wp-notification--info {
+    background-color: #0f1729;
+    border-color: #3b82f6;
+    color: #93c5fd;
+}
+
+html[data-wcag-theme="dark"] .wcag-wp-notification--warning {
+    background-color: #2d1b00;
+    border-color: #f59e0b;
+    color: #fbbf24;
+}
+
+html[data-wcag-theme="dark"] .wcag-wp-notification--error {
+    background-color: #2d0a0a;
+    border-color: #ef4444;
+    color: #fca5a5;
+}
+
+html[data-wcag-theme="dark"] .wcag-wp-notification__close:hover,
+html[data-wcag-theme="dark"] .wcag-wp-notification__close:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+    .wcag-wp-notification {
+        position: static !important;
+        box-shadow: none !important;
+        border: 2px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+        page-break-inside: avoid;
+    }
+    
+    .wcag-wp-notification__close,
+    .wcag-wp-notification__progress {
+        display: none !important;
+    }
+    
+    .wcag-wp-notification__icon {
+        color: #000 !important;
+    }
+}
+

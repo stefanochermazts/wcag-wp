@@ -1,0 +1,378 @@
+/**
+ * WCAG Toolbar Component - Frontend CSS
+ * 
+ * Componente toolbar accessibile WCAG 2.1 AA compliant
+ * Design system unificato con variabili CSS globali
+ * 
+ * @package WCAG_WP
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   WCAG Toolbar Component
+   ========================================================================== */
+
+.wcag-wp-toolbar {
+    /* Design System Variables */
+    --wcag-wp-bg: var(--wcag-white);
+    --wcag-wp-text: var(--wcag-gray-900);
+    --wcag-wp-border: var(--wcag-gray-300);
+    --wcag-wp-focus: var(--wcag-primary);
+    --wcag-wp-hover: var(--wcag-primary-dark);
+    --wcag-wp-active: var(--wcag-primary);
+    --wcag-wp-disabled: var(--wcag-gray-400);
+    
+    /* Component Specific Variables */
+    --wcag-toolbar-padding: var(--wcag-space-3) var(--wcag-space-4);
+    --wcag-toolbar-border-radius: var(--wcag-radius-md);
+    --wcag-toolbar-font-size: var(--wcag-text-base);
+    --wcag-toolbar-line-height: var(--wcag-leading-normal);
+    --wcag-toolbar-focus-outline: 2px solid var(--wcag-wp-focus);
+    --wcag-toolbar-focus-offset: 2px;
+    --wcag-toolbar-transition: all 0.2s ease;
+    
+    /* Base Styles */
+    display: flex;
+    flex-direction: column;
+    gap: var(--wcag-space-3);
+    padding: var(--wcag-toolbar-padding);
+    background-color: var(--wcag-wp-bg);
+    border: 1px solid var(--wcag-wp-border);
+    border-radius: var(--wcag-toolbar-border-radius);
+    font-family: var(--wcag-font-family);
+    font-size: var(--wcag-toolbar-font-size);
+    line-height: var(--wcag-toolbar-line-height);
+    box-shadow: var(--wcag-shadow-sm);
+}
+
+/* Toolbar Label */
+.wcag-wp-toolbar-label {
+    font-weight: 600;
+    color: var(--wcag-wp-text);
+    margin-bottom: var(--wcag-space-2);
+    padding-bottom: var(--wcag-space-2);
+    border-bottom: 1px solid var(--wcag-wp-border);
+}
+
+/* Toolbar Content */
+.wcag-wp-toolbar-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--wcag-space-4);
+    align-items: flex-start;
+}
+
+/* Horizontal Orientation */
+.wcag-wp-toolbar--horizontal .wcag-wp-toolbar-content {
+    flex-direction: row;
+}
+
+/* Vertical Orientation */
+.wcag-wp-toolbar--vertical .wcag-wp-toolbar-content {
+    flex-direction: column;
+}
+
+/* Toolbar Groups */
+.wcag-wp-toolbar-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--wcag-space-2);
+    align-items: center;
+    padding: var(--wcag-space-2);
+    background-color: var(--wcag-gray-50);
+    border: 1px solid var(--wcag-wp-border);
+    border-radius: var(--wcag-radius-sm);
+    min-height: 44px; /* WCAG AA touch target */
+}
+
+.wcag-wp-toolbar-group-label {
+    font-size: var(--wcag-text-sm);
+    font-weight: 500;
+    color: var(--wcag-wp-text);
+    margin-bottom: var(--wcag-space-1);
+    opacity: 0.8;
+}
+
+/* Toolbar Controls */
+.wcag-wp-toolbar-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--wcag-space-1);
+    align-items: center;
+}
+
+/* Toolbar Buttons */
+.wcag-wp-toolbar-button {
+    display: flex;
+    align-items: center;
+    gap: var(--wcag-space-2);
+    padding: var(--wcag-space-2) var(--wcag-space-3);
+    background-color: var(--wcag-wp-bg);
+    color: var(--wcag-wp-text);
+    border: 1px solid var(--wcag-wp-border);
+    border-radius: var(--wcag-radius-sm);
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    cursor: pointer;
+    transition: var(--wcag-toolbar-transition);
+    min-height: 44px; /* WCAG AA touch target */
+    min-width: 44px;
+    text-decoration: none;
+}
+
+.wcag-wp-toolbar-button:hover {
+    background-color: var(--wcag-gray-100);
+    border-color: var(--wcag-wp-hover);
+    color: var(--wcag-wp-hover);
+    transform: translateY(-1px);
+}
+
+.wcag-wp-toolbar-button:focus {
+    outline: var(--wcag-toolbar-focus-outline);
+    outline-offset: var(--wcag-toolbar-focus-offset);
+    background-color: var(--wcag-gray-50);
+    border-color: var(--wcag-wp-focus);
+}
+
+.wcag-wp-toolbar-button:active {
+    background-color: var(--wcag-gray-200);
+    border-color: var(--wcag-wp-active);
+    color: var(--wcag-wp-active);
+    transform: translateY(0);
+}
+
+.wcag-wp-toolbar-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: var(--wcag-gray-100);
+    color: var(--wcag-wp-disabled);
+}
+
+/* Toolbar Links */
+.wcag-wp-toolbar-link {
+    display: flex;
+    align-items: center;
+    gap: var(--wcag-space-2);
+    padding: var(--wcag-space-2) var(--wcag-space-3);
+    background-color: var(--wcag-wp-bg);
+    color: var(--wcag-wp-text);
+    border: 1px solid var(--wcag-wp-border);
+    border-radius: var(--wcag-radius-sm);
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    text-decoration: none;
+    transition: var(--wcag-toolbar-transition);
+    min-height: 44px; /* WCAG AA touch target */
+    min-width: 44px;
+}
+
+.wcag-wp-toolbar-link:hover {
+    background-color: var(--wcag-gray-100);
+    border-color: var(--wcag-wp-hover);
+    color: var(--wcag-wp-hover);
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.wcag-wp-toolbar-link:focus {
+    outline: var(--wcag-toolbar-focus-outline);
+    outline-offset: var(--wcag-toolbar-focus-offset);
+    background-color: var(--wcag-gray-50);
+    border-color: var(--wcag-wp-focus);
+    text-decoration: none;
+}
+
+.wcag-wp-toolbar-link:active {
+    background-color: var(--wcag-gray-200);
+    border-color: var(--wcag-wp-active);
+    color: var(--wcag-wp-active);
+    transform: translateY(0);
+}
+
+.wcag-wp-toolbar-link[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: var(--wcag-gray-100);
+    color: var(--wcag-wp-disabled);
+}
+
+/* Toolbar Icons */
+.wcag-wp-toolbar-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Toolbar Labels */
+.wcag-wp-toolbar-label {
+    flex: 1;
+    white-space: nowrap;
+}
+
+/* External Link Indicator */
+.wcag-wp-toolbar-external {
+    flex-shrink: 0;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* Toolbar Separators */
+.wcag-wp-toolbar-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1px;
+    height: 32px;
+    margin: 0 var(--wcag-space-2);
+    background-color: var(--wcag-wp-border);
+}
+
+.wcag-wp-toolbar-separator-line {
+    width: 100%;
+    height: 100%;
+    background-color: var(--wcag-wp-border);
+}
+
+/* Empty State */
+.wcag-wp-toolbar-empty {
+    text-align: center;
+    padding: var(--wcag-space-6);
+    color: var(--wcag-wp-disabled);
+    font-style: italic;
+}
+
+/* Screen Reader Only */
+.wcag-wp-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .wcag-wp-toolbar {
+        padding: var(--wcag-space-2) var(--wcag-space-3);
+    }
+    
+    .wcag-wp-toolbar-content {
+        gap: var(--wcag-space-2);
+    }
+    
+    .wcag-wp-toolbar-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--wcag-space-1);
+    }
+    
+    .wcag-wp-toolbar-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .wcag-wp-toolbar-button,
+    .wcag-wp-toolbar-link {
+        justify-content: center;
+        min-width: 100%;
+    }
+    
+    /* Vertical orientation on mobile */
+    .wcag-wp-toolbar--horizontal .wcag-wp-toolbar-content {
+        flex-direction: column;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .wcag-wp-toolbar-button,
+    .wcag-wp-toolbar-link {
+        transition: none;
+        transform: none;
+    }
+    
+    .wcag-wp-toolbar-button:hover,
+    .wcag-wp-toolbar-link:hover {
+        transform: none;
+    }
+    
+    .wcag-wp-toolbar-button:active,
+    .wcag-wp-toolbar-link:active {
+        transform: none;
+    }
+}
+
+/* High Contrast Support */
+@media (prefers-contrast: high) {
+    .wcag-wp-toolbar {
+        border-width: 2px;
+    }
+    
+    .wcag-wp-toolbar-group {
+        border-width: 2px;
+    }
+    
+    .wcag-wp-toolbar-button,
+    .wcag-wp-toolbar-link {
+        border-width: 2px;
+    }
+    
+    .wcag-wp-toolbar-button:focus,
+    .wcag-wp-toolbar-link:focus {
+        outline-width: 3px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .wcag-wp-toolbar {
+        border: 1px solid #000;
+        box-shadow: none;
+        background-color: #fff;
+    }
+    
+    .wcag-wp-toolbar-button,
+    .wcag-wp-toolbar-link {
+        border: 1px solid #000;
+        background-color: #fff;
+        color: #000;
+    }
+    
+    .wcag-wp-toolbar-button:hover,
+    .wcag-wp-toolbar-link:hover {
+        background-color: #f0f0f0;
+    }
+}
+
+/* Dark Theme Support */
+html[data-wcag-theme="dark"] .wcag-wp-toolbar {
+    /* Eredita automaticamente dalle variabili globali del design system */
+}
+
+/* Color Scheme Support */
+[data-wcag-color-scheme="green"] .wcag-wp-toolbar,
+.wcag-color-scheme-green .wcag-wp-toolbar {
+    /* Eredita automaticamente dalle variabili del design system */
+}
+
+[data-wcag-color-scheme="purple"] .wcag-wp-toolbar,
+.wcag-color-scheme-purple .wcag-wp-toolbar {
+    /* Eredita automaticamente dalle variabili del design system */
+}
+
+[data-wcag-color-scheme="orange"] .wcag-wp-toolbar,
+.wcag-color-scheme-orange .wcag-wp-toolbar {
+    /* Eredita automaticamente dalle variabili del design system */
+}

@@ -1,0 +1,415 @@
+/**
+ * Radio Group Component - Admin Styles
+ * 
+ * @package WCAG_WP
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   OPTIONS CONTAINER
+   ========================================================================== */
+
+.wcag-wp-options-container {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    margin-bottom: 16px;
+}
+
+.wcag-wp-option-row {
+    background-color: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.wcag-wp-option-row:last-child {
+    margin-bottom: 0;
+}
+
+.wcag-wp-option-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+/* ==========================================================================
+   OPTION FIELDS
+   ========================================================================== */
+
+.wcag-wp-option-value {
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.wcag-wp-option-label {
+    font-weight: 500;
+}
+
+.wcag-wp-option-description {
+    font-style: italic;
+    color: #666;
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+
+.wcag-wp-remove-option {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s ease;
+}
+
+.wcag-wp-remove-option:hover {
+    background-color: #c82333;
+}
+
+.wcag-wp-remove-option:focus {
+    outline: 2px solid #007cba;
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   PREVIEW CONTAINER
+   ========================================================================== */
+
+.wcag-wp-preview-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+.wcag-wp-preview-frame {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 20px;
+    background-color: #fff;
+    min-height: 200px;
+}
+
+.wcag-wp-preview-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+}
+
+.wcag-wp-preview-info {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.wcag-wp-preview-info h5 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #495057;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.wcag-wp-preview-info ul {
+    margin: 0;
+    padding-left: 16px;
+}
+
+.wcag-wp-preview-info li {
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+/* ==========================================================================
+   SHORTCODE DISPLAY
+   ========================================================================== */
+
+.wcag-wp-shortcode-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.wcag-wp-shortcode-display code {
+    background-color: #f1f3f4;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    flex: 1;
+    border: 1px solid #ddd;
+}
+
+.wcag-wp-copy-shortcode {
+    background-color: #007cba;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s ease;
+}
+
+.wcag-wp-copy-shortcode:hover {
+    background-color: #005a87;
+}
+
+.wcag-wp-copy-shortcode:focus {
+    outline: 2px solid #007cba;
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   PREVIEW ACTIONS
+   ========================================================================== */
+
+.wcag-wp-preview-actions {
+    text-align: center;
+    padding: 16px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+}
+
+.wcag-wp-refresh-preview {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.wcag-wp-refresh-preview:hover {
+    background-color: #5a6268;
+}
+
+.wcag-wp-refresh-preview:focus {
+    outline: 2px solid #007cba;
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY INFO
+   ========================================================================== */
+
+.wcag-wp-accessibility-info {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.wcag-wp-accessibility-section {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.wcag-wp-accessibility-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.wcag-wp-accessibility-section h5 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #495057;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.wcag-wp-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.wcag-wp-checklist-item {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.wcag-wp-checklist-item::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #28a745;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.wcag-wp-checklist-item--success::before {
+    color: #28a745;
+}
+
+.wcag-wp-checklist-item--warning::before {
+    content: '⚠';
+    color: #ffc107;
+}
+
+.wcag-wp-checklist-item--error::before {
+    content: '✗';
+    color: #dc3545;
+}
+
+/* ==========================================================================
+   KEYBOARD NAVIGATION TABLE
+   ========================================================================== */
+
+.wcag-wp-keyboard-nav {
+    margin-top: 12px;
+}
+
+.wcag-wp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.wcag-wp-table th,
+.wcag-wp-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.wcag-wp-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+}
+
+.wcag-wp-table kbd {
+    background-color: #f1f3f4;
+    border: 1px solid #c1c1c1;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-family: monospace;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+}
+
+/* ==========================================================================
+   TESTING CHECKLIST
+   ========================================================================== */
+
+.wcag-wp-testing-checklist h6 {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    color: #495057;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.wcag-wp-testing-checklist ul {
+    margin: 0 0 16px 0;
+    padding-left: 16px;
+    font-size: 13px;
+}
+
+.wcag-wp-testing-checklist li {
+    margin-bottom: 4px;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY FOOTER
+   ========================================================================== */
+
+.wcag-wp-accessibility-footer {
+    margin-top: 24px;
+    padding: 16px;
+    background-color: #e7f3ff;
+    border: 1px solid #b3d9ff;
+    border-radius: 6px;
+}
+
+.wcag-wp-accessibility-note {
+    margin: 0;
+    font-size: 14px;
+    color: #005a87;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .wcag-wp-preview-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .wcag-wp-option-fields {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .wcag-wp-option-fields .wcag-wp-remove-option {
+        justify-self: start;
+    }
+    
+    .wcag-wp-shortcode-display {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .wcag-wp-shortcode-display code {
+        text-align: center;
+    }
+}
+
+/* ==========================================================================
+   FOCUS STATES
+   ========================================================================== */
+
+.wcag-wp-option-row:focus-within {
+    border-color: #007cba;
+    box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
+}
+
+.wcag-wp-input:focus,
+.wcag-wp-textarea:focus,
+.wcag-wp-select:focus {
+    border-color: #007cba;
+    box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
+    outline: none;
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+
+.wcag-wp-option-row {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wcag-wp-remove-option,
+.wcag-wp-copy-shortcode,
+.wcag-wp-refresh-preview {
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.wcag-wp-remove-option:active,
+.wcag-wp-copy-shortcode:active,
+.wcag-wp-refresh-preview:active {
+    transform: translateY(1px);
+}

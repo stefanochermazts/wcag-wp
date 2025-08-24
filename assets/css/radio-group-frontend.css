@@ -1,0 +1,310 @@
+/**
+ * Radio Group Component - Frontend Styles
+ * Design System Unificato WCAG-WP
+ * 
+ * @package WCAG_WP
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   RADIO GROUP CONTAINER
+   ========================================================================== */
+
+.wcag-wp-radio-group {
+    background-color: var(--wcag-wp-bg);
+    color: var(--wcag-wp-text);
+    border: 1px solid var(--wcag-wp-border);
+    border-radius: 6px;
+    padding: 16px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.5;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Orientamento verticale (default) */
+.wcag-wp-radio-group--vertical .wcag-wp-radio-group__options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Orientamento orizzontale */
+.wcag-wp-radio-group--horizontal .wcag-wp-radio-group__options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+/* Dimensioni */
+.wcag-wp-radio-group--small {
+    font-size: 14px;
+    padding: 12px;
+}
+
+.wcag-wp-radio-group--small .wcag-wp-radio-option__custom {
+    width: 16px;
+    height: 16px;
+}
+
+.wcag-wp-radio-group--medium {
+    font-size: 16px;
+    padding: 16px;
+}
+
+.wcag-wp-radio-group--medium .wcag-wp-radio-option__custom {
+    width: 20px;
+    height: 20px;
+}
+
+.wcag-wp-radio-group--large {
+    font-size: 18px;
+    padding: 20px;
+}
+
+.wcag-wp-radio-group--large .wcag-wp-radio-option__custom {
+    width: 24px;
+    height: 24px;
+}
+
+/* ==========================================================================
+   TITLE & DESCRIPTION
+   ========================================================================== */
+
+.wcag-wp-radio-group__title {
+    color: var(--wcag-wp-text);
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.wcag-wp-radio-group__description {
+    color: var(--wcag-wp-text);
+    margin: 0 0 16px 0;
+    opacity: 0.8;
+    font-size: 0.95em;
+}
+
+.wcag-wp-required {
+    color: var(--wcag-red-500);
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   RADIO OPTIONS
+   ========================================================================== */
+
+.wcag-wp-radio-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    min-height: 44px; /* Touch target WCAG */
+    position: relative;
+}
+
+.wcag-wp-radio-option__input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.wcag-wp-radio-option__label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    flex: 1;
+    min-height: 44px;
+    padding: 8px 0;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.wcag-wp-radio-option__label:hover {
+    background-color: var(--wcag-gray-100);
+}
+
+/* Custom radio button */
+.wcag-wp-radio-option__custom {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--wcag-gray-300);
+    border-radius: 50%;
+    background-color: var(--wcag-wp-bg);
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+/* Checked state */
+.wcag-wp-radio-option__input:checked + .wcag-wp-radio-option__label .wcag-wp-radio-option__custom {
+    border-color: var(--wcag-primary);
+    background-color: var(--wcag-primary);
+}
+
+.wcag-wp-radio-option__input:checked + .wcag-wp-radio-option__label .wcag-wp-radio-option__custom::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background-color: var(--wcag-white);
+    border-radius: 50%;
+}
+
+/* Focus state */
+.wcag-wp-radio-option__input:focus + .wcag-wp-radio-option__label .wcag-wp-radio-option__custom {
+    outline: 2px solid var(--wcag-wp-focus);
+    outline-offset: 2px;
+}
+
+/* Disabled state */
+.wcag-wp-radio-option__input:disabled + .wcag-wp-radio-option__label {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.wcag-wp-radio-option__input:disabled + .wcag-wp-radio-option__label .wcag-wp-radio-option__custom {
+    border-color: var(--wcag-gray-300);
+    background-color: var(--wcag-gray-100);
+}
+
+.wcag-wp-radio-option__input:disabled:checked + .wcag-wp-radio-option__label .wcag-wp-radio-option__custom {
+    border-color: var(--wcag-gray-600);
+    background-color: var(--wcag-gray-600);
+}
+
+/* Text content */
+.wcag-wp-radio-option__text {
+    color: var(--wcag-wp-text);
+    font-weight: 500;
+    flex: 1;
+}
+
+/* Description for each option */
+.wcag-wp-radio-option__description {
+    color: var(--wcag-wp-text);
+    font-size: 0.9em;
+    opacity: 0.7;
+    margin-top: 4px;
+    margin-left: 28px; /* Align with text, not radio */
+}
+
+/* ==========================================================================
+   STATES & FEEDBACK
+   ========================================================================== */
+
+/* Error state */
+.wcag-wp-radio-group--error {
+    border-color: var(--wcag-red-500);
+}
+
+.wcag-wp-radio-group--error .wcag-wp-radio-group__title {
+    color: var(--wcag-red-500);
+}
+
+.wcag-wp-radio-group__error {
+    display: none;
+    color: var(--wcag-red-500);
+    font-size: 0.9em;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--wcag-red-500);
+    border-radius: 4px;
+}
+
+.wcag-wp-radio-group--error .wcag-wp-radio-group__error {
+    display: block;
+}
+
+/* Success state */
+.wcag-wp-radio-group--success {
+    border-color: var(--wcag-green-500);
+}
+
+/* ==========================================================================
+   NO OPTIONS MESSAGE
+   ========================================================================== */
+
+.wcag-wp-radio-group__no-options {
+    color: var(--wcag-wp-text);
+    opacity: 0.6;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+}
+
+/* ==========================================================================
+   SCREEN READER ONLY
+   ========================================================================== */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .wcag-wp-radio-group--horizontal .wcag-wp-radio-group__options {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .wcag-wp-radio-group {
+        padding: 12px;
+    }
+    
+    .wcag-wp-radio-group--large {
+        padding: 16px;
+    }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .wcag-wp-radio-group,
+    .wcag-wp-radio-option__label,
+    .wcag-wp-radio-option__custom {
+        transition: none;
+    }
+}
+
+/* ==========================================================================
+   HIGH CONTRAST MODE
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+    .wcag-wp-radio-option__custom {
+        border-width: 3px;
+    }
+    
+    .wcag-wp-radio-option__input:focus + .wcag-wp-radio-option__label .wcag-wp-radio-option__custom {
+        outline-width: 3px;
+    }
+}

@@ -60,6 +60,9 @@ final class WCAG_WP {
      */
     private function __construct() {
         $this->load_settings();
+        // Applica subito lo schema colori così l'attributo è presente su <html>
+        // prima del rendering dell'header del tema
+        $this->apply_color_scheme();
         $this->define_hooks();
         $this->load_components();
         
@@ -93,7 +96,14 @@ final class WCAG_WP {
                 'color_scheme' => 'default',
                 'font_family' => 'system-ui',
                 'focus_outline' => true,
-                'reduce_motion' => false
+                'reduce_motion' => false,
+                'theme_switcher' => true,
+                'default_theme' => 'auto',
+                'toggle_position_selector' => '',
+                'custom_primary' => '#2563eb',
+                'custom_primary_dark' => '#1d4ed8',
+                'custom_primary_light' => '#dbeafe',
+                'custom_secondary' => '#64748b'
             ],
             'accessibility' => [
                 'screen_reader_support' => true,
@@ -139,16 +149,28 @@ final class WCAG_WP {
      */
     private function load_components(): void {
         // Component files to load
-        $components = [
-            'tables' => 'includes/class-wcag-wp-tables.php',
-            'accordion' => 'includes/class-wcag-wp-accordion.php',
-            'tabpanel' => 'includes/class-wcag-wp-tabpanel.php',
-            'toc' => 'includes/class-wcag-wp-toc.php',
-            'carousel' => 'includes/class-wcag-wp-carousel.php',
-            'calendar' => 'includes/class-wcag-wp-calendar.php',
-            'design-system' => 'includes/class-design-system.php',
-            'accessibility' => 'includes/class-accessibility.php'
-        ];
+                    $components = [
+                'tables' => 'includes/class-wcag-wp-tables.php',
+                'accordion' => 'includes/class-wcag-wp-accordion.php',
+                'tabpanel' => 'includes/class-wcag-wp-tabpanel.php',
+                'toc' => 'includes/class-wcag-wp-toc.php',
+                'carousel' => 'includes/class-wcag-wp-carousel.php',
+                'calendar' => 'includes/class-wcag-wp-calendar.php',
+                'notifications' => 'includes/class-wcag-wp-notifications.php',
+                'breadcrumb' => 'includes/components/class-wcag-wp-breadcrumb.php',
+                'combobox' => 'includes/class-wcag-wp-combobox.php',
+                'listbox' => 'includes/class-wcag-wp-listbox.php',
+                'spinbutton' => 'includes/class-wcag-wp-spinbutton.php',
+                'switch' => 'includes/class-wcag-wp-switch.php',
+                'slider' => 'includes/class-wcag-wp-slider.php', // Added for Slider
+                'slider-multithumb' => 'includes/class-wcag-wp-slider-multithumb.php', // Added for Slider Multi-Thumb
+                'radio-group' => 'includes/class-wcag-wp-radio-group.php', // Added for Radio Group
+                'menu' => 'includes/class-wcag-wp-menu.php', // Added for Menu/Menubar
+                'menubutton' => 'includes/class-wcag-wp-menubutton.php', // Added for Menu Button
+                'toolbar' => 'includes/class-wcag-wp-toolbar.php', // Added for Toolbar
+                'design-system' => 'includes/class-design-system.php',
+                'accessibility' => 'includes/class-accessibility.php'
+            ];
         
         foreach ($components as $name => $file) {
             $file_path = WCAG_WP_PLUGIN_DIR . $file;
@@ -256,6 +278,60 @@ final class WCAG_WP {
             $this->components['calendar'] = new WCAG_WP_Calendar();
             wcag_wp_log('Calendar component initialized successfully', 'info');
         }
+
+        // Initialize Notifications component
+        if (class_exists('WCAG_WP_Notifications')) {
+            $this->components['notifications'] = new WCAG_WP_Notifications();
+            wcag_wp_log('Notifications component initialized successfully', 'info');
+        }
+
+        // Initialize Combobox component
+        if (class_exists('WCAG_WP_Combobox')) {
+            $this->components['combobox'] = new WCAG_WP_Combobox();
+            wcag_wp_log('Combobox component initialized successfully', 'info');
+        }
+
+        // Initialize Listbox component
+        if (class_exists('WCAG_WP_Listbox')) {
+            $this->components['listbox'] = new WCAG_WP_Listbox();
+            wcag_wp_log('Listbox component initialized successfully', 'info');
+        }
+
+        // Initialize Spinbutton component
+        if (class_exists('WCAG_WP_Spinbutton')) {
+            $this->components['spinbutton'] = WCAG_WP_Spinbutton::get_instance();
+            wcag_wp_log('Spinbutton component initialized successfully', 'info');
+        }
+
+        // Initialize Switch component
+        if (class_exists('WCAG_WP_Switch')) {
+            $this->components['switch'] = WCAG_WP_Switch::get_instance();
+            wcag_wp_log('Switch component initialized successfully', 'info');
+        }
+
+        // Initialize Slider component
+        if (class_exists('WCAG_WP_Slider')) {
+            $this->components['slider'] = WCAG_WP_Slider::get_instance();
+            wcag_wp_log('Slider component initialized successfully', 'info');
+        }
+
+        // Initialize Slider Multi-Thumb component
+        if (class_exists('WCAG_WP_Slider_Multithumb')) {
+            $this->components['slider_multithumb'] = WCAG_WP_Slider_Multithumb::get_instance();
+            wcag_wp_log('Slider Multi-Thumb component initialized successfully', 'info');
+        }
+
+        // Initialize Radio Group component
+        if (class_exists('WCAG_WP_Radio_Group')) {
+            $this->components['radio_group'] = WCAG_WP_Radio_Group::get_instance();
+            wcag_wp_log('Radio Group component initialized successfully', 'info');
+        }
+
+        // Initialize Breadcrumb component
+        if (class_exists('WCAG_WP\\Components\\WCAG_WP_Breadcrumb')) {
+            $this->components['breadcrumb'] = \WCAG_WP\Components\WCAG_WP_Breadcrumb::get_instance();
+            wcag_wp_log('Breadcrumb component initialized successfully', 'info');
+        }
     }
     
     /**
@@ -294,6 +370,12 @@ final class WCAG_WP {
         register_setting('wcag_wp_settings', 'wcag_wp_settings', [
             'sanitize_callback' => [$this, 'sanitize_settings']
         ]);
+        
+        // Handle settings page redirect
+        if (isset($_GET['settings-updated']) && $_GET['page'] === 'wcag-wp-settings') {
+            // Force reload settings after save
+            $this->load_settings();
+        }
     }
     
     /**
@@ -308,10 +390,21 @@ final class WCAG_WP {
         // Sanitize design system settings
         if (isset($input['design_system'])) {
             $sanitized['design_system'] = [
-                'color_scheme' => sanitize_text_field($input['design_system']['color_scheme'] ?? 'default'),
+                'color_scheme' => in_array(($input['design_system']['color_scheme'] ?? 'default'), ['default','green','purple','orange','custom'], true)
+                    ? $input['design_system']['color_scheme']
+                    : 'default',
                 'font_family' => sanitize_text_field($input['design_system']['font_family'] ?? 'system-ui'),
                 'focus_outline' => (bool)($input['design_system']['focus_outline'] ?? true),
-                'reduce_motion' => (bool)($input['design_system']['reduce_motion'] ?? false)
+                'reduce_motion' => (bool)($input['design_system']['reduce_motion'] ?? false),
+                'theme_switcher' => (bool)($input['design_system']['theme_switcher'] ?? true),
+                'default_theme' => in_array(($input['design_system']['default_theme'] ?? 'auto'), ['auto','dark','light'], true)
+                    ? $input['design_system']['default_theme']
+                    : 'auto',
+                'toggle_position_selector' => sanitize_text_field($input['design_system']['toggle_position_selector'] ?? ''),
+                'custom_primary' => sanitize_hex_color($input['design_system']['custom_primary'] ?? '#2563eb') ?: '#2563eb',
+                'custom_primary_dark' => sanitize_hex_color($input['design_system']['custom_primary_dark'] ?? '#1d4ed8') ?: '#1d4ed8',
+                'custom_primary_light' => sanitize_hex_color($input['design_system']['custom_primary_light'] ?? '#dbeafe') ?: '#dbeafe',
+                'custom_secondary' => sanitize_hex_color($input['design_system']['custom_secondary'] ?? '#64748b') ?: '#64748b'
             ];
         }
         
@@ -371,6 +464,7 @@ final class WCAG_WP {
      * @return void
      */
     public function enqueue_frontend_assets(): void {
+        // Always enqueue frontend assets for theme toggle and global styles
         wp_enqueue_style(
             'wcag-wp-frontend',
             WCAG_WP_ASSETS_URL . 'css/frontend.css',
@@ -390,10 +484,80 @@ final class WCAG_WP {
         wp_localize_script('wcag-wp-frontend', 'wcag_wp', [
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('wcag_wp_frontend_nonce'),
-            'settings' => $this->settings
+            'settings' => $this->settings,
+            'theme' => [
+                'switcher' => (bool)($this->settings['design_system']['theme_switcher'] ?? true),
+                'default' => $this->settings['design_system']['default_theme'] ?? 'auto',
+                'position_selector' => $this->settings['design_system']['toggle_position_selector'] ?? ''
+            ],
+            'color_scheme' => [
+                'current' => $this->settings['design_system']['color_scheme'] ?? 'default',
+                'custom_colors' => [
+                    'primary' => $this->settings['design_system']['custom_primary'] ?? '#2563eb',
+                    'primary_dark' => $this->settings['design_system']['custom_primary_dark'] ?? '#1d4ed8',
+                    'primary_light' => $this->settings['design_system']['custom_primary_light'] ?? '#dbeafe',
+                    'secondary' => $this->settings['design_system']['custom_secondary'] ?? '#64748b'
+                ]
+            ]
         ]);
+        
+        // Applica schema colori al body
+        $this->apply_color_scheme();
     }
     
+    /**
+     * Apply color scheme to body element
+     * 
+     * @return void
+     */
+    private function apply_color_scheme(): void {
+        $color_scheme = $this->settings['design_system']['color_scheme'] ?? 'default';
+        
+        // Aggiungi CSS inline per colori personalizzati se necessario
+        if ($color_scheme === 'custom') {
+            add_action('wp_head', [$this, 'add_custom_color_css']);
+        }
+        
+        // Applica schema colori direttamente al tag HTML (lato server) - priorità alta
+        add_filter('language_attributes', function($output) use ($color_scheme) {
+            return $output . ' data-wcag-color-scheme="' . esc_attr($color_scheme) . '"';
+        }, 5);
+        
+        // Applica anche via JavaScript immediatamente nell'head
+        add_action('wp_head', function() use ($color_scheme) {
+            echo '<script>document.documentElement.setAttribute("data-wcag-color-scheme", "' . esc_js($color_scheme) . '");</script>' . "\n";
+        }, 1);
+        
+        // Applica anche via body class come fallback
+        add_filter('body_class', function($classes) use ($color_scheme) {
+            $classes[] = 'wcag-color-scheme-' . $color_scheme;
+            return $classes;
+        });
+    }
+    
+    /**
+     * Add custom color CSS variables
+     * 
+     * @return void
+     */
+    public function add_custom_color_css(): void {
+        $custom_colors = [
+            'primary' => $this->settings['design_system']['custom_primary'] ?? '#2563eb',
+            'primary_dark' => $this->settings['design_system']['custom_primary_dark'] ?? '#1d4ed8',
+            'primary_light' => $this->settings['design_system']['custom_primary_light'] ?? '#dbeafe',
+            'secondary' => $this->settings['design_system']['custom_secondary'] ?? '#64748b'
+        ];
+        
+        echo '<style id="wcag-wp-custom-colors">' . "\n";
+        echo ':root {' . "\n";
+        echo '  --wcag-custom-primary: ' . esc_attr($custom_colors['primary']) . ';' . "\n";
+        echo '  --wcag-custom-primary-dark: ' . esc_attr($custom_colors['primary_dark']) . ';' . "\n";
+        echo '  --wcag-custom-primary-light: ' . esc_attr($custom_colors['primary_light']) . ';' . "\n";
+        echo '  --wcag-custom-secondary: ' . esc_attr($custom_colors['secondary']) . ';' . "\n";
+        echo '}' . "\n";
+        echo '</style>' . "\n";
+    }
+
     /**
      * Add accessibility meta tags to head
      * 

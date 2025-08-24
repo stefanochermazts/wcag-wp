@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test WCAG Combobox</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #2271b1;
+        }
+        .shortcode-example {
+            background: #f6f7f7;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        .form-example {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        .form-field {
+            margin-bottom: 20px;
+        }
+        .test-button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            background: #2271b1;
+            margin: 5px;
+        }
+        .accessibility-info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #2271b1;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test WCAG Combobox Component</h1>
+    
+    <div class="accessibility-info">
+        <h3>♿ Test di Accessibilità</h3>
+        <p><strong>Navigazione Tastiera:</strong></p>
+        <ul>
+            <li><kbd>Tab</kbd> - Focus sul combobox</li>
+            <li><kbd>↓/↑</kbd> - Naviga opzioni</li>
+            <li><kbd>Enter</kbd> - Seleziona opzione</li>
+            <li><kbd>Esc</kbd> - Chiudi popup</li>
+            <li><kbd>Home/End</kbd> - Prima/ultima opzione</li>
+        </ul>
+        <p><strong>Screen Reader:</strong> Testa con NVDA, JAWS o VoiceOver per verificare gli annunci ARIA.</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>🧪 Test Combobox Interattivi</h2>
+        <p>I seguenti combobox sono completamente funzionali e testano diversi tipi e sorgenti dati:</p>
+        
+        <form class="form-example">
+
+            <div class="form-field">
+                <h4>Ricerca Prodotti</h4>
+                <div class="shortcode-example">
+                    [wcag-combobox id="45"]
+                </div>
+                <p><strong>Tipo:</strong> autocomplete | <strong>Sorgente:</strong> static | <strong>Selezione:</strong> Singola</p>
+            </div>
+    
+            <div class="form-field">
+                <h4>Seleziona Categorie</h4>
+                <div class="shortcode-example">
+                    [wcag-combobox id="46"]
+                </div>
+                <p><strong>Tipo:</strong> select | <strong>Sorgente:</strong> static | <strong>Selezione:</strong> Multipla</p>
+            </div>
+    
+            <div class="form-field">
+                <h4>Ricerca Utenti WordPress</h4>
+                <div class="shortcode-example">
+                    [wcag-combobox id="47"]
+                </div>
+                <p><strong>Tipo:</strong> search | <strong>Sorgente:</strong> users | <strong>Selezione:</strong> Singola</p>
+            </div>
+    
+            <div class="form-field">
+                <h4>Filtro Post</h4>
+                <div class="shortcode-example">
+                    [wcag-combobox id="48"]
+                </div>
+                <p><strong>Tipo:</strong> filter | <strong>Sorgente:</strong> posts | <strong>Selezione:</strong> Singola</p>
+            </div>
+    
+            <div style="margin-top: 30px;">
+                <button type="submit" class="test-button">Testa Invio Form</button>
+                <button type="button" class="test-button" onclick="showFormData()">Mostra Dati Form</button>
+                <button type="button" class="test-button" onclick="resetForm()">Reset Form</button>
+            </div>
+        </form>
+    </div>
+    
+    <div class="test-section">
+        <h2>📋 Test Programmatici</h2>
+        <p>Testa le funzionalità via JavaScript:</p>
+        
+        <div>
+            <button class="test-button" onclick="testKeyboardNavigation()">
+                Test Navigazione Tastiera
+            </button>
+            <button class="test-button" onclick="testScreenReaderAnnouncements()">
+                Test Annunci Screen Reader
+            </button>
+            <button class="test-button" onclick="testDynamicOptions()">
+                Test Opzioni Dinamiche
+            </button>
+            <button class="test-button" onclick="validateAccessibility()">
+                Valida Accessibilità
+            </button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔧 API REST</h2>
+        <p>Test degli endpoint REST per ricerche dinamiche:</p>
+        
+        <div>
+
+            <div style="margin: 10px 0;">
+                <strong>Ricerca Prodotti:</strong><br>
+                <code>GET /wp-json/wcag-wp/v1/combobox/45/search?q=termine</code>
+            </div>
+    
+            <div style="margin: 10px 0;">
+                <strong>Seleziona Categorie:</strong><br>
+                <code>GET /wp-json/wcag-wp/v1/combobox/46/search?q=termine</code>
+            </div>
+    
+            <div style="margin: 10px 0;">
+                <strong>Ricerca Utenti WordPress:</strong><br>
+                <code>GET /wp-json/wcag-wp/v1/combobox/47/search?q=termine</code>
+            </div>
+    
+            <div style="margin: 10px 0;">
+                <strong>Filtro Post:</strong><br>
+                <code>GET /wp-json/wcag-wp/v1/combobox/48/search?q=termine</code>
+            </div>
+    
+        </div>
+    </div>
+    
+    <script>
+        function showFormData() {
+            const form = document.querySelector("form");
+            const formData = new FormData(form);
+            const data = {};
+            
+            for (let [key, value] of formData.entries()) {
+                if (data[key]) {
+                    if (Array.isArray(data[key])) {
+                        data[key].push(value);
+                    } else {
+                        data[key] = [data[key], value];
+                    }
+                } else {
+                    data[key] = value;
+                }
+            }
+            
+            console.log("Dati Form:", data);
+            alert("Dati form (vedi console): " + JSON.stringify(data, null, 2));
+        }
+        
+        function resetForm() {
+            document.querySelector("form").reset();
+            
+            // Reset comboboxes
+            document.querySelectorAll(".wcag-wp-combobox").forEach(combobox => {
+                const event = new CustomEvent("wcag-combobox-reset");
+                combobox.dispatchEvent(event);
+            });
+        }
+        
+        function testKeyboardNavigation() {
+            alert("Test Navigazione Tastiera:\n\n" +
+                  "1. Usa Tab per focalizzare i combobox\n" +
+                  "2. Usa frecce ↓/↑ per navigare\n" +
+                  "3. Usa Enter per selezionare\n" +
+                  "4. Usa Esc per chiudere\n" +
+                  "5. Verifica focus visibile");
+        }
+        
+        function testScreenReaderAnnouncements() {
+            alert("Test Screen Reader:\n\n" +
+                  "1. Attiva screen reader (NVDA/JAWS/VoiceOver)\n" +
+                  "2. Naviga i combobox\n" +
+                  "3. Verifica annunci stato\n" +
+                  "4. Controlla aria-live regions\n" +
+                  "5. Testa selezioni multiple");
+        }
+        
+        function testDynamicOptions() {
+            // Test API endpoints
+            const comboboxIds = [45,46,47,48];
+            
+            comboboxIds.forEach(id => {
+                fetch(`/wp-json/wcag-wp/v1/combobox/${id}/search?q=test`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(`Combobox ${id} API response:`, data);
+                    })
+                    .catch(error => {
+                        console.error(`Combobox ${id} API error:`, error);
+                    });
+            });
+            
+            alert("Test API in corso... Controlla la console per i risultati.");
+        }
+        
+        function validateAccessibility() {
+            const issues = [];
+            
+            document.querySelectorAll(".wcag-wp-combobox").forEach((combobox, index) => {
+                const input = combobox.querySelector("[role=combobox]");
+                const listbox = combobox.querySelector("[role=listbox]");
+                
+                if (!input) issues.push(`Combobox ${index + 1}: Manca role="combobox"`);
+                if (!listbox) issues.push(`Combobox ${index + 1}: Manca role="listbox"`);
+                if (input && !input.hasAttribute("aria-expanded")) {
+                    issues.push(`Combobox ${index + 1}: Manca aria-expanded`);
+                }
+                if (input && !input.hasAttribute("aria-controls")) {
+                    issues.push(`Combobox ${index + 1}: Manca aria-controls`);
+                }
+            });
+            
+            if (issues.length === 0) {
+                alert("✅ Validazione Accessibilità: Tutti i controlli ARIA sono presenti!");
+            } else {
+                alert("⚠️ Problemi di Accessibilità:\n\n" + issues.join("\n"));
+            }
+        }
+        
+        // Listen for combobox changes
+        document.addEventListener("wcag-combobox-change", function(e) {
+            console.log("Combobox changed:", e.detail);
+        });
+        
+        console.log("🧪 Test WCAG Combobox caricato");
+        console.log("💡 Usa le funzioni di test per validare l'accessibilità");
+    </script>
+</body>
+</html>

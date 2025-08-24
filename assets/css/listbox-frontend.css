@@ -1,0 +1,483 @@
+/**
+ * WCAG Listbox Frontend Styles
+ * 
+ * Accessible listbox styling following WCAG 2.1 AA guidelines
+ * Uses unified design system with --wcag-wp-* variables
+ * 
+ * @package WCAG_WP
+ * @since 1.0.0
+ */
+
+/* ===== BASE LISTBOX STYLES ===== */
+
+.wcag-wp-listbox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.wcag-wp-listbox__label {
+    display: block;
+    font-weight: 600;
+    color: var(--wcag-wp-text);
+    margin-bottom: 0.25rem;
+    cursor: pointer;
+}
+
+.wcag-wp-listbox__required {
+    color: var(--wcag-red-500);
+    margin-left: 0.25rem;
+}
+
+.wcag-wp-listbox__description {
+    font-size: 0.875rem;
+    color: var(--wcag-gray-600);
+    margin-bottom: 0.5rem;
+}
+
+/* ===== SEARCH FIELD ===== */
+
+.wcag-wp-listbox__search-container {
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.wcag-wp-listbox__search {
+    width: 100%;
+    min-height: 44px; /* WCAG minimum touch target */
+    padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+    border: 1px solid var(--wcag-wp-border);
+    border-radius: 6px;
+    background-color: var(--wcag-wp-bg);
+    color: var(--wcag-wp-text);
+    font-size: 1rem;
+    transition: all 200ms ease-out;
+}
+
+.wcag-wp-listbox__search:hover {
+    border-color: var(--wcag-gray-600);
+}
+
+.wcag-wp-listbox__search:focus {
+    outline: 2px solid var(--wcag-wp-focus);
+    outline-offset: 2px;
+    border-color: var(--wcag-wp-focus);
+}
+
+.wcag-wp-listbox__search::placeholder {
+    color: var(--wcag-gray-600);
+    opacity: 0.7;
+}
+
+.wcag-wp-listbox__search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--wcag-gray-600);
+    pointer-events: none;
+}
+
+/* ===== SELECTION COUNT ===== */
+
+.wcag-wp-listbox__selection-count {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--wcag-gray-50);
+    border: 1px solid var(--wcag-wp-border);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: var(--wcag-wp-text);
+    margin-bottom: 0.5rem;
+}
+
+.wcag-wp-listbox__count-text {
+    font-weight: 500;
+}
+
+/* ===== LISTBOX CONTAINER ===== */
+
+.wcag-wp-listbox__container {
+    position: relative;
+}
+
+.wcag-wp-listbox__listbox {
+    width: 100%;
+    border: 2px solid var(--wcag-gray-300, #d1d5db);
+    border-radius: var(--wcag-radius, 6px);
+    background: var(--wcag-white, #ffffff);
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: border-color var(--wcag-transition, 200ms ease-out);
+    
+    /* Default height based on size */
+    min-height: 200px;
+    max-height: 400px;
+}
+
+.wcag-wp-listbox__listbox:hover {
+    border-color: var(--wcag-gray-400, #9ca3af);
+}
+
+.wcag-wp-listbox__listbox:focus {
+    outline: var(--wcag-focus-ring, 2px solid #2563eb);
+    outline-offset: var(--wcag-focus-ring-offset, 2px);
+    border-color: var(--wcag-primary, #2563eb);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* ===== ORIENTATION VARIANTS ===== */
+
+.wcag-wp-listbox--horizontal .wcag-wp-listbox__listbox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-height: 60px;
+    max-height: 120px;
+}
+
+.wcag-wp-listbox--grid .wcag-wp-listbox__listbox {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--wcag-space-1, 0.25rem);
+    padding: var(--wcag-space-2, 0.5rem);
+}
+
+/* ===== GROUPS ===== */
+
+.wcag-wp-listbox__group {
+    border-bottom: 1px solid var(--wcag-gray-100, #f3f4f6);
+}
+
+.wcag-wp-listbox__group:last-child {
+    border-bottom: none;
+}
+
+.wcag-wp-listbox__group-label {
+    padding: var(--wcag-space-2, 0.5rem) var(--wcag-space-3, 0.75rem);
+    background: var(--wcag-gray-50, #f9fafb);
+    border-bottom: 1px solid var(--wcag-gray-200, #e5e7eb);
+    font-weight: 600;
+    font-size: var(--wcag-text-sm, 0.875rem);
+    color: var(--wcag-gray-700, #374151);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/* ===== OPTIONS ===== */
+
+.wcag-wp-listbox__option {
+    display: flex;
+    align-items: center;
+    gap: var(--wcag-space-3, 0.75rem);
+    padding: var(--wcag-space-3, 0.75rem);
+    cursor: pointer;
+    border-bottom: 1px solid var(--wcag-gray-100, #f3f4f6);
+    transition: all var(--wcag-transition, 200ms ease-out);
+    min-height: 44px; /* WCAG minimum touch target */
+    position: relative;
+}
+
+.wcag-wp-listbox__option:last-child {
+    border-bottom: none;
+}
+
+.wcag-wp-listbox__option:hover {
+    background: var(--wcag-gray-50, #f9fafb);
+}
+
+.wcag-wp-listbox__option[aria-selected="true"] {
+    background: var(--wcag-primary-light, #dbeafe);
+    color: var(--wcag-primary-dark, #1e40af);
+    border-color: var(--wcag-primary-light, #dbeafe);
+}
+
+.wcag-wp-listbox__option[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--wcag-gray-50, #f9fafb);
+    color: var(--wcag-gray-400, #9ca3af);
+}
+
+.wcag-wp-listbox__option--focused {
+    background: var(--wcag-primary, #2563eb);
+    color: var(--wcag-white, #ffffff);
+    outline: 2px solid var(--wcag-primary-dark, #1d4ed8);
+    outline-offset: -2px;
+}
+
+.wcag-wp-listbox__option--focused[aria-selected="true"] {
+    background: var(--wcag-primary-dark, #1d4ed8);
+}
+
+.wcag-wp-listbox__option--focused .wcag-wp-listbox__option-description {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ===== OPTION CONTENT ===== */
+
+.wcag-wp-listbox__option-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.wcag-wp-listbox__option-label {
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wcag-wp-listbox__option-description {
+    font-size: var(--wcag-text-sm, 0.875rem);
+    color: var(--wcag-gray-600, #4b5563);
+    margin-top: var(--wcag-space-1, 0.25rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ===== CHECKBOX (MULTIPLE SELECTION) ===== */
+
+.wcag-wp-listbox__option-checkbox {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--wcag-gray-300, #d1d5db);
+    border-radius: var(--wcag-radius-sm, 4px);
+    background: var(--wcag-white, #ffffff);
+    transition: all var(--wcag-transition, 200ms ease-out);
+    flex-shrink: 0;
+}
+
+.wcag-wp-listbox__option[aria-selected="true"] .wcag-wp-listbox__option-checkbox {
+    background: var(--wcag-primary, #2563eb);
+    border-color: var(--wcag-primary, #2563eb);
+    color: var(--wcag-white, #ffffff);
+}
+
+.wcag-wp-listbox__option--focused .wcag-wp-listbox__option-checkbox {
+    border-color: var(--wcag-white, #ffffff);
+}
+
+.wcag-wp-listbox__checkbox-icon {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* ===== SEPARATORS ===== */
+
+.wcag-wp-listbox__separator {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--wcag-gray-300, #d1d5db) 20%, var(--wcag-gray-300, #d1d5db) 80%, transparent);
+    margin: var(--wcag-space-2, 0.5rem) 0;
+}
+
+/* ===== NO OPTIONS ===== */
+
+.wcag-wp-listbox__no-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--wcag-space-6, 1.5rem);
+    color: var(--wcag-gray-500, #6b7280);
+    font-style: italic;
+    text-align: center;
+    min-height: 100px;
+}
+
+.wcag-wp-listbox__no-options-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--wcag-space-2, 0.5rem);
+}
+
+.wcag-wp-listbox__no-options-icon {
+    font-size: 24px;
+    opacity: 0.5;
+}
+
+.wcag-wp-listbox__no-options-text {
+    font-size: var(--wcag-text-sm, 0.875rem);
+}
+
+/* ===== STATES ===== */
+
+.wcag-wp-listbox--required .wcag-wp-listbox__listbox:invalid {
+    border-color: var(--wcag-red-500, #ef4444);
+}
+
+.wcag-wp-listbox--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.wcag-wp-listbox--error .wcag-wp-listbox__listbox {
+    border-color: var(--wcag-red-500, #ef4444);
+}
+
+.wcag-wp-listbox--success .wcag-wp-listbox__listbox {
+    border-color: var(--wcag-green-500, #10b981);
+}
+
+.wcag-wp-listbox--loading .wcag-wp-listbox__listbox {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.wcag-wp-listbox--loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--wcag-gray-200, #e5e7eb);
+    border-top: 2px solid var(--wcag-primary, #2563eb);
+    border-radius: 50%;
+    animation: wcag-listbox-spin 1s linear infinite;
+}
+
+@keyframes wcag-listbox-spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+@media (max-width: 768px) {
+    .wcag-wp-listbox__search {
+        font-size: 16px; /* Prevent zoom on iOS */
+        padding: var(--wcag-space-4, 1rem) 3rem var(--wcag-space-4, 1rem) var(--wcag-space-4, 1rem);
+    }
+    
+    .wcag-wp-listbox__option {
+        padding: var(--wcag-space-4, 1rem);
+        min-height: 48px;
+    }
+    
+    .wcag-wp-listbox--horizontal .wcag-wp-listbox__option {
+        min-width: 120px;
+        flex-shrink: 0;
+    }
+    
+    .wcag-wp-listbox--grid .wcag-wp-listbox__listbox {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .wcag-wp-listbox--horizontal .wcag-wp-listbox__listbox {
+        flex-direction: column;
+    }
+    
+    .wcag-wp-listbox--grid .wcag-wp-listbox__listbox {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+
+/* Screen Reader Only Content */
+.wcag-wp-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .wcag-wp-listbox__listbox {
+        border-width: 3px;
+    }
+    
+    .wcag-wp-listbox__option {
+        border-bottom-width: 2px;
+    }
+    
+    .wcag-wp-listbox__option-checkbox {
+        border-width: 3px;
+    }
+    
+    .wcag-wp-listbox__search {
+        border-width: 3px;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .wcag-wp-listbox__listbox,
+    .wcag-wp-listbox__option,
+    .wcag-wp-listbox__option-checkbox,
+    .wcag-wp-listbox__search {
+        transition: none !important;
+    }
+    
+    .wcag-wp-listbox--loading::after {
+        animation: none !important;
+    }
+}
+
+/* ===== DARK THEME SUPPORT ===== */
+/* Il tema scuro è gestito automaticamente dalle variabili CSS globali --wcag-wp-* */
+/* Nessun CSS aggiuntivo necessario - il design system unificato gestisce tutto */
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+    .wcag-wp-listbox__search-container,
+    .wcag-wp-listbox__selection-count {
+        display: none !important;
+    }
+    
+    .wcag-wp-listbox__listbox {
+        border: 2px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+    
+    .wcag-wp-listbox__option {
+        border-bottom: 1px solid #000 !important;
+        background: transparent !important;
+        color: #000 !important;
+    }
+    
+    .wcag-wp-listbox__option[aria-selected="true"] {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+    }
+    
+    .wcag-wp-listbox__option-checkbox {
+        border: 2px solid #000 !important;
+        background: #fff !important;
+    }
+    
+    .wcag-wp-listbox__option[aria-selected="true"] .wcag-wp-listbox__option-checkbox {
+        background: #000 !important;
+        color: #fff !important;
+    }
+}

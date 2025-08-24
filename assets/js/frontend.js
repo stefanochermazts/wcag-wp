@@ -12,6 +12,10 @@
 'use strict';
 
 (function() {
+    // Debug: log script loading
+    console.log('WCAG-WP Frontend script loaded');
+    console.log('wcag_wp object:', typeof wcag_wp !== 'undefined' ? wcag_wp : 'undefined');
+    
     // Ensure wcag_wp object exists
     if (typeof wcag_wp === 'undefined') {
         console.warn('WCAG-WP: Frontend configuration object not found');
@@ -33,6 +37,11 @@
          */
         init() {
             this.setupAccessibilityFeatures();
+            // Initialize color scheme first
+            this.setupColorScheme();
+            
+            // Initialize theme toggle
+            this.setupThemeToggle();
             this.initializeComponents();
             this.bindGlobalEvents();
             
@@ -276,6 +285,277 @@
             document.addEventListener('visibilitychange', () => {
                 this.handleVisibilityChange();
             });
+        }
+
+        /**
+         * Apply color scheme from settings
+         */
+        setupColorScheme() {
+            if (this.config.color_scheme && this.config.color_scheme.current) {
+                const scheme = this.config.color_scheme.current;
+                
+                // Apply color scheme if not already set
+                if (!document.documentElement.hasAttribute('data-wcag-color-scheme')) {
+                    document.documentElement.setAttribute('data-wcag-color-scheme', scheme);
+                }
+                
+                // Apply custom colors if needed
+                if (scheme === 'custom' && this.config.color_scheme.custom_colors) {
+                    this.applyCustomColors(this.config.color_scheme.custom_colors);
+                }
+            }
+        }
+        
+        /**
+         * Apply custom color CSS variables
+         */
+        applyCustomColors(colors) {
+            let style = document.getElementById('wcag-wp-custom-colors-js');
+            if (!style) {
+                style = document.createElement('style');
+                style.id = 'wcag-wp-custom-colors-js';
+                document.head.appendChild(style);
+            }
+            
+            style.textContent = `
+                :root {
+                    --wcag-custom-primary: ${colors.primary};
+                    --wcag-custom-primary-dark: ${colors.primary_dark};
+                    --wcag-custom-primary-light: ${colors.primary_light};
+                    --wcag-custom-secondary: ${colors.secondary};
+                }
+            `;
+        }
+
+        /**
+         * Theme toggle (auto / dark / light)
+         */
+        setupThemeToggle() {
+            console.log('WCAG-WP: setupThemeToggle called');
+            console.log('WCAG-WP: theme config:', this.config.theme);
+            
+            const THEME_KEY = 'wcagTheme';
+            const htmlEl = document.documentElement;
+
+            const applyTheme = (theme) => {
+                if (!theme || theme === 'auto') {
+                    htmlEl.removeAttribute('data-wcag-theme');
+                } else if (theme === 'dark' || theme === 'light') {
+                    htmlEl.setAttribute('data-wcag-theme', theme);
+                }
+                updateButton(theme);
+            };
+
+            const storeTheme = (theme) => {
+                try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+            };
+
+            const getStoredTheme = () => {
+                try {
+                    const v = localStorage.getItem(THEME_KEY);
+                    return v === null ? null : v;
+                } catch (e) { return null; }
+            };
+
+            const getNextTheme = (theme) => {
+                if (theme === 'auto') return 'dark';
+                if (theme === 'dark') return 'light';
+                return 'auto';
+            };
+
+            // If switcher disabled from settings, skip creating button but apply default theme
+            if (!this.config.theme || this.config.theme.switcher === false) {
+                console.log('WCAG-WP: Theme switcher disabled or not configured');
+                console.log('WCAG-WP: config.theme:', this.config.theme);
+                // Apply default theme from settings, not stored theme
+                const initial = this.config.theme ? this.config.theme.default : 'auto';
+                applyTheme(initial);
+                return;
+            }
+            
+            console.log('WCAG-WP: Theme switcher enabled, creating toggle...');
+
+            // Create APG menu button in header
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'wcag-wp-theme-toggle wcag-wp-button--secondary';
+            button.setAttribute('aria-haspopup', 'menu');
+            button.setAttribute('aria-expanded', 'false');
+            button.innerHTML = '<span class="wcag-wp-theme-icon" aria-hidden="true">🌓</span><span class="wcag-wp-theme-text"></span>';
+
+            const menu = document.createElement('div');
+            menu.className = 'wcag-wp-theme-menu';
+            menu.setAttribute('role', 'menu');
+            menu.setAttribute('hidden', '');
+            const options = [
+                { value: 'auto', label: 'Auto' },
+                { value: 'dark', label: 'Scuro' },
+                { value: 'light', label: 'Chiaro' }
+            ];
+            options.forEach((opt, idx) => {
+                const item = document.createElement('button');
+                item.type = 'button';
+                item.className = 'wcag-wp-theme-item';
+                item.setAttribute('role', 'menuitemradio');
+                item.setAttribute('aria-checked', 'false');
+                item.dataset.value = opt.value;
+                item.textContent = opt.label;
+                item.tabIndex = -1;
+                item.addEventListener('click', () => {
+                    storeTheme(opt.value);
+                    applyTheme(opt.value);
+                    closeMenu();
+                    this.announceToScreenReader(`Tema impostato su ${opt.label}`);
+                    button.focus();
+                });
+                item.addEventListener('keydown', (e) => {
+                    const idxNow = options.findIndex(o => o.value === item.dataset.value);
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        menu.querySelectorAll('.wcag-wp-theme-item')[Math.min(idxNow + 1, options.length - 1)].focus();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        menu.querySelectorAll('.wcag-wp-theme-item')[Math.max(idxNow - 1, 0)].focus();
+                    } else if (e.key === 'Home') {
+                        e.preventDefault();
+                        menu.querySelectorAll('.wcag-wp-theme-item')[0].focus();
+                    } else if (e.key === 'End') {
+                        e.preventDefault();
+                        menu.querySelectorAll('.wcag-wp-theme-item')[options.length - 1].focus();
+                    } else if (e.key === 'Escape') {
+                        e.preventDefault();
+                        closeMenu();
+                        button.focus();
+                    }
+                });
+                menu.appendChild(item);
+            });
+
+            const updateButton = (theme) => {
+                const text = button.querySelector('.wcag-wp-theme-text');
+                const map = { auto: 'Auto', dark: 'Scuro', light: 'Chiaro' };
+                const next = map[getNextTheme(theme)];
+                text.textContent = `Tema: ${map[theme]}`;
+                button.setAttribute('aria-label', `Cambia tema. Attuale: ${map[theme]}. Prossimo: ${next}.`);
+                // Update menu items aria-checked
+                if (menu) {
+                    menu.querySelectorAll('.wcag-wp-theme-item').forEach(item => {
+                        item.setAttribute('aria-checked', item.dataset.value === theme ? 'true' : 'false');
+                    });
+                }
+            };
+
+            const openMenu = () => {
+                button.setAttribute('aria-expanded', 'true');
+                menu.hidden = false;
+                
+                // Posiziona il menu sotto il bottone
+                const buttonRect = button.getBoundingClientRect();
+                menu.style.top = (buttonRect.bottom + 4) + 'px';
+                menu.style.left = (buttonRect.right - 160) + 'px'; // Allinea a destra del bottone
+                
+                const items = menu.querySelectorAll('.wcag-wp-theme-item');
+                items.forEach(i => i.tabIndex = 0);
+                items[0].focus();
+            };
+            const closeMenu = () => {
+                button.setAttribute('aria-expanded', 'false');
+                menu.hidden = true;
+                menu.querySelectorAll('.wcag-wp-theme-item').forEach(i => i.tabIndex = -1);
+            };
+            button.addEventListener('click', () => {
+                const expanded = button.getAttribute('aria-expanded') === 'true';
+                if (expanded) closeMenu(); else openMenu();
+            });
+            button.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openMenu();
+                }
+            });
+            document.addEventListener('click', (e) => {
+                if (!button.contains(e.target) && !menu.contains(e.target)) closeMenu();
+            });
+
+            // Append early to body
+            // Add immediately if DOM is ready, otherwise wait
+            const addToggleToDOM = () => {
+                console.log('WCAG Theme Toggle: Adding to DOM...');
+                
+                // Try to find the best container for the toggle
+                let container = null;
+                
+                // Check if custom selector is provided
+                const customSelector = this.config.theme?.position_selector;
+                if (customSelector) {
+                    container = document.querySelector(customSelector);
+                    if (container) {
+                        console.log('Found custom container:', customSelector);
+                    } else {
+                        console.warn('Custom selector not found:', customSelector);
+                    }
+                }
+                
+                // Fallback to automatic detection
+                if (!container) {
+                    const containers = [
+                        '.wp-block-group.alignwide.is-content-justification-space-between', // Gutenberg header layout
+                        '.wp-block-group.is-content-justification-right', // Right-aligned group
+                        'header .wp-block-group',
+                        '.site-header .container',
+                        'header, .site-header, #masthead, .header, .top-bar'
+                    ];
+                    
+                    for (const selector of containers) {
+                        container = document.querySelector(selector);
+                        if (container) {
+                            console.log('Found auto container:', selector);
+                            break;
+                        }
+                    }
+                }
+                
+                container = container || document.body;
+                
+                // Reset positioning - let CSS handle it
+                button.style.position = '';
+                button.style.top = '';
+                button.style.right = '';
+                button.style.zIndex = '';
+                
+                container.appendChild(button);
+                container.appendChild(menu); // Menu as sibling, not after button
+                
+                console.log('WCAG Theme Toggle: Added to', header ? 'header' : 'body');
+                console.log('Button element:', button);
+                console.log('Button classes:', button.className);
+                console.log('Button in DOM:', document.contains(button));
+                
+                // Verify it's visible
+                setTimeout(() => {
+                    const found = document.querySelector('.wcag-wp-theme-toggle');
+                    console.log('Toggle found after timeout:', found);
+                }, 100);
+            };
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', addToggleToDOM);
+            } else {
+                addToggleToDOM();
+            }
+
+            // Apply initial theme
+            const stored = getStoredTheme();
+            const initial = (stored === null) ? (this.config.theme ? this.config.theme.default : 'auto') : stored;
+            applyTheme(initial);
+
+            // If auto, react to system changes
+            const mql = window.matchMedia('(prefers-color-scheme: dark)');
+            if (mql && typeof mql.addEventListener === 'function') {
+                mql.addEventListener('change', () => {
+                    if (getStoredTheme() === 'auto') applyTheme('auto');
+                });
+            }
         }
 
         /**
@@ -698,12 +978,22 @@
     }
 
     // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
+    console.log('WCAG-WP: Initializing frontend...');
+    
+    function initializeFrontend() {
+        console.log('WCAG-WP: Creating WcagWpFrontend instance...');
+        try {
             window.wcagWpFrontend = new WcagWpFrontend();
-        });
+            console.log('WCAG-WP: Frontend initialized successfully');
+        } catch (error) {
+            console.error('WCAG-WP: Error initializing frontend:', error);
+        }
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeFrontend);
     } else {
-        window.wcagWpFrontend = new WcagWpFrontend();
+        initializeFrontend();
     }
 
 })();

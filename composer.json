@@ -30,7 +30,8 @@
             "WCAG_WP\\": "src/",
             "WCAG_WP\\Admin\\": "includes/admin/",
             "WCAG_WP\\Frontend\\": "includes/frontend/",
-            "WCAG_WP\\Components\\": "includes/components/"
+            "WCAG_WP\\Components\\": "includes/components/",
+            "WCAG_WP\\": "includes/"
         },
         "files": [
             "includes/functions.php"

@@ -1,0 +1,174 @@
+/**
+ * WCAG Spinbutton Admin Styles
+ * 
+ * Stili per l'interfaccia admin del componente Spinbutton
+ * 
+ * @package WCAG_WP
+ * @since 1.0.0
+ */
+
+/* Shortcode Display */
+.wcag-wp-shortcode {
+    display: inline-block;
+    background-color: #f0f0f1;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 13px;
+    color: #1d2327;
+    margin-right: 8px;
+    cursor: text;
+    user-select: all;
+}
+
+.wcag-wp-shortcode:hover {
+    background-color: #e5e5e5;
+    border-color: #8c8f94;
+}
+
+/* Copy Button */
+.wcag-wp-copy-shortcode {
+    margin-left: 8px !important;
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+    height: auto !important;
+    line-height: 1.2 !important;
+}
+
+.wcag-wp-copy-shortcode:hover {
+    background-color: #2271b1 !important;
+    border-color: #2271b1 !important;
+}
+
+/* Preview Area */
+.wcag-wp-preview-area {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px;
+    margin: 16px 0;
+    min-height: 100px;
+}
+
+.wcag-wp-preview-area h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #1d2327;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Config Summary */
+.wcag-wp-config-summary {
+    background-color: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 12px;
+    margin: 12px 0;
+}
+
+.wcag-wp-config-summary h5 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #1d2327;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.wcag-wp-config-summary ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.wcag-wp-config-summary li {
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: #50575e;
+}
+
+/* Accessibility Info */
+.wcag-wp-accessibility-info {
+    background-color: #f0f6fc;
+    border-left: 4px solid #2271b1;
+    padding: 12px;
+    margin: 12px 0;
+}
+
+.wcag-wp-accessibility-info h5 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #2271b1;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.wcag-wp-accessibility-info ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.wcag-wp-accessibility-info li {
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: #50575e;
+}
+
+/* Form Fields */
+.wcag-wp-form-field {
+    margin-bottom: 16px;
+}
+
+.wcag-wp-form-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #1d2327;
+}
+
+.wcag-wp-form-field input[type="text"],
+.wcag-wp-form-field input[type="number"],
+.wcag-wp-form-field select,
+.wcag-wp-form-field textarea {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.wcag-wp-form-field input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.wcag-wp-form-field .description {
+    font-size: 12px;
+    color: #646970;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* Success Message */
+.wcag-wp-success-message {
+    background-color: #d1e7dd;
+    border: 1px solid #badbcc;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 8px 0;
+    color: #0f5132;
+    font-size: 13px;
+    display: none;
+}
+
+/* Error Message */
+.wcag-wp-error-message {
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 8px 0;
+    color: #842029;
+    font-size: 13px;
+    display: none;
+}

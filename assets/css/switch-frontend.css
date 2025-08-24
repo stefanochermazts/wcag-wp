@@ -1,0 +1,282 @@
+/**
+ * WCAG Switch Component - Frontend Styles
+ * 
+ * Design system unificato conforme WCAG 2.1 AA
+ * 
+ * @package WCAG_WP
+ * @since 1.0.0
+ */
+
+/* Base Switch Container */
+.wcag-wp-switch {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--wcag-wp-text);
+    margin-bottom: 16px;
+}
+
+/* Label */
+.wcag-wp-switch__label {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--wcag-wp-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.wcag-wp-switch__required {
+    color: var(--wcag-red-500);
+    font-weight: bold;
+}
+
+/* Description */
+.wcag-wp-switch__description {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--wcag-gray-600);
+    margin-bottom: 8px;
+}
+
+/* Switch Container */
+.wcag-wp-switch__container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px; /* Touch target WCAG */
+}
+
+/* Switch Toggle Button */
+.wcag-wp-switch__toggle {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    background-color: var(--wcag-gray-300);
+    border: 2px solid var(--wcag-gray-300);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wcag-wp-switch__toggle:hover {
+    background-color: var(--wcag-gray-600);
+    border-color: var(--wcag-gray-600);
+}
+
+.wcag-wp-switch__toggle:focus {
+    outline: 2px solid var(--wcag-wp-focus);
+    outline-offset: 2px;
+    border-color: var(--wcag-wp-focus);
+}
+
+.wcag-wp-switch__toggle:active {
+    transform: scale(0.95);
+}
+
+/* Active State */
+.wcag-wp-switch__toggle--active {
+    background-color: var(--wcag-primary);
+    border-color: var(--wcag-primary);
+}
+
+.wcag-wp-switch__toggle--active:hover {
+    background-color: var(--wcag-primary-dark);
+    border-color: var(--wcag-primary-dark);
+}
+
+/* Disabled State */
+.wcag-wp-switch__toggle:disabled {
+    background-color: var(--wcag-gray-100);
+    border-color: var(--wcag-gray-100);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.wcag-wp-switch__toggle:disabled:hover {
+    background-color: var(--wcag-gray-100);
+    border-color: var(--wcag-gray-100);
+}
+
+/* Switch Track */
+.wcag-wp-switch__track {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 24px;
+    background-color: var(--wcag-white);
+    border-radius: 12px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Switch Thumb */
+.wcag-wp-switch__thumb {
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: var(--wcag-white);
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Active Thumb Position */
+.wcag-wp-switch__toggle--active .wcag-wp-switch__thumb {
+    left: calc(100% - 22px);
+}
+
+/* Status Text */
+.wcag-wp-switch__status {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--wcag-wp-text);
+    min-width: 60px;
+}
+
+/* Size Variants */
+.wcag-wp-switch--small .wcag-wp-switch__toggle {
+    width: 44px;
+    height: 24px;
+}
+
+.wcag-wp-switch--small .wcag-wp-switch__track {
+    width: 36px;
+    height: 20px;
+}
+
+.wcag-wp-switch--small .wcag-wp-switch__thumb {
+    width: 16px;
+    height: 16px;
+}
+
+.wcag-wp-switch--small .wcag-wp-switch__toggle--active .wcag-wp-switch__thumb {
+    left: calc(100% - 18px);
+}
+
+.wcag-wp-switch--large .wcag-wp-switch__toggle {
+    width: 60px;
+    height: 32px;
+}
+
+.wcag-wp-switch--large .wcag-wp-switch__track {
+    width: 52px;
+    height: 28px;
+}
+
+.wcag-wp-switch--large .wcag-wp-switch__thumb {
+    width: 24px;
+    height: 24px;
+}
+
+.wcag-wp-switch--large .wcag-wp-switch__toggle--active .wcag-wp-switch__thumb {
+    left: calc(100% - 26px);
+}
+
+/* Theme Variants */
+.wcag-wp-switch--success .wcag-wp-switch__toggle--active {
+    background-color: var(--wcag-green-500);
+    border-color: var(--wcag-green-500);
+}
+
+.wcag-wp-switch--success .wcag-wp-switch__toggle--active:hover {
+    background-color: #059669;
+    border-color: #059669;
+}
+
+.wcag-wp-switch--warning .wcag-wp-switch__toggle--active {
+    background-color: #f59e0b;
+    border-color: #f59e0b;
+}
+
+.wcag-wp-switch--warning .wcag-wp-switch__toggle--active:hover {
+    background-color: #d97706;
+    border-color: #d97706;
+}
+
+.wcag-wp-switch--danger .wcag-wp-switch__toggle--active {
+    background-color: var(--wcag-red-500);
+    border-color: var(--wcag-red-500);
+}
+
+.wcag-wp-switch--danger .wcag-wp-switch__toggle--active:hover {
+    background-color: #dc2626;
+    border-color: #dc2626;
+}
+
+/* Validation */
+.wcag-wp-switch__validation {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-top: 4px;
+}
+
+.wcag-wp-switch__validation[data-type="error"] {
+    color: var(--wcag-red-500);
+}
+
+.wcag-wp-switch__validation[data-type="success"] {
+    color: var(--wcag-green-500);
+}
+
+/* Screen Reader Only */
+.wcag-wp-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .wcag-wp-switch__toggle,
+    .wcag-wp-switch__track,
+    .wcag-wp-switch__thumb {
+        transition: none;
+    }
+    
+    .wcag-wp-switch__toggle:active {
+        transform: none;
+    }
+}
+
+/* High Contrast Support */
+@media (prefers-contrast: high) {
+    .wcag-wp-switch__toggle {
+        border-width: 3px;
+    }
+    
+    .wcag-wp-switch__thumb {
+        box-shadow: 0 0 0 2px var(--wcag-wp-text);
+    }
+}
+
+/* Focus Visible Enhancement */
+.wcag-wp-switch__toggle:focus-visible {
+    outline: 3px solid var(--wcag-wp-focus);
+    outline-offset: 2px;
+}
+
+/* DARK THEME SUPPORT */
+/* Il tema scuro è gestito automaticamente dalle variabili CSS globali --wcag-wp-* */
+/* Nessun CSS aggiuntivo necessario - il design system unificato gestisce tutto */

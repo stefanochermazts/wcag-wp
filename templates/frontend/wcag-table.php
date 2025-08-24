@@ -299,12 +299,4 @@ if ($config['sortable'] ?? true) {
     
 </div>
 
-<!-- Initialize WCAG table functionality -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof window.wcagWpFrontend !== 'undefined') {
-        // WCAG Table will be automatically initialized by the frontend JavaScript
-        console.log('WCAG Table <?php echo esc_js($table_id); ?> initialized');
-    }
-});
-</script>
+<!-- WCAG Table will be automatically initialized by the frontend JavaScript -->
