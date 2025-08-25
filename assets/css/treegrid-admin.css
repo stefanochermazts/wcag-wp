@@ -1,0 +1,10 @@
+.wcag-treegrid-columns-list,.wcag-treegrid-rows-list{list-style:none;margin:0;padding:0}
+.wcag-treegrid-columns-list li,.wcag-treegrid-rows-list li{display:flex;gap:.5rem;align-items:center;margin:.25rem 0}
+.wcag-treegrid-columns-list input[type=text]{width:10rem}
+.wcag-treegrid-rows-list input[type=text]{width:10rem}
+.wcag-treegrid-rows-list input[type=number]{width:5rem}
+.wcag-treegrid-rows-builder{list-style:none;margin:0;padding-left:1rem;border-left:2px solid var(--wcag-wp-border)}
+.wcag-treegrid-row{margin:.25rem 0;padding:.25rem;border:1px solid var(--wcag-wp-border);border-radius:4px;background:var(--wcag-wp-bg)}
+.wcag-treegrid-handle{cursor:grab;margin-right:.25rem;display:inline-block}
+.wcag-treegrid-field,.wcag-treegrid-cell{margin-right:.25rem}
+.wcag-treegrid-row:focus-within{outline:2px solid var(--wcag-wp-focus);outline-offset:2px}

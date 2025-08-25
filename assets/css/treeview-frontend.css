@@ -1,0 +1,8 @@
+.wcag-treeview,.wcag-treeview__group{list-style:none;margin:0;padding:0}
+.wcag-treeview__group{margin-left:1.25rem}
+.wcag-treeview [role=treeitem]{border-radius:.25rem;outline:0;display:inline-flex;align-items:center;gap:.25rem}
+.wcag-treeview [role=treeitem]:focus-visible{outline:var(--wcag-outline,2px solid currentColor);outline-offset:2px}
+.wcag-treeitem__label{display:inline-block;padding:.25rem .5rem;border-radius:.25rem}
+.wcag-treeitem:focus-visible .wcag-treeitem__label{box-shadow:0 0 0 3px rgba(0,0,0,.1)}
+.wcag-treeview-caret{width:1rem;height:1rem;border:1px solid currentColor;border-radius:2px;background:transparent;display:inline-flex;align-items:center;justify-content:center}
+.no-caret .wcag-treeview-caret{display:none}

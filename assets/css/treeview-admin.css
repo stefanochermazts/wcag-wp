@@ -1,0 +1,10 @@
+.wcag-treeview-admin-list{list-style:none;margin:0;padding:0}
+.wcag-treeview-admin-list li{display:flex;gap:.5rem;align-items:center;margin:.25rem 0}
+.wcag-treeview-admin-list input[type=text]{width:10rem}
+.wcag-treeview-admin-list input[type=url]{flex:1}
+.wcag-treeview-builder{list-style:none;margin:0;padding-left:1rem;border-left:2px solid var(--wcag-wp-border)}
+.wcag-treeview-item{margin:.25rem 0;padding:.25rem;border:1px solid var(--wcag-wp-border);border-radius:4px;background:var(--wcag-wp-bg)}
+.wcag-treeview-handle{cursor:grab;margin-right:.25rem;display:inline-block}
+.wcag-treeview-field{margin-right:.25rem}
+.wcag-treeview-flag{margin-right:.5rem}
+.wcag-treeview-item:focus-within{outline:2px solid var(--wcag-wp-focus);outline-offset:2px}

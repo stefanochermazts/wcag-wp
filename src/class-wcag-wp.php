@@ -168,6 +168,8 @@ final class WCAG_WP {
                 'menu' => 'includes/class-wcag-wp-menu.php', // Added for Menu/Menubar
                 'menubutton' => 'includes/class-wcag-wp-menubutton.php', // Added for Menu Button
                 'toolbar' => 'includes/class-wcag-wp-toolbar.php', // Added for Toolbar
+                'treeview' => 'includes/class-wcag-wp-treeview.php', // Added for Treeview
+                'treegrid' => 'includes/class-wcag-wp-treegrid.php', // Added for Treegrid
                 'design-system' => 'includes/class-design-system.php',
                 'accessibility' => 'includes/class-accessibility.php'
             ];
@@ -331,6 +333,18 @@ final class WCAG_WP {
         if (class_exists('WCAG_WP\\Components\\WCAG_WP_Breadcrumb')) {
             $this->components['breadcrumb'] = \WCAG_WP\Components\WCAG_WP_Breadcrumb::get_instance();
             wcag_wp_log('Breadcrumb component initialized successfully', 'info');
+        }
+        
+        // Initialize Treeview component
+        if (class_exists('WCAG_WP_Treeview')) {
+            $this->components['treeview'] = WCAG_WP_Treeview::get_instance();
+            wcag_wp_log('Treeview component initialized successfully', 'info');
+        }
+
+        // Initialize Treegrid component
+        if (class_exists('WCAG_WP_Treegrid')) {
+            $this->components['treegrid'] = WCAG_WP_Treegrid::get_instance();
+            wcag_wp_log('Treegrid component initialized successfully', 'info');
         }
     }
     

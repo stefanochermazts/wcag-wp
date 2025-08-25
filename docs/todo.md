@@ -294,8 +294,9 @@ wp-content/plugins/wcag-wp/
 - [x] ~~**Menu e Menubar** - Sistema menu completo con sottomenu~~ ✅ **COMPLETATO**
 - [x] ~~**Menu Button** - Pulsante che apre menu (già implementato per theme toggle)~~ ✅ **COMPLETATO**
 - [x] ~~**Toolbar** - Contenitore controlli raggruppati~~ ✅ **COMPLETATO**
-- [ ] **Tree View** - Vista ad albero gerarchica
-- [ ] **Treegrid** - Griglia dati gerarchica editabile
+- [x] ~~**Tree View** - Vista ad albero gerarchica~~ (Editor avanzato admin: Config/Struttura/Preview, salvataggio nodi, shortcode)
+- [x] ~~**Treegrid** - Griglia dati gerarchica editabile~~ (Editor avanzato admin: Config/Colonne/Dati/Preview, salvataggio colonne/righe, shortcode)
+- [x] ~~Treeview: opzioni admin aggiunte~~ (caret, label toggle, annunci aria-live; attivabili in Config)
 
 #### Componenti di Layout
 - [ ] **Dialog (Modal)** - Finestre modali accessibili
@@ -815,7 +816,7 @@ echo do_shortcode('[wcag-accordion id="123"]');
 **WCAG Slider Component (✅ COMPLETATO):**
 - **Custom Post Type:** `wcag_slider` con controllo range avanzato
 - **ARIA Pattern Completo:** role="slider", aria-valuemin/max/now/text
-- **Navigazione Multipla:** Mouse drag, touch gesture, keyboard navigation
+- [x] ~~**Navigazione Multipla:** Mouse drag, touch gesture, keyboard navigation~~
 - **Orientamenti:** Orizzontale e verticale con dimensioni configurabili
 - **Visualizzazione:** Tick marks, tooltip, value display opzionali
 - **Performance:** ~500 righe PHP + 400 CSS + 600 JS
@@ -933,6 +934,8 @@ echo do_shortcode('[wcag-accordion id="123"]');
 - [x] ✅ Menu/Menubar: Design system implementato
 - [x] ✅ Menu Button: Design system implementato
 - [x] ✅ CSS Admin: Design system implementato
+- [x] ✅ Tree View: Design system implementato
+- [x] ✅ Treegrid: Design system implementato
 - [ ] ⏳ Tutti i futuri componenti: Design system obbligatorio
 
 #### 🚫 **VIETATO**
